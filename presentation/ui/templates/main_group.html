@@ -1,0 +1,829 @@
+{% extends "base.html" %}
+
+{% block title %}그룹 제어{% endblock %}
+
+{% block body_class %}main-container{% endblock %}
+
+{% block content %}
+<div class="control-content">
+    <!-- G0 그룹 + 전체 조명 제어 -->
+    <div class="total-control-section">
+        <!-- G0 그룹 (초기 데이터) - 왼쪽 -->
+        {% if state and state.groups %}
+            {% for group in state.groups %}
+                {% if group.id == 'G0' %}
+                    <div class="light-control-item {{ 'light-on' if group.is_on else 'light-off' }} initial-group" data-group="G0" id="g0-initial">
+                        <div class="light-label">
+                            <span class="light-icon {{ 'on-bulb' if group.is_on else 'off-bulb' }}"></span>
+                            <span class="label-name">{{ group.name }}</span>
+                        </div>
+                        <div class="toggle-switch {{ 'on' if group.is_on else 'off' }}" data-group-toggle="G0">
+                            <div class="toggle-circle"></div>
+                            <div class="toggle-text on-text">ON</div>
+                            <div class="toggle-text off-text">OFF</div>
+                        </div>
+                    </div>
+                {% endif %}
+            {% endfor %}
+        {% endif %}
+        
+        <!-- 전체 조명 제어 - 오른쪽 -->
+        <div class="light-control-item total-control {{ 'light-on' if state and state.total_control and state.total_control.is_on else 'light-off' }}" data-control="total">
+            <div class="light-label">
+                <span class="light-icon total-bulb {{ 'on-bulb' if state and state.total_control and state.total_control.is_on else 'off-bulb' }}"></span>전체 조명 제어
+            </div>
+            <div class="toggle-switch {{ 'on' if state and state.total_control and state.total_control.is_on else 'off' }}" id="total-toggle">
+                <div class="toggle-circle"></div>
+                <div class="toggle-text on-text">ON</div>
+                <div class="toggle-text off-text">OFF</div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- 그룹 조명 제어 목록 -->
+    <div class="light-control-list" id="group-control-list">
+        <!-- 로딩 상태 -->
+        <div class="loading-state" id="loading-groups">
+            <div class="loading-spinner"></div>
+            <div class="loading-text">그룹 정보를 불러오는 중...</div>
+        </div>
+        
+        <!-- 초기 그룹 데이터 (JavaScript 로드 전 표시용, G1~G4만) -->
+        {% if state and state.groups %}
+            {% for group in state.groups %}
+                {% if group.id != 'G0' %}
+                    <div class="light-control-item {{ 'light-on' if group.is_on else 'light-off' }} initial-group" data-group="{{ group.id }}">
+                    <div class="light-label">
+                        <span class="light-icon {{ 'on-bulb' if group.is_on else 'off-bulb' }}"></span>
+                        <span class="label-name">{{ group.name }}</span>
+                    </div>
+                    <div class="toggle-switch {{ 'on' if group.is_on else 'off' }}" data-group-toggle="{{ group.id }}">
+                        <div class="toggle-circle"></div>
+                        <div class="toggle-text on-text">ON</div>
+                        <div class="toggle-text off-text">OFF</div>
+                    </div>
+                    {% if group.id != 'G0' %}
+                        <div class="brightness {{ 'light' if group.is_on and (group.brightness or 0) > 0 else 'dark' }}"></div>
+                        <div class="brightness-slider-container">
+                            <div class="brightness-slider" data-group="{{ group.id }}">
+                                <div class="slider-track">
+                                    <div class="slider-steps">
+                                        {% set brightness = group.brightness or 0 %}
+                                        <div class="slider-step {{ 'active' if brightness > 0 and brightness <= 10 else '' }}" data-step="1"><span>1</span></div>
+                                        <div class="slider-step {{ 'active' if brightness > 10 and brightness <= 35 else '' }}" data-step="2"><span>2</span></div>
+                                        <div class="slider-step {{ 'active' if brightness > 35 and brightness <= 75 else '' }}" data-step="3"><span>3</span></div>
+                                        <div class="slider-step {{ 'active' if brightness > 75 else '' }}" data-step="4"><span>4</span></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {% endif %}
+                </div>
+                {% endif %}
+            {% endfor %}
+        {% else %}
+            <!-- 데이터가 없을 때 -->
+            <div class="no-data-message">
+                <div class="no-data-icon">💡</div>
+                <div class="no-data-text">그룹 정보를 불러오고 있습니다...</div>
+            </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}
+
+{% include 'bottom_nav.html' %}
+
+{% block extra_js %}
+<script data-page-script>
+(function() {
+    'use strict';
+    
+    let groups = [];
+    let isDragging = false;
+    let currentSlider = null;
+    
+    // 페이지 로드 시 그룹 데이터 가져오기
+    async function loadGroups() {
+        try {
+            console.log('🔄 그룹 데이터 로드 중...');
+            
+            const response = await fetch('/api/current-settings');
+            if (!response.ok) {
+                throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+            }
+            
+            const data = await response.json();
+            console.log('📥 그룹 API 응답:', data);
+            
+            if (data.success && data.settings) {
+                groups = data.settings.groups || [];
+                const totalControl = data.settings.total_control || { is_on: true };
+                
+                console.log(`✅ 그룹 ${groups.length}개 로드 완료`);
+                
+                renderGroupControls();
+                updateTotalControl(totalControl.is_on);
+            } else {
+                throw new Error('그룹 데이터를 불러올 수 없습니다.');
+            }
+            
+        } catch (error) {
+            console.error('❌ 그룹 로드 실패:', error);
+            
+            // 로딩 상태 표시
+            const loadingState = document.getElementById('loading-groups');
+            if (loadingState) {
+                loadingState.classList.add('show');
+                loadingState.querySelector('.loading-text').textContent = '그룹 데이터 로드 실패. 새로고침해주세요.';
+            }
+            
+            // 초기 데이터가 없으면 에러 메시지 표시
+            const initialGroups = document.querySelectorAll('.initial-group');
+            if (initialGroups.length === 0) {
+                alert('그룹 데이터를 불러오는 중 오류가 발생했습니다.');
+            }
+        }
+    }
+    
+    // 그룹 제어 UI 렌더링
+    function renderGroupControls() {
+        const container = document.getElementById('group-control-list');
+        const totalControlSection = document.querySelector('.total-control-section');
+        
+        if (!container || !totalControlSection) {
+            console.error('그룹 제어 컨테이너를 찾을 수 없습니다.');
+            return;
+        }
+        
+        // 로딩 상태 숨기기
+        const loadingState = document.getElementById('loading-groups');
+        if (loadingState) {
+            loadingState.style.display = 'none';
+        }
+        
+        // 기존 초기 데이터 제거 (initial-group 클래스)
+        const initialGroups = container.querySelectorAll('.initial-group');
+        initialGroups.forEach(element => element.remove());
+        
+        // G0 초기 데이터도 제거
+        const g0Initial = document.getElementById('g0-initial');
+        if (g0Initial) {
+            g0Initial.remove();
+        }
+        
+        // 기존 동적 생성된 그룹들 모두 제거
+        const dynamicGroups = container.querySelectorAll('.light-control-item');
+        dynamicGroups.forEach(element => {
+            if (!element.classList.contains('initial-group') && !element.classList.contains('total-control')) {
+                element.remove();
+            }
+        });
+        
+        // total-control-section에서 기존 G0 동적 그룹 제거
+        const totalDynamicGroups = totalControlSection.querySelectorAll('.light-control-item:not(.total-control)');
+        totalDynamicGroups.forEach(element => element.remove());
+        
+        // 데이터 없음 메시지 제거
+        const noDataMessage = container.querySelector('.no-data-message');
+        if (noDataMessage) {
+            noDataMessage.remove();
+        }
+        
+        // 그룹들을 정렬하고 배치
+        const sortedGroups = [...groups].sort((a, b) => {
+            if (a.id === 'G0') return -1;
+            if (b.id === 'G0') return 1;
+            return a.id.localeCompare(b.id);
+        });
+        
+        sortedGroups.forEach(group => {
+            const groupElement = createGroupElement(group);
+            
+            if (group.id === 'G0') {
+                // G0는 total-control-section의 첫 번째 자식으로 추가 (왼쪽 배치)
+                const totalControlElement = totalControlSection.querySelector('.total-control');
+                if (totalControlElement) {
+                    totalControlSection.insertBefore(groupElement, totalControlElement);
+                } else {
+                    totalControlSection.appendChild(groupElement);
+                }
+            } else {
+                // G1~G4는 group-control-list에 추가
+                container.appendChild(groupElement);
+            }
+        });
+        
+        // 터치 슬라이더 초기화
+        initTouchSliders();
+        
+        // 그룹 토글 이벤트 리스너 초기화
+        initGroupToggleEvents();
+        
+        console.log(`✅ ${groups.length}개 그룹 렌더링 완료 (G0: total-control-section, G1~G4: group-control-list)`);
+    }
+    
+    // 개별 그룹 요소 생성
+    function createGroupElement(group) {
+        const isOn = group.is_on;
+        const brightness = group.brightness;
+        const isDimmable = group.type === 'dimmable';
+        
+        const groupDiv = document.createElement('div');
+        groupDiv.className = `light-control-item ${isOn ? 'light-on' : 'light-off'}`;
+        groupDiv.setAttribute('data-group', group.id);
+        
+        // G0는 On/Off만, G1~G4는 디밍 가능
+        if (isDimmable) {
+            // 밝기 단계 계산 (커스텀 매핑: 1%=1, 20%=2, 50%=3, 100%=4)
+            const step = (function mapBrightnessToStep(val){
+                if (val <= 10 && val > 0) return 1;      // ~10%를 1단계로 표시
+                if (val <= 35) return 2;                 // 11~35%
+                if (val <= 75) return 3;                 // 36~75%
+                return 4;                                // 76~100%
+            })(brightness || 0);
+            
+            groupDiv.innerHTML = `
+                <div class="light-label">
+                    <span class="light-icon ${isOn ? 'on-bulb' : 'off-bulb'}"></span>
+                    <span class="label-name">${group.name}</span>
+                </div>
+                <div class="toggle-switch ${isOn ? 'on' : 'off'}" data-group-toggle="${group.id}">
+                    <div class="toggle-circle"></div>
+                    <div class="toggle-text on-text">ON</div>
+                    <div class="toggle-text off-text">OFF</div>
+                </div>
+                <div class="brightness ${isOn && brightness > 0 ? 'light' : 'dark'}"></div>
+                <div class="brightness-slider-container">
+                    <div class="brightness-slider" data-group="${group.id}">
+                        <div class="slider-track">
+                            <div class="slider-steps">
+                                <div class="slider-step ${step === 1 ? 'active' : ''}" data-step="1"><span>1</span></div>
+                                <div class="slider-step ${step === 2 ? 'active' : ''}" data-step="2"><span>2</span></div>
+                                <div class="slider-step ${step === 3 ? 'active' : ''}" data-step="3"><span>3</span></div>
+                                <div class="slider-step ${step === 4 ? 'active' : ''}" data-step="4"><span>4</span></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+        } else {
+            // G0 - On/Off만
+            groupDiv.innerHTML = `
+                <div class="light-label">
+                    <span class="light-icon ${isOn ? 'on-bulb' : 'off-bulb'}"></span>
+                    <span class="label-name">${group.name}</span>
+                </div>
+                <div class="toggle-switch ${isOn ? 'on' : 'off'}" data-group-toggle="${group.id}">
+                    <div class="toggle-circle"></div>
+                    <div class="toggle-text on-text">ON</div>
+                    <div class="toggle-text off-text">OFF</div>
+                </div>
+            `;
+        }
+        
+        return groupDiv;
+    }
+    
+    // 전체 조명 제어 상태 업데이트
+    function updateTotalControl(isOn) {
+        const totalToggle = document.getElementById('total-toggle');
+        const totalItem = document.querySelector('.total-control');
+        const totalIcon = totalItem.querySelector('.light-icon');
+        
+        if (isOn) {
+            totalToggle.classList.add('on');
+            totalToggle.classList.remove('off');
+            totalItem.classList.add('light-on');
+            totalItem.classList.remove('light-off');
+            totalIcon.className = 'light-icon total-bulb on-bulb';
+        } else {
+            totalToggle.classList.add('off');
+            totalToggle.classList.remove('on');
+            totalItem.classList.add('light-off');
+            totalItem.classList.remove('light-on');
+            totalIcon.className = 'light-icon total-bulb off-bulb';
+        }
+        
+        console.log(`💡 전체 조명 제어: ${isOn ? 'ON' : 'OFF'}`);
+    }
+    
+    // 전체 조명 제어 토글
+    window.toggleTotalControl = async function() {
+        console.log('🌟🌟🌟 toggleTotalControl 함수 호출됨');
+        const totalToggle = document.getElementById('total-toggle');
+        if (!totalToggle) {
+            console.error('❌ total-toggle 요소를 찾을 수 없습니다');
+            return;
+        }
+        
+        const currentState = totalToggle.classList.contains('on');
+        const newState = !currentState;
+        
+        try {
+            console.log(`🎯 Socket.IO로 전체 조명 ${newState ? 'ON' : 'OFF'} 요청...`);
+            
+            if (window.socket) {
+                // Socket.IO로 전체 조명 제어 요청
+                socket.emit('set_total_control', {
+                    is_on: newState
+                });
+            } else {
+                console.error('❌ Socket.IO 연결이 없습니다');
+                throw new Error('서버 연결이 없습니다');
+            }
+            
+        } catch (error) {
+            console.error('❌ 전체 조명 제어 실패:', error);
+            alert('전체 조명 제어 중 오류가 발생했습니다: ' + error.message);
+        }
+    };
+    
+    // 그룹 토글
+    window.toggleGroup = async function(groupId) {
+        console.log(`🎯🎯🎯 toggleGroup 함수 호출됨 - groupId: ${groupId}`);
+        console.log(`🔍 그룹 요소 검색 중: [data-group="${groupId}"]`);
+        const groupElement = document.querySelector(`[data-group="${groupId}"]`);
+        if (!groupElement) {
+            console.error(`❌ 그룹 ${groupId} 요소를 찾을 수 없습니다`);
+            return;
+        }
+        
+        const toggle = groupElement.querySelector('.toggle-switch');
+        if (!toggle) {
+            console.error(`❌ 그룹 ${groupId}의 토글 스위치를 찾을 수 없습니다`);
+            return;
+        }
+        
+        const currentState = toggle.classList.contains('on');
+        const newBrightness = currentState ? 0 : 75; // Off면 75로, On이면 0으로
+        
+        console.log(`🔍 토글 상태 분석: groupId=${groupId}`);
+        console.log(`🔍 토글 요소 클래스:`, toggle.className);
+        console.log(`🔍 현재 상태: ${currentState ? 'ON' : 'OFF'}`);
+        console.log(`🔍 새로운 밝기: ${newBrightness}`);
+        
+        try {
+            console.log(`🎯 Socket.IO로 그룹 ${groupId} ${currentState ? 'OFF' : 'ON'} 요청...`);
+            
+            if (window.socket) {
+                // Socket.IO로 그룹 밝기 설정 요청
+                socket.emit('set_brightness', {
+                    group_id: groupId,
+                    brightness: newBrightness
+                });
+            } else {
+                console.error('❌ Socket.IO 연결이 없습니다');
+                throw new Error('서버 연결이 없습니다');
+            }
+            
+        } catch (error) {
+            console.error(`❌ 그룹 ${groupId} 제어 실패:`, error);
+            alert('그룹 제어 중 오류가 발생했습니다: ' + error.message);
+        }
+    };
+    
+    // 밝기 설정 (Zero 2W 최적화)
+    window.setBrightness = async function(groupId, step) {
+        console.log(`🌟🌟🌟 setBrightness 함수 호출됨 - groupId: ${groupId}, step: ${step}`);
+        // 단계를 밝기로 변환 (1=1, 2=20, 3=50, 4=100)
+        const mapStepToBrightness = (s) => ({1:1, 2:20, 3:50, 4:100})[s] || 0;
+        const brightness = mapStepToBrightness(step);
+        
+        // Zero 2W 최적화: 경량화된 피드백
+        let loadingId = null;
+        if (window.LightweightFeedback) {
+            const groupElement = document.querySelector(`[data-group="${groupId}"]`);
+            if (groupElement) {
+                loadingId = window.LightweightFeedback.loading.show(
+                    groupElement, 
+                    window.LightweightFeedback.isZero2W ? '처리중...' : `${groupId} 밝기 설정 중...`
+                );
+            }
+        }
+        
+        try {
+            console.log(`🎯 Socket.IO로 그룹 ${groupId} 밝기 ${brightness} 설정...`);
+            
+            if (window.socket) {
+                // Socket.IO로 그룹 밝기 설정 요청
+                socket.emit('set_brightness', {
+                    group_id: groupId,
+                    brightness: brightness
+                });
+                
+                // 즉시 슬라이더 시각적 업데이트 (사용자 경험 향상)
+                const slider = document.querySelector(`[data-group="${groupId}"] .brightness-slider`);
+                if (slider) {
+                    finalizeSliderStyle(slider, step);
+                }
+            } else {
+                console.error('❌ Socket.IO 연결이 없습니다');
+                throw new Error('서버 연결이 없습니다');
+            }
+            
+        } catch (error) {
+            console.error(`❌ 그룹 ${groupId} 밝기 설정 실패:`, error);
+            
+            // Zero 2W 최적화: 경량화된 에러 표시
+            if (window.LightweightFeedback) {
+                window.LightweightFeedback.showError(
+                    window.LightweightFeedback.isZero2W ? 
+                    '설정 실패' : 
+                    `${groupId} 밝기 설정 실패`
+                );
+            } else {
+                alert('밝기 설정 중 오류가 발생했습니다: ' + error.message);
+            }
+        } finally {
+            // 로딩 상태 제거
+            if (loadingId && window.LightweightFeedback) {
+                setTimeout(() => {
+                    window.LightweightFeedback.loading.hide(loadingId);
+                }, window.LightweightFeedback.isZero2W ? 500 : 1000);
+            }
+        }
+    };
+    
+    // ===== 터치 슬라이더 관련 함수들 =====
+    
+    function startDrag(e, slider) {
+        e.preventDefault();
+        e.stopPropagation();
+        
+        isDragging = true;
+        currentSlider = slider;
+        slider.classList.add('dragging');
+        
+        // Zero 2W 최적화: 경량화된 시각적 피드백
+        slider.classList.add('active-touch');
+        
+        // 전역 이벤트 리스너 추가
+        document.addEventListener('mousemove', updateDrag, { passive: false });
+        document.addEventListener('mouseup', endDrag, { passive: false });
+        document.addEventListener('touchmove', updateDrag, { passive: false });
+        document.addEventListener('touchend', endDrag, { passive: false });
+        
+        // 초기 위치 처리
+        updateDrag(e);
+    }
+    
+    function updateDrag(e) {
+        if (!isDragging || !currentSlider) return;
+        
+        e.preventDefault();
+        e.stopPropagation();
+        
+        const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+        const rect = currentSlider.getBoundingClientRect();
+        const relativeX = clientX - rect.left;
+        const normalizedX = Math.max(0, Math.min(1, relativeX / rect.width));
+        
+        // 개선된 단계 계산 (더 정확한 터치 영역)
+        let step;
+        if (normalizedX <= 0.2) step = 1;     // 1%
+        else if (normalizedX <= 0.45) step = 2; // 20%
+        else if (normalizedX <= 0.7) step = 3;  // 50%
+        else step = 4;                           // 100%
+        
+        // Zero 2W 최적화: 햅틱 피드백 제거, 단계 추적만 유지
+        currentSlider._lastStep = step;
+        
+        updateSliderVisual(currentSlider, step);
+    }
+    
+    function endDrag(e) {
+        if (!isDragging || !currentSlider) return;
+        
+        // Zero 2W 최적화: 경량화된 시각적 피드백 복원
+        currentSlider.classList.remove('active-touch');
+        
+        const clientX = e.changedTouches ? e.changedTouches[0].clientX : e.clientX;
+        const rect = currentSlider.getBoundingClientRect();
+        const relativeX = clientX - rect.left;
+        const normalizedX = Math.max(0, Math.min(1, relativeX / rect.width));
+        
+        // 개선된 단계 계산 (updateDrag와 동일한 로직)
+        let finalStep;
+        if (normalizedX <= 0.2) finalStep = 1;
+        else if (normalizedX <= 0.45) finalStep = 2;
+        else if (normalizedX <= 0.7) finalStep = 3;
+        else finalStep = 4;
+        
+        const groupId = currentSlider.getAttribute('data-group');
+        
+        setBrightness(groupId, finalStep);
+        
+        // 전역 이벤트 리스너 제거
+        document.removeEventListener('touchmove', updateDrag);
+        document.removeEventListener('touchend', endDrag);
+        document.removeEventListener('mousemove', updateDrag);  
+        document.removeEventListener('mouseup', endDrag);
+        
+        // 드래그 상태 정리
+        currentSlider.classList.remove('dragging');
+        currentSlider._lastStep = null; // 단계 초기화
+        isDragging = false;
+        currentSlider = null;
+        
+        e.preventDefault();
+        e.stopPropagation();
+    }
+    
+    function updateSliderVisual(slider, step) {
+        const steps = slider.querySelectorAll('.slider-step');
+        steps.forEach(s => s.classList.remove('dragging-preview'));
+        
+        const targetStep = slider.querySelector(`[data-step="${step}"]`);
+        if (targetStep) {
+            targetStep.classList.add('dragging-preview');
+        }
+    }
+    
+    function finalizeSliderStyle(slider, finalStep) {
+        const steps = slider.querySelectorAll('.slider-step');
+        
+        // 모든 임시 클래스 제거
+        steps.forEach(s => {
+            s.classList.remove('active', 'dragging-preview');
+        });
+        
+        // 최종 선택된 단계에 active 클래스 추가
+        const finalStepElement = slider.querySelector(`[data-step="${finalStep}"]`);
+        if (finalStepElement) {
+            finalStepElement.classList.add('active');
+        }
+    }
+    
+    function initTouchSliders() {
+        const sliders = document.querySelectorAll('.brightness-slider');
+        
+        sliders.forEach(slider => {
+            // 기존 이벤트 리스너 제거 (중복 방지)
+            if (slider._startDragHandler) {
+                slider.removeEventListener('touchstart', slider._startDragHandler);
+                slider.removeEventListener('mousedown', slider._startDragHandler);
+            }
+            if (slider._clickHandler) {
+                slider.removeEventListener('click', slider._clickHandler);
+            }
+            
+            // 새 이벤트 리스너 추가
+            slider._startDragHandler = (e) => startDrag(e, slider);
+            slider._clickHandler = (e) => {
+                console.log(`🖱️ 슬라이더 클릭됨, isDragging=${isDragging}`, e.target);
+                if (!isDragging) {
+                    const rect = slider.getBoundingClientRect();
+                    const relativeX = e.clientX - rect.left;
+                    const normalizedClick = relativeX / rect.width;
+                    let step;
+                    if (normalizedClick <= 0.2) step = 1;     // 1%
+                    else if (normalizedClick <= 0.45) step = 2; // 20%
+                    else if (normalizedClick <= 0.7) step = 3;  // 50%
+                    else step = 4;                               // 100%
+                    const groupId = slider.getAttribute('data-group');
+                    console.log(`🎯 슬라이더 클릭: groupId=${groupId}, step=${step}, normalizedClick=${normalizedClick.toFixed(2)}`);
+                    console.log(`🔍 setBrightness 함수 존재 여부:`, typeof window.setBrightness);
+                    if (typeof window.setBrightness === 'function') {
+                        setBrightness(groupId, step);
+                    } else {
+                        console.error(`❌ setBrightness 함수를 찾을 수 없습니다!`);
+                    }
+                } else {
+                    console.log(`⚠️ 드래깅 중이므로 클릭 무시됨`);
+                }
+            };
+            
+            slider.addEventListener('touchstart', slider._startDragHandler, { passive: false });
+            slider.addEventListener('mousedown', slider._startDragHandler);
+            slider.addEventListener('click', slider._clickHandler);
+        });
+    }
+    
+    // 그룹 토글 이벤트 리스너 초기화
+    function initGroupToggleEvents() {
+        const toggles = document.querySelectorAll('[data-group-toggle]');
+        console.log(`🔧 그룹 토글 ${toggles.length}개 초기화 중...`);
+        
+        toggles.forEach((toggle, index) => {
+            const groupId = toggle.getAttribute('data-group-toggle');
+            console.log(`🔗 토글 ${index}: groupId=${groupId}, element=`, toggle);
+            
+            // 기존 이벤트 리스너 제거 (중복 방지)
+            if (toggle._toggleHandler) {
+                toggle.removeEventListener('click', toggle._toggleHandler);
+                console.log(`🗑️ 기존 이벤트 리스너 제거: ${groupId}`);
+            }
+            
+            // 새 이벤트 리스너 추가
+            toggle._toggleHandler = (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                
+                // Zero 2W 최적화: 경량화된 시각적 피드백
+                toggle.classList.add('active-press');
+                setTimeout(() => toggle.classList.remove('active-press'), 150);
+                
+                console.log(`🎯 그룹 토글 클릭됨 - groupId: ${groupId}`, e.target);
+                console.log(`🔍 toggleGroup 함수 존재 여부:`, typeof window.toggleGroup);
+                if (typeof window.toggleGroup === 'function') {
+                    window.toggleGroup(groupId);
+                } else {
+                    console.error(`❌ toggleGroup 함수를 찾을 수 없습니다!`);
+                }
+            };
+            
+            toggle.addEventListener('click', toggle._toggleHandler);
+            console.log(`✅ 이벤트 리스너 등록됨: ${groupId}`);
+        });
+        
+        console.log(`✅ 그룹 토글 이벤트 리스너 등록 완료`);
+    }
+    
+    // 전체 조명 제어 클릭 이벤트 등록 함수
+    function initTotalControlEvent() {
+        const totalToggle = document.getElementById('total-toggle');
+        if (totalToggle) {
+            // 기존 이벤트 제거 (중복 방지)
+            totalToggle.removeEventListener('click', toggleTotalControl);
+            // 새 이벤트 추가
+            totalToggle.addEventListener('click', (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                
+                // Zero 2W 최적화: 경량화된 시각적 피드백
+                totalToggle.classList.add('active-press');
+                setTimeout(() => totalToggle.classList.remove('active-press'), 150);
+                
+                console.log('🌟 전체 조명 토글 클릭됨', e.target);
+                console.log('🔍 toggleTotalControl 함수 존재 여부:', typeof window.toggleTotalControl);
+                if (typeof window.toggleTotalControl === 'function') {
+                    toggleTotalControl();
+                } else {
+                    console.error('❌ toggleTotalControl 함수를 찾을 수 없습니다!');
+                }
+            });
+            console.log('✅ 전체 조명 제어 이벤트 리스너 등록 완료');
+        } else {
+            console.error('❌ total-toggle 요소를 찾을 수 없습니다');
+        }
+    }
+    
+    // 개별 그룹 UI 업데이트 함수 (전체 새로고침 방지)
+    function updateGroupUI(groupId, isOn, brightness) {
+        console.log(`🔄 그룹 ${groupId} UI 업데이트: ${isOn ? 'ON' : 'OFF'}, 밝기: ${brightness}`);
+        
+        const groupElement = document.querySelector(`[data-group="${groupId}"]`);
+        if (!groupElement) {
+            console.error(`❌ 그룹 ${groupId} 요소를 찾을 수 없습니다`);
+            return;
+        }
+        
+        const toggle = groupElement.querySelector('.toggle-switch');
+        const icon = groupElement.querySelector('.light-icon');
+        const brightnessElement = groupElement.querySelector('.brightness');
+        
+        // 그룹 상태 업데이트
+        if (isOn) {
+            groupElement.classList.add('light-on');
+            groupElement.classList.remove('light-off');
+            toggle.classList.add('on');
+            toggle.classList.remove('off');
+            icon.classList.add('on-bulb');
+            icon.classList.remove('off-bulb');
+            if (brightnessElement) {
+                // brightness가 0보다 클 때만 light 클래스 적용
+                if (brightness > 0) {
+                    brightnessElement.classList.add('light');
+                    brightnessElement.classList.remove('dark');
+                } else {
+                    brightnessElement.classList.add('dark');
+                    brightnessElement.classList.remove('light');
+                }
+            }
+        } else {
+            groupElement.classList.add('light-off');
+            groupElement.classList.remove('light-on');
+            toggle.classList.add('off');
+            toggle.classList.remove('on');
+            icon.classList.add('off-bulb');
+            icon.classList.remove('on-bulb');
+            if (brightnessElement) {
+                brightnessElement.classList.add('dark');
+                brightnessElement.classList.remove('light');
+            }
+        }
+        
+        // 메모리 상태도 업데이트
+        const group = groups.find(g => g.id === groupId);
+        if (group) {
+            group.is_on = isOn;
+            group.brightness = brightness;
+        }
+        
+        console.log(`✅ 그룹 ${groupId} UI 업데이트 완료`);
+    }
+    
+    // ===== Socket.IO 이벤트 리스너들 =====
+    
+    function initSocketListeners() {
+        if (!window.socket) {
+            console.log('⏳ Socket.IO 대기 중...');
+            setTimeout(initSocketListeners, 100);
+            return;
+        }
+        
+        console.log('🔗 그룹제어 Socket.IO 이벤트 리스너 등록 중...');
+        
+        // 상태 업데이트 이벤트
+        socket.on('status_update', function(data) {
+            console.log('📥 전체 상태 업데이트 수신:', data);
+            groups = data.groups || [];
+            const totalControl = data.total_control || { is_on: true };
+            
+            renderGroupControls();
+            updateTotalControl(totalControl.is_on);
+        });
+        
+        // 그룹 상태 업데이트 이벤트
+        socket.on('group_updated', function(data) {
+            console.log('📥 그룹 상태 업데이트 수신:', data);
+            updateGroupUI(data.group_id, data.is_on, data.brightness);
+            
+            // Zero 2W 최적화: 성공 피드백
+            if (data.status === 'completed' && data.hardware_controlled && window.LightweightFeedback) {
+                window.LightweightFeedback.showSuccess(
+                    window.LightweightFeedback.isZero2W ? 
+                    '완료' : 
+                    `${data.group_id} 설정 완료`
+                );
+            }
+        });
+        
+        // 전체 조명 제어 업데이트 이벤트
+        socket.on('total_control_updated', function(data) {
+            console.log('📥 전체 조명 제어 업데이트 수신:', data);
+            groups = data.groups || groups;
+            updateTotalControl(data.is_on);
+            renderGroupControls();
+        });
+        
+        // API 응답 이벤트들
+        socket.on('brightness_response', function(data) {
+            if (!data.success) {
+                console.error('❌ 밝기 설정 실패:', data.message);
+                alert('밝기 설정 중 오류가 발생했습니다: ' + data.message);
+            }
+        });
+        
+        socket.on('total_control_response', function(data) {
+            if (!data.success) {
+                console.error('❌ 전체 조명 제어 실패:', data.message);
+                alert('전체 조명 제어 중 오류가 발생했습니다: ' + data.message);
+            }
+        });
+        
+        console.log('✅ 그룹제어 Socket.IO 이벤트 리스너 등록 완료');
+    }
+    
+    // 페이지 초기화
+    function initPage() {
+        console.log('📄 그룹 제어 페이지 초기화 시작');
+        initTotalControlEvent(); // 전체 조명 제어 이벤트 등록
+        initSocketListeners(); // Socket.IO 이벤트 리스너 등록
+        loadGroups(); // 그룹 데이터 로드 및 UI 렌더링 (내부에서 이벤트 등록됨)
+    }
+    
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initPage);
+    } else {
+        initPage();
+    }
+    
+    console.log('✅ 그룹 제어 페이지 스크립트 초기화 완료');
+})();
+</script>
+
+<style>
+/* Zero 2W 최적화: 경량화된 터치 피드백 CSS */
+.brightness-slider.active-touch {
+    opacity: 0.8;
+    background-color: #e3f2fd;
+}
+
+.toggle-switch.active-press,
+.brightness-slider.active-press {
+    opacity: 0.7;
+}
+
+.brightness-slider.dragging {
+    cursor: grabbing;
+    background-color: #f0f8ff;
+}
+
+.slider-step.dragging-preview {
+    background-color: #2196F3;
+    color: white;
+}
+</style>
+{% endblock %}

@@ -1,0 +1,333 @@
+{% extends "base.html" %}
+
+{% block title %}매크로{% endblock %}
+
+{% block body_class %}main-container{% endblock %}
+
+{% block content %}
+<div class="control-content">
+    <!-- 매크로 카드 그리드 -->
+    <div class="macro-grid" id="macro-grid">
+        <!-- 매크로 카드들은 JavaScript에서 동적으로 생성 -->
+    </div>
+</div>
+
+{% endblock %}
+
+{% include 'bottom_nav.html' %}
+
+{% block extra_js %}
+<script>
+(function() {
+    'use strict';
+    
+    let macros = [];
+    
+    // 실제 저장된 매크로인지 확인하는 함수
+    function isRealMacro(macro) {
+        // 기본 체크
+        if (!macro || !macro.id || !macro.name) {
+            return false;
+        }
+        
+        // 빈 설정값인 매크로는 임시 데이터로 간주
+        if (!macro.settings || Object.keys(macro.settings).length === 0) {
+            console.log(`저장되지 않은 매크로 제외: "${macro.name}"`);
+            return false;
+        }
+        
+        return true;
+    }
+
+    // 매크로 데이터 로드
+    async function loadMacros() {
+        try {
+            console.log('매크로 데이터 로드 중...');
+            
+            const response = await fetch('/api/macros');
+            if (!response.ok) {
+                throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+            }
+            
+            const data = await response.json();
+            console.log('매크로 API 응답:', data);
+            
+            if (data && Array.isArray(data.macros)) {
+                // 실제 저장된 매크로만 필터링 (settings가 비어있지 않은 것만)
+                const realMacros = data.macros.filter(isRealMacro);
+                macros = realMacros;
+                console.log(`저장된 매크로 ${macros.length}개 로드 완료`);
+                
+                // 로드된 매크로 목록 출력
+                macros.forEach(macro => {
+                    console.log(`매크로: "${macro.name}" (ID: ${macro.id})`);
+                });
+            } else {
+                console.warn('매크로 데이터 형식이 올바르지 않습니다:', data);
+                macros = [];
+            }
+            
+            renderMacroGrid();
+            
+        } catch (error) {
+            console.error('매크로 로드 실패:', error);
+            macros = []; // 실패 시 빈 배열로 초기화
+            renderMacroGrid(); // 에러 상태에서도 UI는 렌더링
+            
+            // 사용자에게 알림 (선택사항)
+            // alert('매크로 목록을 불러오는 중 오류가 발생했습니다.');
+        }
+    }
+    
+    // 매크로 그리드 렌더링
+    function renderMacroGrid() {
+        const grid = document.getElementById('macro-grid');
+        if (!grid) {
+            console.error('매크로 그리드 요소를 찾을 수 없습니다.');
+            return;
+        }
+        
+        grid.innerHTML = '';
+        
+        // 매크로 배열이 유효한지 확인
+        if (!Array.isArray(macros)) {
+            console.error('매크로 데이터가 배열이 아닙니다:', macros);
+            macros = [];
+        }
+        
+        for (let i = 0; i < 3; i++) {
+            const macro = macros[i];
+            
+            if (macro && macro.id && macro.name) {
+                // 저장된 매크로만 표시
+                const card = document.createElement('div');
+                card.className = 'macro-card';
+                card.id = `macro-card-${macro.id}`;  // 고유 ID 부여
+                card.dataset.macroId = macro.id;      // data 속성도 추가
+                card.onclick = () => selectMacro(macro.id);
+                
+                card.innerHTML = `
+                    <div class="macro-icon"></div>
+                    <div class="macro-title">${macro.name || '이름 없음'}</div>
+                `;
+                
+                grid.appendChild(card);
+                console.log(`매크로 카드 생성됨: ${macro.name} (ID: ${macro.id})`);
+            }
+        }
+        
+        // 저장된 매크로가 없으면 안내 메시지 표시
+        if (grid.children.length === 0) {
+            const emptyMessage = document.createElement('div');
+            emptyMessage.className = 'empty-macro-message';
+            emptyMessage.innerHTML = `
+                <div class="empty-message-text">등록된 매크로가 없습니다</div>
+                <div class="empty-message-sub">설정에서 매크로를 등록해주세요</div>
+            `;
+            grid.appendChild(emptyMessage);
+            console.log('등록된 매크로가 없어 안내 메시지를 표시합니다.');
+        }
+    }
+    
+    // 매크로 선택 및 실행
+    window.selectMacro = async function(macroId) {
+        let card = null;
+        let originalContent = '';
+        
+        try {
+            console.log(` 매크로 ${macroId} 실행 시작...`);
+            
+            // 매크로 ID 유효성 검사
+            if (!macroId || (typeof macroId !== 'number' && typeof macroId !== 'string')) {
+                console.error(' 유효하지 않은 매크로 ID:', macroId);
+                alert('유효하지 않은 매크로입니다.');
+                return;
+            }
+            
+            // 매크로 배열에서 찾기
+            if (!Array.isArray(macros)) {
+                console.error(' 매크로 데이터가 배열이 아닙니다:', macros);
+                alert('매크로 데이터를 불러오는 중입니다. 잠시 후 다시 시도해주세요.');
+                return;
+            }
+            
+            const macro = macros.find(m => m && m.id == macroId); // == 사용으로 타입 관대하게 비교
+            if (!macro) {
+                console.error(` 매크로 ID ${macroId}를 찾을 수 없습니다. 현재 매크로 목록:`, macros);
+                alert('매크로를 찾을 수 없습니다.');
+                return;
+            }
+            
+            // 매크로 카드에 실행 중 표시
+            card = document.getElementById(`macro-card-${macroId}`);
+            
+            if (!card) {
+                console.error(`매크로 카드를 찾을 수 없습니다: macro-card-${macroId}`);
+                alert('매크로 카드를 찾을 수 없습니다.');
+                return;
+            }
+            
+            originalContent = card.innerHTML;
+            
+            // 로딩 상태 표시
+            card.style.transform = 'scale(0.95)';
+            card.style.opacity = '0.7';
+            card.innerHTML = `
+                <div class="macro-icon executing">⚡</div>
+                <div class="macro-title">실행 중...</div>
+            `;
+            
+            // 매크로 실행 API 호출
+            const response = await fetch(`/api/macros/${macroId}/execute`, { 
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
+            
+            const result = await response.json();
+            
+            if (result.success) {
+                console.log(` 매크로 "${macro.name}" 실행 완료!`);
+                console.log('적용된 변경사항:', result.applied_changes);
+                
+                // 성공 상태 표시
+                card.style.transform = 'scale(1.05)';
+                card.style.backgroundColor = 'rgba(76, 175, 80, 0.2)';
+                card.style.borderColor = '#4CAF50';
+                card.innerHTML = `
+                    <div class="macro-icon success">✅</div>
+                    <div class="macro-title">${macro.name}</div>
+                    <div class="macro-status">실행완료</div>
+                `;
+                
+                // 성공 메시지 표시
+                showExecutionMessage(`${macro.name} 매크로가 실행되었습니다!`, result.applied_changes);
+                
+                // 1.5초 후 원래 상태로 복원
+                setTimeout(() => {
+                    if (card) {
+                        card.style.transform = 'scale(1)';
+                        card.style.backgroundColor = '';
+                        card.style.borderColor = '';
+                        card.style.opacity = '1';
+                        card.innerHTML = originalContent;
+                    }
+                }, 1500);
+                
+            } else {
+                throw new Error(result.message || '매크로 실행 실패');
+            }
+            
+        } catch (error) {
+            console.error(' 매크로 실행 중 오류 발생:', error);
+            
+            if (card) {
+                // 실패 상태 표시
+                card.style.transform = 'scale(1)';
+                card.style.backgroundColor = 'rgba(244, 67, 54, 0.2)';
+                card.style.borderColor = '#f44336';
+                card.innerHTML = `
+                    <div class="macro-icon error">❌</div>
+                    <div class="macro-title">실행실패</div>
+                    <div class="macro-status">오류 발생</div>
+                `;
+                
+                // 2초 후 원래 상태로 복원
+                setTimeout(() => {
+                    if (card && originalContent) {
+                        card.style.transform = 'scale(1)';
+                        card.style.backgroundColor = '';
+                        card.style.borderColor = '';
+                        card.style.opacity = '1';
+                        card.innerHTML = originalContent;
+                    }
+                }, 2000);
+            }
+            
+            alert('매크로 실행 중 오류가 발생했습니다:\n' + error.message);
+        }
+    };
+    
+    // 매크로 실행 성공 메시지 표시
+    function showExecutionMessage(title, changes) {
+        const messageDiv = document.createElement('div');
+        messageDiv.style.cssText = `
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(76, 175, 80, 0.96);
+            color: white;
+            padding: 25px 35px;
+            border-radius: 15px;
+            font-family: 'Pretendard', sans-serif;
+            font-size: 16px;
+            font-weight: 500;
+            z-index: 10000;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+            border: 2px solid rgba(255,255,255,0.2);
+            max-width: 400px;
+            text-align: center;
+            animation: executionPopup 3s ease-in-out;
+        `;
+        
+        let changesText = '';
+        if (changes && changes.length > 0) {
+            changesText = '\n\n적용된 변경사항:\n';
+            changes.slice(0, 3).forEach(change => {
+                const typeText = change.type === 'group' ? '그룹' : '조명';
+                changesText += `• ${typeText} "${change.name}": ${change.old_brightness} → ${change.new_brightness}\n`;
+            });
+            
+            if (changes.length > 3) {
+                changesText += `• 외 ${changes.length - 3}개 항목\n`;
+            }
+        }
+        
+        messageDiv.innerHTML = `
+            <div style="font-size: 18px; font-weight: bold; margin-bottom: 15px;">⚡ ${title}</div>
+            <div style="font-size: 14px; line-height: 1.4; white-space: pre-line;">${changesText}</div>
+        `;
+        
+        // CSS 애니메이션 추가
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes executionPopup {
+                0% { opacity: 0; transform: translate(-50%, -50%) scale(0.8); }
+                15% { opacity: 1; transform: translate(-50%, -50%) scale(1.05); }
+                85% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+                100% { opacity: 0; transform: translate(-50%, -50%) scale(0.9); }
+            }
+        `;
+        document.head.appendChild(style);
+        document.body.appendChild(messageDiv);
+        
+        // 3초 후 제거
+        setTimeout(() => {
+            if (messageDiv.parentNode) {
+                messageDiv.parentNode.removeChild(messageDiv);
+            }
+            if (style.parentNode) {
+                style.parentNode.removeChild(style);
+            }
+        }, 3000);
+    }
+    
+    // Socket.IO 제거됨 - API 응답으로 충분
+
+    // 페이지 초기화 (DOM이 완전히 로드된 후)
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('DOM 로드 완료, 매크로 페이지 초기화 시작');
+            loadMacros();
+        });
+    } else {
+        console.log('DOM 이미 로드됨, 매크로 페이지 초기화 시작');
+        loadMacros();
+    }
+    
+    console.log('매크로 페이지 스크립트 초기화 완료');
+})();
+</script>
+{% endblock %} 

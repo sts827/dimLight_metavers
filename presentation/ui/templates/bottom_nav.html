@@ -1,0 +1,13 @@
+<!-- 하단 탭 네비게이션 -->
+<div class="bottom-nav">
+    <a href="/main_group" class="nav-tab {% if request.endpoint == 'main_group' %}active{% endif %}">그룹 제어</a>
+    <a href="/main_personal" class="nav-tab {% if request.endpoint == 'main_personal' %}active{% endif %}">개별 제어</a>
+    <a href="/main_macro" class="nav-tab {% if request.endpoint == 'main_macro' %}active{% endif %}">매크로</a>
+    <a href="/main_settings" class="nav-tab {% if request.endpoint == 'main_settings' or request.endpoint == 'macro_setting' or request.endpoint == 'settings_mode' or request.endpoint == 'settings_device' %}active{% endif %}">설정</a>
+    <div class="nav-logo"></div>
+</div>
+
+<!-- 올아이원 로고 -->
+<div class="company-logo">
+    <div class="logo-text"></div>
+</div>

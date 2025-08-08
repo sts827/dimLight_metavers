@@ -1,0 +1,107 @@
+{% extends "base.html" %}
+
+{% block title %}AUTO 모드{% endblock %}
+
+{% block body_class %}auto-landing{% endblock %}
+
+{% block content %}
+<div class="auto-landing">
+    <div class="loading-spinner"></div>
+    <div class="auto-title">AUTO 모드 사용 중</div>
+    <div class="touch-instruction">화면을 터치해주세요</div>
+    
+    <!-- 올아이원 로고 -->
+    <div class="company-logo">
+        <div class="logo-text"></div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script data-page-script>
+// 화면 터치 시 설정 화면으로 이동 (문서 전체가 아닌 현재 화면 컨테이너에만 바인딩)
+(function() {
+    const container = document.querySelector('.auto-landing');
+    if (!container) return;
+    const go = () => {
+        // 하드 네비게이션으로 강제 이동하여 이전 페이지에서 등록된 전역 이벤트 리스너를 정리
+        window.location.href = '/settings_mode';
+    };
+    container.addEventListener('click', go);
+    container.addEventListener('touchstart', go, { passive: true });
+})();
+
+// 화면 항상 켜두기 설정 (Manual 모드와 동일)
+let wakeLock = null;
+
+// Wake Lock 요청 (화면 절전 방지)
+async function requestWakeLock() {
+    try {
+        if ('wakeLock' in navigator) {
+            wakeLock = await navigator.wakeLock.request('screen');
+            console.log('Wake Lock 활성화 - 화면이 꺼지지 않습니다');
+            
+            wakeLock.addEventListener('release', () => {
+                console.log('Wake Lock 해제됨');
+            });
+        } else {
+            console.log('Wake Lock API 미지원 - 대체 방법 사용');
+        }
+    } catch (err) {
+        console.error('Wake Lock 요청 실패:', err);
+    }
+}
+
+// 가상 활동 생성 (화면 절전 방지)
+function preventScreenSleep() {
+    // 보이지 않는 비디오 요소로 화면 활성 상태 유지
+    const video = document.createElement('video');
+    video.style.position = 'absolute';
+    video.style.top = '-1px';
+    video.style.left = '-1px';
+    video.style.width = '1px';
+    video.style.height = '1px';
+    video.style.opacity = '0.01';
+    video.muted = true;
+    video.loop = true;
+    video.autoplay = true;
+    
+    // 빈 비디오 데이터 생성
+    const canvas = document.createElement('canvas');
+    canvas.width = 1;
+    canvas.height = 1;
+    const stream = canvas.captureStream(1);
+    video.srcObject = stream;
+    
+    document.body.appendChild(video);
+    video.play().catch(e => console.log('비디오 재생 실패:', e));
+}
+
+// 주기적 활동 신호
+function keepScreenActive() {
+    const keepAlive = document.createElement('div');
+    keepAlive.style.position = 'absolute';
+    keepAlive.style.top = '-1px';
+    keepAlive.style.left = '-1px';
+    keepAlive.style.width = '1px';
+    keepAlive.style.height = '1px';
+    keepAlive.style.opacity = '0';
+    document.body.appendChild(keepAlive);
+    
+    setInterval(() => {
+        keepAlive.style.transform = keepAlive.style.transform === 'translateX(1px)' ? 'translateX(0px)' : 'translateX(1px)';
+    }, 30000); // 30초마다 실행
+}
+
+// 화면 켜두기 기능 초기화
+async function initScreenKeepAlive() {
+    await requestWakeLock();
+    preventScreenSleep();
+    keepScreenActive();
+    console.log('Auto 모드 - 화면 항상 켜두기 활성화');
+}
+
+// 페이지 로드 시 화면 켜두기 설정
+document.addEventListener('DOMContentLoaded', initScreenKeepAlive);
+</script>
+{% endblock %} 

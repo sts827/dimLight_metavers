@@ -1,0 +1,191 @@
+{% extends "base.html" %}
+
+{% block title %}Manual 모드{% endblock %}
+
+{% block body_class %}manual-landing{% endblock %}
+
+{% block content %}
+<div class="manual-landing">
+    <!-- 상단 센서 데이터 그리드 -->
+    <div class="sensor-main-grid">
+        <!-- 소비전력 원형 표시 -->
+        <div class="power-circle">
+            <div class="power-display">
+                <div class="icon-wrapper">
+                    <div class="power-icon"></div>
+                    <div class="power-label">소비전력</div>
+                </div>
+                <div class="power-wrapper">
+                    <div class="power-value" id="power-value">1234</div>
+                    <div class="power-unit">W</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 환경 데이터 -->
+        <div class="environment-data">
+            <div class="env-item">
+                <div class="env-left">
+                    <div class="env-icon temp-icon"></div>
+                    <div class="env-label">현재 온도</div>
+                </div>
+                <div class="env-value" id="temperature-value">26<span style="font-size: 0.7em;">°C</span></div>
+            </div>
+            
+            <div class="env-item">
+                <div class="env-left">
+                    <div class="env-icon humidity-icon"></div>
+                    <div class="env-label">현재 습도</div>
+                </div>
+                <div class="env-value" id="humidity-value">50<span style="font-size: 0.7em;">%</span></div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- 메인 시계 -->
+    <div class="clock-main">
+        <div class="time-large" id="main-time">12:00 <span style="font-size: 0.6em;">AM</span></div>
+    </div>
+    
+    <!-- 터치 안내 -->
+    <div class="touch-instruction">화면을 터치해주세요</div>
+    
+    <!-- 올아이원 로고 -->
+    <div class="company-logo">
+        <div class="logo-text"></div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+// 화면 터치 시 그룹 제어 화면으로 이동
+document.addEventListener('click', function() {
+    window.location.href = '/main_group';
+});
+
+document.addEventListener('touchstart', function() {
+    window.location.href = '/main_group';
+});
+
+// 시간 업데이트 (12시간제)
+function updateTime() {
+    const timeElement = document.getElementById('main-time');
+    
+    if (timeElement) {
+        const now = new Date();
+        const hours = now.getHours();
+        const minutes = now.getMinutes();
+        const ampm = hours >= 12 ? 'PM' : 'AM';
+        
+        // 12시간제 변환: 0시 → 12시, 13-23시 → 1-11시
+        let displayHours = hours % 12;
+        if (displayHours === 0) {
+            displayHours = 12;
+        }
+        
+        timeElement.innerHTML = `${displayHours}:${minutes.toString().padStart(2, '0')} <span style="font-size: 0.6em;">${ampm}</span>`;
+    }
+}
+
+// 센서 데이터 업데이트
+function updateSensorData() {
+    fetch('/api/sensor')
+        .then(response => response.json())
+        .then(data => {
+            if (document.getElementById('power-value')) {
+                document.getElementById('power-value').textContent = Math.round(data.power_consumption);
+            }
+            if (document.getElementById('temperature-value')) {
+                document.getElementById('temperature-value').innerHTML = `${Math.round(data.temperature)}<span style="font-size: 0.7em;">°C</span>`;
+            }
+            if (document.getElementById('humidity-value')) {
+                document.getElementById('humidity-value').innerHTML = `${Math.round(data.humidity)}<span style="font-size: 0.7em;">%</span>`;
+            }
+        })
+        .catch(error => console.error('Error updating sensor data:', error));
+}
+
+// 화면 항상 켜두기 설정
+let wakeLock = null;
+
+// Wake Lock 요청 (화면 절전 방지)
+async function requestWakeLock() {
+    try {
+        if ('wakeLock' in navigator) {
+            wakeLock = await navigator.wakeLock.request('screen');
+            console.log('Wake Lock 활성화 - 화면이 꺼지지 않습니다');
+            
+            wakeLock.addEventListener('release', () => {
+                console.log('Wake Lock 해제됨');
+            });
+        } else {
+            console.log('Wake Lock API 미지원 - 대체 방법 사용');
+        }
+    } catch (err) {
+        console.error('Wake Lock 요청 실패:', err);
+    }
+}
+
+// 가상 활동 생성 (화면 절전 방지)
+function preventScreenSleep() {
+    // 보이지 않는 비디오 요소로 화면 활성 상태 유지
+    const video = document.createElement('video');
+    video.style.position = 'absolute';
+    video.style.top = '-1px';
+    video.style.left = '-1px';
+    video.style.width = '1px';
+    video.style.height = '1px';
+    video.style.opacity = '0.01';
+    video.muted = true;
+    video.loop = true;
+    video.autoplay = true;
+    
+    // 빈 비디오 데이터 생성
+    const canvas = document.createElement('canvas');
+    canvas.width = 1;
+    canvas.height = 1;
+    const stream = canvas.captureStream(1);
+    video.srcObject = stream;
+    
+    document.body.appendChild(video);
+    video.play().catch(e => console.log('비디오 재생 실패:', e));
+}
+
+// 주기적 활동 신호 (마우스 이동 시뮬레이션 대신 DOM 조작)
+function keepScreenActive() {
+    // 보이지 않는 요소의 스타일을 주기적으로 변경
+    const keepAlive = document.createElement('div');
+    keepAlive.style.position = 'absolute';
+    keepAlive.style.top = '-1px';
+    keepAlive.style.left = '-1px';
+    keepAlive.style.width = '1px';
+    keepAlive.style.height = '1px';
+    keepAlive.style.opacity = '0';
+    document.body.appendChild(keepAlive);
+    
+    setInterval(() => {
+        keepAlive.style.transform = keepAlive.style.transform === 'translateX(1px)' ? 'translateX(0px)' : 'translateX(1px)';
+    }, 30000); // 30초마다 실행
+}
+
+// 화면 켜두기 기능 초기화
+async function initScreenKeepAlive() {
+    await requestWakeLock();
+    preventScreenSleep();
+    keepScreenActive();
+    console.log('Manual 모드 - 화면 항상 켜두기 활성화');
+}
+
+// 페이지 로드 시 화면 켜두기 설정
+document.addEventListener('DOMContentLoaded', initScreenKeepAlive);
+
+// 1초마다 시간 업데이트
+setInterval(updateTime, 1000);
+updateTime();
+
+// 5초마다 센서 데이터 업데이트
+setInterval(updateSensorData, 5000);
+updateSensorData();
+</script>
+{% endblock %} 

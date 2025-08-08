@@ -1,0 +1,37 @@
+[Unit]
+Description=Smart Switch Dimming Application
+After=network.target
+Wants=network.target
+
+[Service]
+Type=simple
+User=allione
+Group=allione
+WorkingDirectory=/home/allione/Desktop/SM_allione
+Environment=PYTHONPATH=/home/allione/Desktop/SM_allione
+EnvironmentFile=-/etc/default/SM_allione
+ExecStart=/home/allione/Desktop/SM_allione/venv/bin/python -u /home/allione/Desktop/SM_allione/presentation/api/main.py
+Restart=on-failure
+RestartSec=5
+StandardOutput=journal
+StandardError=journal
+
+# 환경 변수
+Environment=FLASK_ENV=production
+Environment=FLASK_DEBUG=0
+
+# 리소스 제한 (Zero 2W 최적화)
+LimitNOFILE=512
+MemoryMax=256M
+TasksMax=128
+
+# 종료/스케줄링 튜닝
+KillSignal=SIGINT
+KillMode=mixed
+TimeoutStopSec=15
+Nice=5
+IOSchedulingClass=best-effort
+IOSchedulingPriority=7
+
+[Install]
+WantedBy=multi-user.target 

@@ -1,0 +1,1281 @@
+{% extends "base.html" %}
+
+{% block title %}매크로 설정{% endblock %}
+
+{% block body_class %}main-container{% endblock %}
+
+{% block content %}
+<div class="control-content">
+    <!-- 뒤로가기 버튼과 제목 -->
+    <div class="macro-header">
+        <div class="back-button">
+            <button onclick="location.href = '/main_settings'" class="macro-back-btn">←</button>
+         </div>
+        <h1 class="macro-title-header">Macro 설정</h1>
+    </div>
+
+    <!-- 매크로 카드 그리드 -->
+    <div class="macro-setting-grid" id="macro-grid">
+        <!-- 매크로 카드들은 JavaScript에서 동적으로 생성 -->
+    </div>
+
+    <!-- 하단 액션 버튼들 -->
+    <div class="macro-setting-actions">
+        <button class="action-btn rename-btn" onclick="openKeypad()" id="rename-btn" disabled>이름변경</button>
+        <button class="action-btn save-btn" onclick="saveMacro()" id="save-btn" disabled>저장</button>
+    </div>
+</div>
+
+<!-- 키패드 모달 -->
+<div class="keypad-modal" id="keypad-modal" style="display: none;">
+    <div class="keypad-container">
+        <div class="keypad-header">
+            <button class="keypad-back-btn" onclick="closeKeypad()">←</button>
+            <div class="keypad-input-display">
+                <input type="text" id="keypad-input" placeholder="여기에 매크로 이름이 표시됩니다" maxlength="20" autocomplete="off" spellcheck="false">
+            </div>
+        </div>
+        
+        <div class="keypad-content">
+            <div class="keypad-title">한글 키패드 - 터치하여 입력하세요</div>
+            <div class="keypad-refresh-btn" onclick="clearInput()" title="입력 초기화">⟲</div>
+            
+            <div class="keypad-grid">
+                <!-- 키패드 버튼들은 JavaScript에서 동적으로 생성됩니다 -->
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% include 'bottom_nav.html' %}
+
+{% block extra_js %}
+<script data-page-script>
+(function() {
+    'use strict';
+    
+    let selectedMacro = null;
+    let macros = [];
+    let isNewMacro = false;
+    
+    // 실제 저장된 매크로인지 확인하는 함수
+    function isRealMacro(macro) {
+        // 기본 체크
+        if (!macro || !macro.id || !macro.name) {
+            return false;
+        }
+        
+        // 빈 설정값인 매크로는 임시 데이터로 간주
+        if (!macro.settings || Object.keys(macro.settings).length === 0) {
+            console.log(`⚠️ 저장되지 않은 매크로 제외: "${macro.name}"`);
+            return false;
+        }
+        
+        return true;
+    }
+
+    // 매크로 데이터 로드
+    async function loadMacros() {
+        try {
+            console.log(' 매크로 설정 데이터 로드 중...');
+            
+            const response = await fetch('/api/macros');
+            const data = await response.json();
+            console.log(' 매크로 설정 API 응답:', data);
+            
+            if (data && Array.isArray(data.macros)) {
+                // 실제 저장된 매크로만 필터링 (settings가 비어있지 않은 것만)
+                const realMacros = data.macros.filter(isRealMacro);
+                console.log(` 저장된 매크로 ${realMacros.length}개 로드 완료`);
+                
+                // 3개 슬롯에 맞게 배열 재구성 (빈 슬롯은 null)
+                macros = [];
+                for (let i = 0; i < 3; i++) {
+                    macros[i] = realMacros[i] || null;
+                }
+                
+                // 로드된 매크로 정보 출력
+                realMacros.forEach((macro, index) => {
+                    console.log(` 슬롯 ${index + 1}: "${macro.name}" (ID: ${macro.id})`);
+                });
+                
+                console.log(`매크로 슬롯 상태: [${macros.map((m, i) => m ? `"${m.name}"` : '빈슬롯').join(', ')}]`);
+            } else {
+                console.warn(' 매크로 데이터 형식이 올바르지 않습니다:', data);
+                macros = [null, null, null]; // 3개 빈 슬롯으로 초기화
+            }
+            
+            renderMacroGrid();
+        } catch (error) {
+            console.error('매크로 설정 로드 실패:', error);
+            macros = [null, null, null]; // 실패 시 3개 빈 슬롯으로 초기화
+            renderMacroGrid();
+        }
+    }
+    
+    // 매크로 그리드 렌더링
+    function renderMacroGrid() {
+        const grid = document.getElementById('macro-grid');
+        grid.innerHTML = '';
+        
+        for (let i = 0; i < 3; i++) {
+            const macro = macros[i];
+            const card = document.createElement('div');
+            card.className = 'macro-setting-card';
+            card.id = `macro-${i + 1}`;
+            card.onclick = () => selectMacro(i + 1);
+            
+            if (macro) {
+                // 기존 매크로
+                card.innerHTML = `
+                    <div class="macro-icon"></div>
+                    <div class="macro-title">${macro.name}</div>
+                `;
+            } else {
+                // 빈 슬롯
+                card.innerHTML = `
+                    <div class="macro-icon empty">+</div>
+                    <div class="macro-title">매크로 등록</div>
+                `;
+                card.classList.add('empty-slot');
+            }
+            
+            grid.appendChild(card);
+        }
+    }
+    
+    // 매크로 선택 (시각적 효과)
+    window.selectMacro = function(macroId) {
+        // 기존 선택 해제 (페이드 아웃 효과)
+        document.querySelectorAll('.macro-setting-card').forEach(card => {
+            card.classList.remove('selected');
+            card.style.transition = 'all 0.3s ease';
+        });
+        
+        // 새로운 매크로 선택 (애니메이션 효과)
+        const selectedCard = document.getElementById(`macro-${macroId}`);
+        if (selectedCard) {
+            // 먼저 약간의 딜레이를 주어 이전 선택이 해제되도록 함
+            setTimeout(() => {
+                selectedCard.classList.add('selected');
+                selectedMacro = macroId;
+                
+                // 선택 효과 사운드 (선택사항)
+                // selectedCard.style.transform = 'scale(0.95)';
+                // setTimeout(() => {
+                //     selectedCard.style.transform = '';
+                // }, 100);
+                
+                console.log(` Macro ${macroId} selected with animation`);
+            }, 50);
+        }
+        
+        // 빈 슬롯인지 확인
+        const macro = macros[macroId - 1];
+        isNewMacro = !macro;
+        
+        // 버튼 활성화 (애니메이션 효과)
+        const renameBtn = document.getElementById('rename-btn');
+        const saveBtn = document.getElementById('save-btn');
+        
+        // 버튼들을 부드럽게 활성화
+        setTimeout(() => {
+            renameBtn.disabled = false;
+            saveBtn.disabled = false;
+            
+            // 버튼 활성화 시각적 효과
+            renameBtn.style.transition = 'all 0.3s ease';
+            saveBtn.style.transition = 'all 0.3s ease';
+            renameBtn.style.opacity = '1';
+            saveBtn.style.opacity = '1';
+            
+            // 버튼 텍스트 변경
+            renameBtn.textContent = isNewMacro ? '매크로 등록' : '이름변경';
+            
+            // 버튼 텍스트 변경 애니메이션
+            renameBtn.style.transform = 'scale(1.05)';
+            setTimeout(() => {
+                renameBtn.style.transform = 'scale(1)';
+            }, 150);
+            
+        }, 100);
+        
+        // 선택 피드백 메시지
+        const cardTitle = selectedCard?.querySelector('.macro-title')?.textContent || `매크로 ${macroId}`;
+        console.log(` "${cardTitle}" ${isNewMacro ? '등록 모드' : '수정 모드'}로 선택됨`);
+    };
+    
+    // 키패드 열기
+    window.openKeypad = function() {
+        if (!selectedMacro) return;
+        
+        const modal = document.getElementById('keypad-modal');
+        const input = document.getElementById('keypad-input');
+        
+        // 기존 매크로면 현재 이름으로 초기화
+        let initialValue = '';
+        if (!isNewMacro) {
+            const macro = macros[selectedMacro - 1];
+            initialValue = macro ? macro.name : '';
+        }
+        
+        // 강력한 초기값 설정
+        input.value = initialValue;
+        input.setAttribute('value', initialValue);
+        input.dataset.currentValue = initialValue;
+        input.defaultValue = initialValue;
+        
+        // 화면 업데이트 강제
+        input.dispatchEvent(new Event('input', { bubbles: true }));
+        input.dispatchEvent(new Event('change', { bubbles: true }));
+        
+        // 스타일 강제 적용
+        input.style.color = '#000000';
+        input.style.backgroundColor = '#ffffff';
+        input.style.fontSize = '28px';
+        input.style.border = '3px solid #007bff';
+        input.style.display = 'block';
+        input.style.opacity = '1';
+        input.style.visibility = 'visible';
+        
+        console.log(`키패드 열기 - 초기값: "${initialValue}", 설정값: "${input.value}"`);
+        
+        // 입력 필드 속성 재설정
+        input.readOnly = false;
+        input.disabled = false;
+        
+        modal.style.display = 'flex';
+        
+        // 키패드 레이아웃 초기화
+        updateKeypadLayout();
+        
+        // 포커스 설정 및 커서 위치 조정
+        setTimeout(() => {
+            input.focus();
+            input.setSelectionRange(input.value.length, input.value.length);
+            
+            // 입력 필드 상태 완전 체크
+            const computedStyle = window.getComputedStyle(input);
+            console.log('=== 키패드 열기 완료 ===');
+            console.log(`Value: "${input.value}"`);
+            console.log(`Attribute: "${input.getAttribute('value')}"`);
+            console.log(`Visible: ${input.offsetWidth > 0 && input.offsetHeight > 0}`);
+            console.log(`Color: ${computedStyle.color}`);
+            console.log(`Background: ${computedStyle.backgroundColor}`);
+            console.log(`Font-size: ${computedStyle.fontSize}`);
+            console.log(`Text-align: ${computedStyle.textAlign}`);
+            console.log(`Language mode: ${keypadState.isKorean ? '한글' : '영어'}`);
+        }, 100);
+        
+        // 입력 필드 강조 효과
+        const inputDisplay = input.parentElement;
+        inputDisplay.style.animation = 'pulse 0.5s ease-in-out';
+        setTimeout(() => {
+            inputDisplay.style.animation = '';
+        }, 500);
+    };
+    
+    // 키패드 닫기
+    window.closeKeypad = function() {
+        const modal = document.getElementById('keypad-modal');
+        modal.style.display = 'none';
+    };
+    
+    // 한글 조합을 위한 상수들
+    const CHO_SUNG = ['ㄱ','ㄲ','ㄴ','ㄷ','ㄸ','ㄹ','ㅁ','ㅂ','ㅃ','ㅅ','ㅆ','ㅇ','ㅈ','ㅉ','ㅊ','ㅋ','ㅌ','ㅍ','ㅎ'];
+    const JUNG_SUNG = ['ㅏ','ㅐ','ㅑ','ㅒ','ㅓ','ㅔ','ㅕ','ㅖ','ㅗ','ㅘ','ㅙ','ㅚ','ㅛ','ㅜ','ㅝ','ㅞ','ㅟ','ㅠ','ㅡ','ㅢ','ㅣ'];
+    const JONG_SUNG = ['','ㄱ','ㄲ','ㄳ','ㄴ','ㄵ','ㄶ','ㄷ','ㄹ','ㄺ','ㄻ','ㄼ','ㄽ','ㄾ','ㄿ','ㅀ','ㅁ','ㅂ','ㅄ','ㅅ','ㅆ','ㅇ','ㅈ','ㅊ','ㅋ','ㅌ','ㅍ','ㅎ'];
+    
+    // 종성을 초성으로 변환하는 맵 (복잡한 종성 처리용)
+    const JONG_TO_CHO = {
+        'ㄱ': 'ㄱ', 'ㄲ': 'ㄲ', 'ㄴ': 'ㄴ', 'ㄷ': 'ㄷ', 'ㄹ': 'ㄹ', 'ㅁ': 'ㅁ', 
+        'ㅂ': 'ㅂ', 'ㅅ': 'ㅅ', 'ㅆ': 'ㅆ', 'ㅇ': 'ㅇ', 'ㅈ': 'ㅈ', 'ㅊ': 'ㅊ', 
+        'ㅋ': 'ㅋ', 'ㅌ': 'ㅌ', 'ㅍ': 'ㅍ', 'ㅎ': 'ㅎ',
+        // 복잡한 종성은 첫 번째 자음으로 변환
+        'ㄳ': 'ㄱ', 'ㄵ': 'ㄴ', 'ㄶ': 'ㄴ', 'ㄺ': 'ㄹ', 'ㄻ': 'ㄹ', 'ㄼ': 'ㄹ', 
+        'ㄽ': 'ㄹ', 'ㄾ': 'ㄹ', 'ㄿ': 'ㄹ', 'ㅀ': 'ㄹ', 'ㅄ': 'ㅂ'
+    };
+    
+    // 한글인지 확인하는 함수
+    function isHangul(char) {
+        return /[ㄱ-ㅎㅏ-ㅣ가-힣]/.test(char);
+    }
+    
+    // 자음인지 확인 (쌍자음 포함)
+    function isConsonant(char) {
+        const allConsonants = ['ㄱ','ㄲ','ㄴ','ㄷ','ㄸ','ㄹ','ㅁ','ㅂ','ㅃ','ㅅ','ㅆ','ㅇ','ㅈ','ㅉ','ㅊ','ㅋ','ㅌ','ㅍ','ㅎ'];
+        return allConsonants.includes(char) || CHO_SUNG.includes(char) || JONG_SUNG.includes(char);
+    }
+    
+    // 모음인지 확인 (복합모음 포함)
+    function isVowel(char) {
+        const allVowels = ['ㅏ','ㅐ','ㅑ','ㅒ','ㅓ','ㅔ','ㅕ','ㅖ','ㅗ','ㅘ','ㅙ','ㅚ','ㅛ','ㅜ','ㅝ','ㅞ','ㅟ','ㅠ','ㅡ','ㅢ','ㅣ'];
+        return allVowels.includes(char) || JUNG_SUNG.includes(char);
+    }
+    
+    // 완성된 한글인지 확인 (가-힣)
+    function isCompleteHangul(char) {
+        return /[가-힣]/.test(char);
+    }
+    
+    // 한글을 초성, 중성, 종성으로 분해
+    function decomposeHangul(char) {
+        if (!isCompleteHangul(char)) return null;
+        
+        const charCode = char.charCodeAt(0) - 0xAC00;
+        const jong = charCode % 28;
+        const jung = (charCode - jong) / 28 % 21;
+        const cho = ((charCode - jong) / 28 - jung) / 21;
+        
+        return {
+            cho: CHO_SUNG[cho],
+            jung: JUNG_SUNG[jung],
+            jong: jong > 0 ? JONG_SUNG[jong] : ''
+        };
+    }
+    
+    // 초성, 중성, 종성으로 한글 조합
+    function composeHangul(cho, jung, jong = '') {
+        const choIndex = CHO_SUNG.indexOf(cho);
+        const jungIndex = JUNG_SUNG.indexOf(jung);
+        const jongIndex = JONG_SUNG.indexOf(jong);
+        
+        if (choIndex === -1 || jungIndex === -1 || jongIndex === -1) {
+            console.log(`조합 실패: 초성="${cho}", 중성="${jung}", 종성="${jong}"`);
+            return null;
+        }
+        
+        const charCode = 0xAC00 + (choIndex * 21 + jungIndex) * 28 + jongIndex;
+        const result = String.fromCharCode(charCode);
+        return result;
+    }
+    
+    // 복합 모음 조합 맵
+    const COMPLEX_VOWELS = {
+        'ㅗㅏ': 'ㅘ', 'ㅗㅐ': 'ㅙ', 'ㅗㅣ': 'ㅚ',
+        'ㅜㅓ': 'ㅝ', 'ㅜㅔ': 'ㅞ', 'ㅜㅣ': 'ㅟ',
+        'ㅡㅣ': 'ㅢ',
+        'ㅑㅣ': 'ㅒ', 'ㅕㅣ': 'ㅖ'  // 추가된 복합모음
+    };
+
+    // 한글 조합 처리
+    function processHangulInput(currentText, newChar) {
+        console.log(`조합: "${currentText}" + "${newChar}"`);
+        
+        if (!isHangul(newChar)) {
+            return currentText + newChar;
+        }
+        
+        if (currentText.length === 0) {
+            return newChar;
+        }
+        
+        const lastChar = currentText[currentText.length - 1];
+        const beforeText = currentText.slice(0, -1);
+        
+        // 마지막 문자가 완성된 한글인 경우
+        if (isCompleteHangul(lastChar)) {
+            const decomposed = decomposeHangul(lastChar);
+            
+            // 새 문자가 자음이고, 마지막 문자의 종성이 없는 경우 → 종성 추가 시도
+            if (isConsonant(newChar) && !decomposed.jong) {
+                // 해당 자음이 종성으로 사용 가능한지 확인
+                const jongIndex = JONG_SUNG.indexOf(newChar);
+                if (jongIndex > 0) { // 0은 빈 종성이므로 > 0으로 체크
+                    const composed = composeHangul(decomposed.cho, decomposed.jung, newChar);
+                    if (composed) {
+                        console.log(`종성 추가: "${lastChar}" + "${newChar}" = "${composed}"`);
+                        return beforeText + composed;
+                    }
+                }
+            }
+            
+            // 새 문자가 모음인 경우
+            if (isVowel(newChar)) {
+                // 종성이 없 는 경우: 복합 모음 시도
+                if (!decomposed.jong) {
+                    const complexVowel = COMPLEX_VOWELS[decomposed.jung + newChar];
+                    if (complexVowel) {
+                        const composed = composeHangul(decomposed.cho, complexVowel);
+                        if (composed) {
+                            console.log(`복합 모음: "${lastChar}" + "${newChar}" = "${composed}"`);
+                            return beforeText + composed;
+                        }
+                    }
+                }
+                
+                // 복합 모음이 안되거나 종성이 있는 경우: 새로운 글자 시작
+                // 종성을 초성으로 옮기기 시도
+                if (decomposed.jong) {
+                    const newChoSung = JONG_TO_CHO[decomposed.jong];
+                    if (newChoSung) {
+                        const newChar1 = composeHangul(decomposed.cho, decomposed.jung, ''); // 종성 제거
+                        const newChar2 = composeHangul(newChoSung, newChar, ''); // 종성+모음으로 새 글자
+                        if (newChar1 && newChar2) {
+                            console.log(`종성 분리: "${lastChar}" + "${newChar}" = "${newChar1}${newChar2}"`);
+                            return beforeText + newChar1 + newChar2;
+                        }
+                    }
+                }
+            }
+            
+            // 그 외의 경우는 새로운 문자로 시작
+            console.log(`새 글자 시작: "${currentText}" + "${newChar}"`);
+            return currentText + newChar;
+        }
+        
+        // 마지막 문자가 자음인 경우
+        if (isConsonant(lastChar)) {
+            if (isVowel(newChar)) {
+                const composed = composeHangul(lastChar, newChar);
+                if (composed) {
+                    console.log(`자음+모음: "${lastChar}" + "${newChar}" = "${composed}"`);
+                    return beforeText + composed;
+                }
+            }
+            return currentText + newChar;
+        }
+        
+        // 마지막 문자가 모음인 경우
+        if (isVowel(lastChar)) {
+            // 복합 모음 조합 시도
+            const complexVowel = COMPLEX_VOWELS[lastChar + newChar];
+            if (complexVowel && isVowel(newChar)) {
+                console.log(`복합 모음: "${lastChar}" + "${newChar}" = "${complexVowel}"`);
+                return beforeText + complexVowel;
+            }
+        }
+        
+        return currentText + newChar;
+    }
+
+    // 키패드 문자 입력 (한글 조합 포함)
+    window.inputChar = function(char) {
+        try {
+            const input = document.getElementById('keypad-input');
+            if (!input) {
+                console.error('Input element not found');
+                return;
+            }
+            
+            if (input.value.length >= 20) {
+                console.log('Maximum length reached');
+                return;
+            }
+            
+            const currentValue = input.value || '';
+            let newValue;
+            
+            // 한글 모드에서만 한글 조합 처리
+            if (keypadState.isKorean && isHangul(char)) {
+                newValue = processHangulInput(currentValue, char);
+                console.log(`한글 조합: "${currentValue}" + "${char}" = "${newValue}"`);
+            } else {
+                // 영어/특수문자는 단순 추가
+                newValue = currentValue + char;
+                console.log(`단순 추가: "${currentValue}" + "${char}" = "${newValue}"`);
+                
+                // 영어 모드에서만 문자 입력 후 Shift 자동 해제 (한글은 수동 해제)
+                if (!keypadState.isKorean && keypadState.isShift && /[a-zA-Z]/.test(char)) {
+                    keypadState.isShift = false;
+                    setTimeout(() => {
+                        updateKeypadLayout();
+                        updateToggleButtonStyles();
+                    }, 50);
+                    console.log('영어 입력 후 Shift 자동 해제');
+                }
+                
+                // 한글 모드에서는 쉬프트 상태 유지 (수동으로만 해제)
+            }
+            
+            // 강력한 값 설정 - 모든 방법 시도
+            input.value = newValue;
+            input.setAttribute('value', newValue);
+            input.dataset.currentValue = newValue;
+            input.defaultValue = newValue;
+            
+            // 브라우저 화면 강제 업데이트 - 여러 방법 시도
+            input.dispatchEvent(new Event('input', { bubbles: true }));
+            input.dispatchEvent(new Event('change', { bubbles: true }));
+            
+            // 강제 리렌더링
+            input.style.display = 'none';
+            input.offsetHeight; // 강제 리플로우 
+            input.style.display = 'block';
+            
+            // 스타일 강제 적용
+            input.style.color = '#000000';
+            input.style.backgroundColor = '#ffffff';
+            input.style.fontSize = '28px';
+            input.style.border = '3px solid #007bff';
+            
+            // 상세한 디버깅용 로그
+            setTimeout(() => {
+                const rect = input.getBoundingClientRect();
+                const computed = window.getComputedStyle(input);
+                console.log('=== 입력 후 상태 확인 ===');
+                console.log(`Value: "${input.value}"`);
+                console.log(`Attribute: "${input.getAttribute('value')}"`);
+                console.log(`defaultValue: "${input.defaultValue}"`);
+                console.log(`Visible: ${input.offsetWidth > 0 && input.offsetHeight > 0}`);
+                console.log(`Position: x=${rect.x}, y=${rect.y}, w=${rect.width}, h=${rect.height}`);
+                console.log(`Computed color: ${computed.color}`);
+                console.log(`Computed background: ${computed.backgroundColor}`);
+                console.log(`Computed display: ${computed.display}`);
+                console.log(`Computed z-index: ${computed.zIndex}`);
+                console.log(`Focus: ${document.activeElement === input}`);
+            }, 50);
+            
+            // 입력 시각적 피드백
+            input.classList.add('typing');
+            setTimeout(() => {
+                input.classList.remove('typing');
+            }, 200);
+            
+            // 포커스 유지
+            if (document.activeElement !== input) {
+                input.focus();
+            }
+            
+            console.log(`Added char: "${char}", Mode: ${keypadState.isKorean ? '한글' : '영어'}, Current value: "${input.value}"`);
+        } catch (error) {
+            console.error('Error in inputChar:', error);
+        }
+    };
+    
+    // 키패드 상태 관리
+    let keypadState = {
+        isKorean: true,    // 한글/영어 모드
+        isShift: false,    // 쉬프트 상태 
+        isSymbol: false    // 특수문자 모드
+    };
+    
+    // 영어 QWERTY 레이아웃
+    const QWERTY_LAYOUT = {
+        normal: [
+            ['q','w','e','r','t','y','u','i','o','p'],
+            ['a','s','d','f','g','h','j','k','l'],
+            ['z','x','c','v','b','n','m']
+        ],
+        shift: [
+            ['Q','W','E','R','T','Y','U','I','O','P'],
+            ['A','S','D','F','G','H','J','K','L'],
+            ['Z','X','C','V','B','N','M']
+        ]
+    };
+    
+    // 특수문자 레이아웃
+    const SYMBOL_LAYOUT = [
+        ['!','@','#','$','%','^','&','*','(',')'],
+        ['1','2','3','4','5','6','7','8','9','0'],
+        ['-','=','[',']','\\',';','\'','`'],
+        [',','.','/','~','_','+','{','}','|']
+    ];
+
+    // 한영 전환 (기존 함수 - 호환성 유지)
+    window.toggleLang = function() {
+        switchKeypadMode(); // 새로운 함수로 리다이렉트
+    };
+    
+    // 쉬프트 전환
+    window.toggleShift = function() {
+        keypadState.isShift = !keypadState.isShift;
+        updateKeypadLayout();
+        updateToggleButtonStyles();
+        console.log(`쉬프트: ${keypadState.isShift ? 'ON' : 'OFF'}`);
+    };
+    
+    // 특수문자 모드 전환
+    window.toggleSymbol = function() {
+        keypadState.isSymbol = !keypadState.isSymbol;
+        keypadState.isShift = false; // 쉬프트 해제
+        updateKeypadLayout();
+        updateToggleButtonStyles();
+        console.log(`특수문자 모드: ${keypadState.isSymbol ? 'ON' : 'OFF'}`);
+    };
+    
+    // 키패드 모드 전환 (한글 ↔ 영어)
+    window.switchKeypadMode = function() {
+        keypadState.isKorean = !keypadState.isKorean;
+        keypadState.isSymbol = false; // 특수문자 모드 해제
+        keypadState.isShift = false; // 쉬프트 해제
+        updateKeypadLayout();
+        updateToggleButtonStyles();
+        console.log(`키패드 모드 전환: ${keypadState.isKorean ? '한글' : '영어'}`);
+    };
+    
+    // 키패드 레이아웃 업데이트 (개선된 버전)
+    function updateKeypadLayout() {
+        const keypadGrid = document.querySelector('.keypad-grid');
+        if (!keypadGrid) return;
+        
+        keypadGrid.innerHTML = '';
+        
+        if (keypadState.isSymbol) {
+            // 특수문자 모드
+            renderSymbolLayout(keypadGrid);
+        } else if (keypadState.isKorean) {
+            // 한글 모드
+            renderKoreanLayout(keypadGrid);
+        } else {
+            // 영어 모드
+            renderEnglishLayout(keypadGrid);
+        }
+        
+        updateToggleButtonStyles();
+    }
+    
+    // 복합 특수문자 입력 함수
+    window.insertCompoundSymbol = function() {
+        // #+= 버튼을 클릭했을 때 # 입력 (기본 동작)
+        inputChar('#');
+    };
+    
+    // 한글 키보드 레이아웃 정의 (이미지 참고한 직관적 배치)
+    const KOREAN_LAYOUT = {
+        normal: {
+            // 직관적인 한글 키보드 배치
+            row1: ['ㅂ','ㅈ','ㄷ','ㄱ','ㅅ','ㅛ','ㅕ','ㅑ','ㅐ','ㅔ'],
+            row2: ['ㅁ','ㄴ','ㅇ','ㄹ','ㅎ','ㅗ','ㅓ','ㅏ','ㅣ'],
+            row3: ['ㅋ','ㅌ','ㅊ','ㅍ','ㅠ','ㅜ','ㅡ']
+        },
+        shift: {
+            // Shift + 한글 (쌍자음, 복합모음)
+            row1: ['ㅃ','ㅉ','ㄸ','ㄲ','ㅆ','ㅛ','ㅕ','ㅑ','ㅒ','ㅖ'],
+            row2: ['ㅁ','ㄴ','ㅇ','ㄹ','ㅎ','ㅗ','ㅓ','ㅏ','ㅣ'],
+            row3: ['ㅋ','ㅌ','ㅊ','ㅍ','ㅠ','ㅜ','ㅡ']
+        }
+    };
+
+    // 한글 레이아웃 렌더링 (이미지 기반 4줄 구조)
+    function renderKoreanLayout(container) {
+        const currentLayout = keypadState.isShift ? KOREAN_LAYOUT.shift : KOREAN_LAYOUT.normal;
+        
+        let layout = `
+            <!-- 첫 번째 줄: 자음 + 모음 (첫 번째 행) - 10개 -->
+        `;
+        
+        // 첫 번째 줄: 자음 + 모음 (첫 번째 행) - 10개
+        currentLayout.row1.forEach(char => {
+            const btnClass = isConsonant(char) ? 'consonant' : 'vowel';
+            const shiftClass = keypadState.isShift ? ' shifted' : '';
+            layout += `<button class="keypad-btn ${btnClass}${shiftClass}" onclick="inputChar('${char}')">${char}</button>`;
+        });
+        
+        // 두 번째 줄: 자음 + 모음 (두 번째 행) - 9개
+        currentLayout.row2.forEach(char => {
+            const btnClass = isConsonant(char) ? 'consonant' : 'vowel';
+            const shiftClass = keypadState.isShift ? ' shifted' : '';
+            layout += `<button class="keypad-btn ${btnClass}${shiftClass}" onclick="inputChar('${char}')">${char}</button>`;
+        });
+        
+        // 세 번째 줄: Shift + 자음/모음 + 하이픈 + 백스페이스 - 10개
+        const shiftBtnClass = keypadState.isShift ? 'shift active' : 'shift';
+        layout += `<button class="keypad-btn special ${shiftBtnClass}" onclick="toggleShift()">⇧</button>`;
+        
+        currentLayout.row3.forEach(char => {
+            const btnClass = isConsonant(char) ? 'consonant' : 'vowel';
+            const shiftClass = keypadState.isShift ? ' shifted' : '';
+            layout += `<button class="keypad-btn ${btnClass}${shiftClass}" onclick="inputChar('${char}')">${char}</button>`;
+        });
+        
+        layout += `
+            <button class="keypad-btn special" onclick="inputChar('-')">-</button>
+            <button class="keypad-btn special delete" onclick="backspace()">⌫</button>
+        `;
+        
+        // 네 번째 줄: 기능 버튼들 (이미지 기반) - 4개
+        layout += `
+            <!-- 하단 기능 버튼들 -->
+            <button class="keypad-btn special bottom-btn symbol-switch" onclick="toggleSymbol()">123</button>
+            <button class="keypad-btn special bottom-btn lang-switch" onclick="switchKeypadMode()">🌐</button>
+            <button class="keypad-btn special bottom-btn space-btn" onclick="inputChar(' ')">스페이스</button>
+            <button class="keypad-btn special bottom-btn confirm-btn" onclick="confirmInput()">확인</button>
+        `;
+        
+        container.innerHTML = layout;
+        
+        console.log(`한글 키패드 렌더링 완료 - Shift: ${keypadState.isShift ? 'ON' : 'OFF'}`);
+    }
+    
+    // 영어 레이아웃 렌더링 (이미지 기반 QWERTY + 4줄 구조)
+    function renderEnglishLayout(container) {
+        const letters = keypadState.isShift ? QWERTY_LAYOUT.shift : QWERTY_LAYOUT.normal;
+        
+        let layout = `
+            <!-- 첫 번째 줄: QWERTY 첫 행 - 10개 -->
+        `;
+        
+        // QWERTY 첫 번째 행 (q w e r t y u i o p) - 10개
+        letters[0].forEach(char => {
+            const isUpper = keypadState.isShift && char === char.toUpperCase();
+            const className = `keypad-btn english ${isUpper ? 'uppercase' : ''}`;
+            layout += `<button class="${className}" onclick="inputChar('${char}')">${char}</button>`;
+        });
+        
+        // QWERTY 두 번째 행 (a s d f g h j k l) - 9개
+        letters[1].forEach(char => {
+            const isUpper = keypadState.isShift && char === char.toUpperCase();
+            const className = `keypad-btn english ${isUpper ? 'uppercase' : ''}`;
+            layout += `<button class="${className}" onclick="inputChar('${char}')">${char}</button>`;
+        });
+        
+        // 세 번째 줄: Shift + z x c v b n m + 백스페이스 - 10개
+        const shiftBtnClass = keypadState.isShift ? 'shift active' : 'shift';
+        layout += `<button class="keypad-btn special ${shiftBtnClass}" onclick="toggleShift()">⇧</button>`;
+        
+        letters[2].forEach(char => {
+            const isUpper = keypadState.isShift && char === char.toUpperCase();
+            const className = `keypad-btn english ${isUpper ? 'uppercase' : ''}`;
+            layout += `<button class="${className}" onclick="inputChar('${char}')">${char}</button>`;
+        });
+        
+        layout += `<button class="keypad-btn special delete" onclick="backspace()">⌫</button>`;
+        
+        // 네 번째 줄: 기능 버튼들 (이미지 기반) - 4개
+        layout += `
+            <!-- 하단 기능 버튼들 -->
+            <button class="keypad-btn special bottom-btn symbol-switch" onclick="toggleSymbol()">123</button>
+            <button class="keypad-btn special bottom-btn lang-switch" onclick="switchKeypadMode()">🌐</button>
+            <button class="keypad-btn special bottom-btn space-btn" onclick="inputChar(' ')">space</button>
+            <button class="keypad-btn special bottom-btn confirm-btn" onclick="confirmInput()">return</button>
+        `;
+        
+        container.innerHTML = layout;
+        
+        console.log(`영어 키패드 렌더링 완료 - Shift: ${keypadState.isShift ? 'ON' : 'OFF'}`);
+    }
+    
+    // 특수문자 레이아웃 렌더링 (이미지 기반 4줄 구조)
+    function renderSymbolLayout(container) {
+        let layout = `
+            <!-- 첫 번째 줄: 숫자 1-0 -->
+            <button class="keypad-btn number" onclick="inputChar('1')">1</button>
+            <button class="keypad-btn number" onclick="inputChar('2')">2</button>
+            <button class="keypad-btn number" onclick="inputChar('3')">3</button>
+            <button class="keypad-btn number" onclick="inputChar('4')">4</button>
+            <button class="keypad-btn number" onclick="inputChar('5')">5</button>
+            <button class="keypad-btn number" onclick="inputChar('6')">6</button>
+            <button class="keypad-btn number" onclick="inputChar('7')">7</button>
+            <button class="keypad-btn number" onclick="inputChar('8')">8</button>
+            <button class="keypad-btn number" onclick="inputChar('9')">9</button>
+            <button class="keypad-btn number" onclick="inputChar('0')">0</button>
+            
+            <!-- 두 번째 줄: 기본 특수문자 - 10개 -->
+            <button class="keypad-btn special" onclick="inputChar('-')">-</button>
+            <button class="keypad-btn special" onclick="inputChar('/')">/</button>
+            <button class="keypad-btn special" onclick="inputChar(':')">:</button>
+            <button class="keypad-btn special" onclick="inputChar(';')">;</button>
+            <button class="keypad-btn special" onclick="inputChar('(')">(</button>
+            <button class="keypad-btn special" onclick="inputChar(')')">)</button>
+            <button class="keypad-btn special" onclick="inputChar('₩')">₩</button>
+            <button class="keypad-btn special" onclick="inputChar('&')">&</button>
+            <button class="keypad-btn special" onclick="inputChar('@')">@</button>
+            <button class="keypad-btn special" onclick="inputChar('&quot;')">"</button>
+            
+            <!-- 세 번째 줄: 복합 특수문자 + 추가 기호 + 백스페이스 - 10개 -->
+            <button class="keypad-btn special compound" onclick="insertCompoundSymbol()" title="# + =">#+= </button>
+            <button class="keypad-btn special" onclick="inputChar('.')">.</button>
+            <button class="keypad-btn special" onclick="inputChar(',')">,</button>
+            <button class="keypad-btn special" onclick="inputChar('?')">?</button>
+            <button class="keypad-btn special" onclick="inputChar('!')">!</button>
+            <button class="keypad-btn special" onclick="inputChar('\\'')'">'</button>
+            <button class="keypad-btn special" onclick="inputChar('#')">#</button>
+            <button class="keypad-btn special" onclick="inputChar('+')" >+</button>
+            <button class="keypad-btn special" onclick="inputChar('=')">=</button>
+            <button class="keypad-btn special delete" onclick="backspace()">⌫</button>
+            
+            <!-- 네 번째 줄: 기능 버튼들 (이미지 기반) - 4개 -->
+            <button class="keypad-btn special bottom-btn symbol-switch" onclick="toggleSymbol()">ABC</button>
+            <button class="keypad-btn special bottom-btn lang-switch" onclick="switchKeypadMode()">🌐</button>
+            <button class="keypad-btn special bottom-btn space-btn" onclick="inputChar(' ')">space</button>
+            <button class="keypad-btn special bottom-btn confirm-btn" onclick="confirmInput()">return</button>
+        `;
+        
+        container.innerHTML = layout;
+        
+        console.log('특수문자 키패드 렌더링 완료');
+    }
+    
+    // 토글 버튼 스타일 업데이트 (새로운 4줄 레이아웃)
+    function updateToggleButtonStyles() {
+        setTimeout(() => {
+            const shiftBtn = document.querySelector('.keypad-btn.shift');
+            const langSwitchBtn = document.querySelector('.keypad-btn.lang-switch');
+            const symbolSwitchBtn = document.querySelector('.keypad-btn.symbol-switch');
+            const keypadTitle = document.querySelector('.keypad-title');
+            
+            // 기본 상태로 리셋
+            [shiftBtn, langSwitchBtn, symbolSwitchBtn].forEach(btn => {
+                if (btn) {
+                    btn.classList.remove('active');
+                    btn.style.backgroundColor = '';
+                    btn.style.borderColor = '';
+                }
+            });
+            
+            // 키패드 제목 업데이트
+            if (keypadTitle) {
+                if (keypadState.isKorean) {
+                    const shiftText = keypadState.isShift ? ' (쌍자음/복합모음)' : ' - 터치하여 입력하세요';
+                    keypadTitle.textContent = `한글 키패드${shiftText}`;
+                } else if (keypadState.isSymbol) {
+                    keypadTitle.textContent = '특수문자 키패드 - 숫자 및 기호';
+                } else {
+                    keypadTitle.textContent = `영어 키패드 ${keypadState.isShift ? '(대문자)' : '(소문자)'}`;
+                }
+            }
+            
+            // Shift 버튼 활성 상태 표시
+            if (keypadState.isShift && shiftBtn) {
+                shiftBtn.classList.add('active');
+                shiftBtn.style.backgroundColor = 'rgba(33, 150, 243, 0.4)';
+                shiftBtn.style.borderColor = '#2196F3';
+                shiftBtn.style.color = '#2196F3';
+            }
+            
+            // 한/영 전환 버튼 업데이트 (🌐)
+            if (langSwitchBtn) {
+                if (!keypadState.isKorean) {
+                    langSwitchBtn.classList.add('active');
+                    langSwitchBtn.style.backgroundColor = 'rgba(33, 150, 243, 0.4)';
+                    langSwitchBtn.style.borderColor = '#2196F3';
+                }
+            }
+            
+            // 123/ABC 버튼 활성 상태 표시
+            if (keypadState.isSymbol && symbolSwitchBtn) {
+                symbolSwitchBtn.classList.add('active');
+                symbolSwitchBtn.style.backgroundColor = 'rgba(156, 39, 176, 0.4)';
+                symbolSwitchBtn.style.borderColor = '#9C27B0';
+            }
+        }, 10);
+    }
+    
+    // 복합 모음 분해 맵 (백스페이스용)
+    const COMPLEX_VOWEL_DECOMPOSE = {
+        'ㅘ': 'ㅗ', 'ㅙ': 'ㅗ', 'ㅚ': 'ㅗ',
+        'ㅝ': 'ㅜ', 'ㅞ': 'ㅜ', 'ㅟ': 'ㅜ',
+        'ㅢ': 'ㅡ',
+        'ㅒ': 'ㅑ', 'ㅖ': 'ㅕ'  // 추가된 복합모음 분해
+    };
+
+    // 한글 백스페이스 처리
+    function processHangulBackspace(currentText) {
+        if (currentText.length === 0) {
+            return '';
+        }
+        
+        const lastChar = currentText[currentText.length - 1];
+        const beforeText = currentText.slice(0, -1);
+        
+        // 마지막 문자가 완성된 한글인 경우
+        if (isCompleteHangul(lastChar)) {
+            const decomposed = decomposeHangul(lastChar);
+            
+            if (decomposed.jong) {
+                // 종성이 있으면 종성만 제거
+                const composed = composeHangul(decomposed.cho, decomposed.jung, '');
+                return beforeText + composed;
+            } else {
+                // 복합 모음인지 확인
+                const baseVowel = COMPLEX_VOWEL_DECOMPOSE[decomposed.jung];
+                if (baseVowel) {
+                    // 복합 모음을 기본 모음으로 분해
+                    const composed = composeHangul(decomposed.cho, baseVowel, '');
+                    return beforeText + composed;
+                } else {
+                    // 기본 모음이면 중성 제거하고 초성만 남김
+                    return beforeText + decomposed.cho;
+                }
+            }
+        }
+        
+        // 마지막 문자가 복합 모음인 경우
+        if (isVowel(lastChar)) {
+            const baseVowel = COMPLEX_VOWEL_DECOMPOSE[lastChar];
+            if (baseVowel) {
+                return beforeText + baseVowel;
+            }
+        }
+        
+        // 한글이 아니거나 조합되지 않은 문자는 그냥 제거
+        return beforeText;
+    }
+
+    // 백스페이스
+    window.backspace = function() {
+        const input = document.getElementById('keypad-input');
+        if (input) {
+            const currentValue = input.value || '';
+            const newValue = processHangulBackspace(currentValue);
+            
+            // 안전한 값 설정
+            if (input.updateValueSafely) {
+                input.updateValueSafely(newValue);
+            } else {
+                input.value = newValue;
+                input.dataset.currentValue = newValue;
+            }
+            input.setAttribute('value', newValue);
+            console.log(`Backspace, Current value: "${input.value}"`);
+        }
+    };
+    
+    // 입력 초기화
+    window.clearInput = function() {
+        const input = document.getElementById('keypad-input');
+        if (input) {
+            // 안전한 값 설정
+            if (input.updateValueSafely) {
+                input.updateValueSafely('');
+            } else {
+                input.value = '';
+                input.dataset.currentValue = '';
+            }
+            input.setAttribute('value', '');
+            console.log('Input cleared');
+        }
+    };
+    
+    // 입력 확인 (서버 저장 포함)
+    window.confirmInput = async function() {
+        const input = document.getElementById('keypad-input');
+        const name = input.value.trim();
+        
+        console.log(`확인 버튼 클릭 - 입력값: "${name}"`);
+        
+        if (!name) {
+            // 입력 필드 강조 (빨간색)
+            input.style.borderColor = '#f44336';
+            input.style.boxShadow = '0 0 8px rgba(244, 67, 54, 0.3)';
+            setTimeout(() => {
+                input.style.borderColor = '';
+                input.style.boxShadow = '';
+            }, 1500);
+            
+            alert('매크로 이름을 입력해주세요.');
+            input.focus();
+            return;
+        }
+        
+        // 로딩 상태 표시
+        input.style.borderColor = '#2196F3';
+        input.style.boxShadow = '0 0 8px rgba(33, 150, 243, 0.3)';
+        input.placeholder = '저장 중...';
+        input.disabled = true;
+        
+        try {
+            // 매크로 이름 업데이트
+            const macro = macros[selectedMacro - 1];
+            if (macro) {
+                macro.name = name;
+            } else {
+                // 빈 슬롯인 경우 매크로 데이터 생성
+                macros[selectedMacro - 1] = {
+                    id: selectedMacro,
+                    name: name,
+                    settings: {}
+                };
+            }
+            
+            // 서버에 즉시 저장
+            const response = await fetch(`/api/macros/${selectedMacro}`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    name: name,
+                    settings: macros[selectedMacro - 1].settings || {}
+                })
+            });
+            
+            const result = await response.json();
+            
+            if (result.success) {
+                // 성공 피드백 (초록색)
+                input.style.borderColor = '#4CAF50';
+                input.style.boxShadow = '0 0 8px rgba(76, 175, 80, 0.3)';
+                input.placeholder = '저장 완료!';
+                
+                // UI 업데이트
+                const selectedCard = document.getElementById(`macro-${selectedMacro}`);
+                const titleElement = selectedCard.querySelector('.macro-title');
+                titleElement.textContent = name;
+                
+                // 빈 슬롯이었다면 일반 카드로 변경
+                if (isNewMacro) {
+                    selectedCard.classList.remove('empty-slot');
+                    const iconElement = selectedCard.querySelector('.macro-icon');
+                    iconElement.classList.remove('empty');
+                    iconElement.textContent = '';
+                }
+                
+                console.log(`✅ 매크로 "${name}" 저장 완료!`);
+                
+                // 성공 메시지 표시 (선택사항)
+                showSuccessMessage(`매크로 "${name}"이(가) 저장되었습니다.`);
+                
+            } else {
+                throw new Error(result.message || '저장 실패');
+            }
+            
+        } catch (error) {
+            console.error('매크로 저장 실패:', error);
+            
+            // 실패 피드백 (빨간색)
+            input.style.borderColor = '#f44336';
+            input.style.boxShadow = '0 0 8px rgba(244, 67, 54, 0.3)';
+            input.placeholder = '저장 실패';
+            
+            alert('저장 중 오류가 발생했습니다: ' + error.message);
+            
+            // 원래 상태로 복구
+            setTimeout(() => {
+                input.disabled = false;
+                input.placeholder = '여기에 매크로 이름이 표시됩니다';
+                input.style.borderColor = '';
+                input.style.boxShadow = '';
+                input.focus();
+            }, 2000);
+            return;
+        }
+        
+        // 성공 후 키패드 닫기
+        setTimeout(() => {
+            closeKeypad();
+            input.disabled = false;
+            input.placeholder = '여기에 매크로 이름이 표시됩니다';
+        }, 800);
+    };
+    
+    // 성공 메시지 표시 함수 (개선된 버전)
+    function showSuccessMessage(message) {
+        const messageDiv = document.createElement('div');
+        messageDiv.style.cssText = `
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(76, 175, 80, 0.96);
+            color: white;
+            padding: 25px 35px;
+            border-radius: 15px;
+            font-family: 'Pretendard', sans-serif;
+            font-size: 16px;
+            font-weight: 500;
+            z-index: 10000;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+            border: 2px solid rgba(255,255,255,0.2);
+            max-width: 400px;
+            text-align: center;
+            white-space: pre-line;
+            line-height: 1.5;
+            animation: successPopup 3s ease-in-out;
+        `;
+        
+        // 메시지 파싱 및 스타일링
+        const lines = message.split('\n');
+        let formattedHTML = '';
+        
+        lines.forEach((line, index) => {
+            if (index === 0) {
+                // 첫 번째 줄은 제목으로 처리
+                formattedHTML += `<div style="font-size: 18px; font-weight: bold; margin-bottom: 15px; color: #fff;">${line}</div>`;
+            } else if (line.trim().startsWith('-')) {
+                // 리스트 항목
+                formattedHTML += `<div style="text-align: left; margin: 5px 0; padding-left: 10px;">${line}</div>`;
+            } else if (line.trim()) {
+                // 일반 텍스트
+                formattedHTML += `<div style="margin: 8px 0;">${line}</div>`;
+            } else {
+                // 빈 줄
+                formattedHTML += '<div style="height: 10px;"></div>';
+            }
+        });
+        
+        messageDiv.innerHTML = formattedHTML;
+        
+        // CSS 애니메이션 추가
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes successPopup {
+                0% { opacity: 0; transform: translate(-50%, -50%) scale(0.7) rotate(-5deg); }
+                15% { opacity: 1; transform: translate(-50%, -50%) scale(1.05) rotate(2deg); }
+                25% { opacity: 1; transform: translate(-50%, -50%) scale(0.98) rotate(0deg); }
+                85% { opacity: 1; transform: translate(-50%, -50%) scale(1) rotate(0deg); }
+                100% { opacity: 0; transform: translate(-50%, -50%) scale(0.8) rotate(0deg); }
+            }
+        `;
+        document.head.appendChild(style);
+        document.body.appendChild(messageDiv);
+        
+        // 3초 후 제거
+        setTimeout(() => {
+            if (messageDiv.parentNode) {
+                messageDiv.parentNode.removeChild(messageDiv);
+            }
+            if (style.parentNode) {
+                style.parentNode.removeChild(style);
+            }
+        }, 3000);
+    }
+    
+    // 저장 기능 (매크로 이름 + 현재 개별제어 설정값)
+    window.saveMacro = async function() {
+        if (!selectedMacro) {
+            alert('매크로를 선택해주세요.');
+            return;
+        }
+        
+        const macro = macros[selectedMacro - 1];
+        if (!macro || !macro.name) {
+            alert('매크로 이름을 먼저 설정해주세요.');
+            return;
+        }
+        
+        // 저장 버튼 상태 변경
+        const saveBtn = document.getElementById('save-btn');
+        const originalText = saveBtn.textContent;
+        saveBtn.disabled = true;
+        saveBtn.textContent = '저장 중...';
+        saveBtn.style.opacity = '0.6';
+        
+        try {
+            console.log('🔄 현재 조명 설정값 가져오는 중...');
+            
+            // 1. 현재 조명/그룹 설정값 가져오기
+            const settingsResponse = await fetch('/api/current-settings');
+            const settingsResult = await settingsResponse.json();
+            
+            if (!settingsResult.success) {
+                throw new Error('현재 설정값을 가져올 수 없습니다: ' + settingsResult.message);
+            }
+            
+            console.log('✅ 현재 설정값 가져오기 완료:', settingsResult.settings);
+            
+            // 2. 매크로 데이터 구성 (이름 + 현재 설정값)
+            const macroData = {
+                name: macro.name,
+                settings: {
+                    ...settingsResult.settings,
+                    saved_timestamp: new Date().toISOString(),
+                    description: `${macro.name} - ${new Date().toLocaleString('ko-KR')}에 저장`
+                }
+            };
+            
+            console.log('📝 저장할 매크로 데이터:', macroData);
+            
+            // 3. 서버에 매크로 저장
+            const response = await fetch(`/api/macros/${selectedMacro}`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(macroData)
+            });
+            
+            const result = await response.json();
+            
+            if (result.success) {
+                // 로컬 상태 업데이트
+                macros[selectedMacro - 1].settings = macroData.settings;
+                
+                console.log(`✅ 매크로 "${macro.name}" 저장 완료!`);
+                
+                // 성공 피드백
+                saveBtn.style.backgroundColor = 'rgba(76, 175, 80, 0.3)';
+                saveBtn.style.borderColor = '#4CAF50';
+                saveBtn.style.color = '#4CAF50';
+                saveBtn.textContent = '저장완료!';
+                
+                // 상세 성공 메시지
+                const groupCount = settingsResult.settings.groups?.length || 0;
+                const lightCount = settingsResult.settings.lights?.length || 0;
+                const successMsg = `매크로 "${macro.name}"이(가) 저장되었습니다!\n\n포함된 설정:\n- 그룹: ${groupCount}개\n- 개별 조명: ${lightCount}개\n- 저장 시간: ${new Date().toLocaleString('ko-KR')}`;
+                
+                showSuccessMessage(successMsg);
+                
+                // 2초 후 원래 상태로 복원
+                setTimeout(() => {
+                    saveBtn.style.backgroundColor = '';
+                    saveBtn.style.borderColor = '';
+                    saveBtn.style.color = '';
+                    saveBtn.textContent = originalText;
+                    saveBtn.style.opacity = '1';
+                    saveBtn.disabled = false;
+                }, 2000);
+                
+            } else {
+                throw new Error(result.message || '저장 실패');
+            }
+            
+        } catch (error) {
+            console.error('❌ 매크로 저장 실패:', error);
+            
+            // 실패 피드백
+            saveBtn.style.backgroundColor = 'rgba(244, 67, 54, 0.3)';
+            saveBtn.style.borderColor = '#f44336';
+            saveBtn.style.color = '#f44336';
+            saveBtn.textContent = '저장실패';
+            
+            alert('저장 중 오류가 발생했습니다:\n' + error.message);
+            
+            // 2초 후 원래 상태로 복원
+            setTimeout(() => {
+                saveBtn.style.backgroundColor = '';
+                saveBtn.style.borderColor = '';
+                saveBtn.style.color = '';
+                saveBtn.textContent = originalText;
+                saveBtn.style.opacity = '1';
+                saveBtn.disabled = false;
+            }, 2000);
+        }
+    };
+
+    // 키보드 입력 방지 설정 (부드럽게 개선)
+    function setupInputBlocking() {
+        const keypadInput = document.getElementById('keypad-input');
+        if (keypadInput) {
+            let isUpdatingValue = false;
+            
+            // 물리 키보드 입력만 차단 (터치 입력은 허용)
+            keypadInput.addEventListener('keydown', function(e) {
+                if (!isUpdatingValue) {
+                    e.preventDefault();
+                    return false;
+                }
+            });
+            
+            keypadInput.addEventListener('keypress', function(e) {
+                if (!isUpdatingValue) {
+                    e.preventDefault();
+                    return false;
+                }
+            });
+            
+            // 붙여넣기 차단
+            keypadInput.addEventListener('paste', function(e) {
+                e.preventDefault();
+                return false;
+            });
+            
+            // 더 이상 updateValueSafely 함수 사용하지 않음
+            // 직접적인 값 설정만 사용
+            
+            console.log('Input blocking setup complete');
+        }
+    }
+    
+    // 초기 설정
+    setupInputBlocking();
+
+    // 페이지 초기화
+    loadMacros();
+    console.log('Macro setting page initialized');
+})();
+</script>
+{% endblock %} 

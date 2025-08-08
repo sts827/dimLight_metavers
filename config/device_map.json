@@ -1,0 +1,118 @@
+{
+  "version": "1.0",
+  "description": "DALI 조명 장치 매핑 설정",
+  "last_updated": "2025-01-08",
+  "groups": {
+    "G1": {
+      "name": "1그룹 조명",
+      "description": "현재 사용 가능한 3개 장치",
+      "devices": ["DALLA1", "DALLA2", "DALLA3"]
+    },
+    "G2": {
+      "name": "2그룹 조명", 
+      "description": "향후 추가 예정",
+      "devices": ["DALLB1", "DALLB2", "DALLB3"]
+    },
+    "G3": {
+      "name": "3그룹 조명",
+      "description": "향후 추가 예정", 
+      "devices": ["DALLC1", "DALLC2", "DALLC3"]
+    }
+  },
+  "devices": {
+    "DALLA1": {
+      "mac": "E4:B3:23:A2:F6:F2",
+      "driver_id": 1,
+      "name": "A1 조명",
+      "group": "G1",
+      "status": "active",
+      "location": "메인 영역",
+      "notes": "실제 장치 - 테스트 완료"
+    },
+    "DALLA2": {
+      "mac": "E4:B3:23:A2:D1:EE", 
+      "driver_id": 2,
+      "name": "A2 조명",
+      "group": "G1",
+      "status": "active",
+      "location": "메인 영역",
+      "notes": "실제 장치 - 테스트 완료"
+    },
+    "DALLA3": {
+      "mac": "E4:B3:23:A2:D1:CE",
+      "driver_id": 3,
+      "name": "A3 조명", 
+      "group": "G1",
+      "status": "active",
+      "location": "메인 영역",
+      "notes": "실제 장치 - 테스트 완료"
+    },
+    "DALLB1": {
+      "mac": "AA:BB:CC:DD:EE:04",
+      "driver_id": 4,
+      "name": "B1 조명",
+      "group": "G2", 
+      "status": "inactive",
+      "location": "서브 영역",
+      "notes": "임시 MAC - 실제 장치 준비 중"
+    },
+    "DALLB2": {
+      "mac": "AA:BB:CC:DD:EE:05",
+      "driver_id": 5,
+      "name": "B2 조명",
+      "group": "G2",
+      "status": "inactive", 
+      "location": "서브 영역",
+      "notes": "임시 MAC - 실제 장치 준비 중"
+    },
+    "DALLB3": {
+      "mac": "AA:BB:CC:DD:EE:06",
+      "driver_id": 6,
+      "name": "B3 조명",
+      "group": "G2",
+      "status": "inactive",
+      "location": "서브 영역", 
+      "notes": "임시 MAC - 실제 장치 준비 중"
+    },
+    "DALLC1": {
+      "mac": "AA:BB:CC:DD:EE:07",
+      "driver_id": 7,
+      "name": "C1 조명",
+      "group": "G3",
+      "status": "inactive",
+      "location": "확장 영역",
+      "notes": "임시 MAC - 향후 추가 예정"
+    },
+    "DALLC2": {
+      "mac": "AA:BB:CC:DD:EE:08", 
+      "driver_id": 8,
+      "name": "C2 조명",
+      "group": "G3",
+      "status": "inactive",
+      "location": "확장 영역",
+      "notes": "임시 MAC - 향후 추가 예정"
+    },
+    "DALLC3": {
+      "mac": "AA:BB:CC:DD:EE:09",
+      "driver_id": 9,
+      "name": "C3 조명",
+      "group": "G3", 
+      "status": "inactive",
+      "location": "확장 영역",
+      "notes": "임시 MAC - 향후 추가 예정"
+    }
+  },
+  "settings": {
+    "max_devices_per_group": 3,
+    "supported_groups": ["G1", "G2", "G3"],
+    "active_groups": ["G1"],
+    "simulation_mac_prefix": "AA:BB:CC:DD:EE",
+    "connection_timeout_ms": 5000,
+    "command_timeout_ms": 2000,
+    "zero2w_optimizations": {
+      "enabled": true,
+      "command_interval_ms": 200,
+      "max_concurrent_connections": 3
+    }
+  }
+}

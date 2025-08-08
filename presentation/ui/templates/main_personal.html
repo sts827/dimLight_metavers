@@ -1,0 +1,604 @@
+{% extends "base.html" %}
+
+{% block title %}개별 제어{% endblock %}
+
+{% block body_class %}main-container{% endblock %}
+
+{% block content %}
+<div class="control-content">
+    <!-- 개별 조명 그리드 -->
+    <div class="individual-container" id="individual-container">
+        <!-- 로딩 상태 -->
+        <div class="loading-state" id="loading-lights">
+            <div class="loading-spinner"></div>
+            <div class="loading-text">개별 조명 정보를 불러오는 중...</div>
+        </div>
+        
+        <!-- 초기 개별 조명 데이터 (JavaScript 로드 전 표시용) -->
+        {% if state and state.lights %}
+            <!-- G1 그룹 -->
+            {% set g1_lights = state.lights | selectattr('group_id', 'equalto', 'G1') | list %}
+            {% if g1_lights %}
+                {% set g1_group = state.groups | selectattr('id', 'equalto', 'G1') | first %}
+                {% set g1_disabled = not (g1_group and g1_group.is_on) %}
+                <div class="individual-group" data-group="G1">
+                    {% for light in g1_lights %}
+                        <div class="individual-item {{ 'disabled' if g1_disabled else '' }} initial-light" data-light="{{ light.id }}" data-group="{{ light.group_id }}">
+                            <div class="individual-label">{{ light.name }}</div>
+                            <div class="individual-slider {{ 'disabled' if g1_disabled else '' }}" data-light="{{ light.id }}">
+                                {% set brightness = light.brightness or 0 %}
+                                <div class="individual-step {{ 'active' if brightness > 0 and brightness <= 10 else '' }}" data-step="1">1</div>
+                                <div class="individual-step {{ 'active' if brightness > 10 and brightness <= 35 else '' }}" data-step="2">2</div>
+                                <div class="individual-step {{ 'active' if brightness > 35 and brightness <= 75 else '' }}" data-step="3">3</div>
+                                <div class="individual-step {{ 'active' if brightness > 75 else '' }}" data-step="4">4</div>
+                                {% if g1_disabled %}
+                                    <div class="disabled-overlay">그룹이 꺼져 있습니다</div>
+                                {% endif %}
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+            
+            <!-- G2 그룹 -->
+            {% set g2_lights = state.lights | selectattr('group_id', 'equalto', 'G2') | list %}
+            {% if g2_lights %}
+                {% set g2_group = state.groups | selectattr('id', 'equalto', 'G2') | first %}
+                {% set g2_disabled = not (g2_group and g2_group.is_on) %}
+                <div class="individual-group" data-group="G2">
+                    {% for light in g2_lights %}
+                        <div class="individual-item {{ 'disabled' if g2_disabled else '' }} initial-light" data-light="{{ light.id }}" data-group="{{ light.group_id }}">
+                            <div class="individual-label">{{ light.name }}</div>
+                            <div class="individual-slider {{ 'disabled' if g2_disabled else '' }}" data-light="{{ light.id }}">
+                                {% set brightness = light.brightness or 0 %}
+                                <div class="individual-step {{ 'active' if brightness > 0 and brightness <= 10 else '' }}" data-step="1">1</div>
+                                <div class="individual-step {{ 'active' if brightness > 10 and brightness <= 35 else '' }}" data-step="2">2</div>
+                                <div class="individual-step {{ 'active' if brightness > 35 and brightness <= 75 else '' }}" data-step="3">3</div>
+                                <div class="individual-step {{ 'active' if brightness > 75 else '' }}" data-step="4">4</div>
+                                {% if g2_disabled %}
+                                    <div class="disabled-overlay">그룹이 꺼져 있습니다</div>
+                                {% endif %}
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+            
+            <!-- G3 그룹 -->
+            {% set g3_lights = state.lights | selectattr('group_id', 'equalto', 'G3') | list %}
+            {% if g3_lights %}
+                {% set g3_group = state.groups | selectattr('id', 'equalto', 'G3') | first %}
+                {% set g3_disabled = not (g3_group and g3_group.is_on) %}
+                <div class="individual-group" data-group="G3">
+                    {% for light in g3_lights %}
+                        <div class="individual-item {{ 'disabled' if g3_disabled else '' }} initial-light" data-light="{{ light.id }}" data-group="{{ light.group_id }}">
+                            <div class="individual-label">{{ light.name }}</div>
+                            <div class="individual-slider {{ 'disabled' if g3_disabled else '' }}" data-light="{{ light.id }}">
+                                {% set brightness = light.brightness or 0 %}
+                                <div class="individual-step {{ 'active' if brightness > 0 and brightness <= 10 else '' }}" data-step="1">1</div>
+                                <div class="individual-step {{ 'active' if brightness > 10 and brightness <= 35 else '' }}" data-step="2">2</div>
+                                <div class="individual-step {{ 'active' if brightness > 35 and brightness <= 75 else '' }}" data-step="3">3</div>
+                                <div class="individual-step {{ 'active' if brightness > 75 else '' }}" data-step="4">4</div>
+                                {% if g3_disabled %}
+                                    <div class="disabled-overlay">그룹이 꺼져 있습니다</div>
+                                {% endif %}
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+            
+            <!-- G4 그룹 -->
+            {% set g4_lights = state.lights | selectattr('group_id', 'equalto', 'G4') | list %}
+            {% if g4_lights %}
+                {% set g4_group = state.groups | selectattr('id', 'equalto', 'G4') | first %}
+                {% set g4_disabled = not (g4_group and g4_group.is_on) %}
+                <div class="individual-group" data-group="G4">
+                    {% for light in g4_lights %}
+                        <div class="individual-item {{ 'disabled' if g4_disabled else '' }} initial-light" data-light="{{ light.id }}" data-group="{{ light.group_id }}">
+                            <div class="individual-label">{{ light.name }}</div>
+                            <div class="individual-slider {{ 'disabled' if g4_disabled else '' }}" data-light="{{ light.id }}">
+                                {% set brightness = light.brightness or 0 %}
+                                <div class="individual-step {{ 'active' if brightness > 0 and brightness <= 10 else '' }}" data-step="1">1</div>
+                                <div class="individual-step {{ 'active' if brightness > 10 and brightness <= 35 else '' }}" data-step="2">2</div>
+                                <div class="individual-step {{ 'active' if brightness > 35 and brightness <= 75 else '' }}" data-step="3</div>
+                                <div class="individual-step {{ 'active' if brightness > 75 else '' }}" data-step="4">4</div>
+                                {% if g4_disabled %}
+                                    <div class="disabled-overlay">그룹이 꺼져 있습니다</div>
+                                {% endif %}
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        {% else %}
+            <!-- 데이터가 없을 때 -->
+            <div class="no-data-message">
+                <div class="no-data-icon">💡</div>
+                <div class="no-data-text">개별 조명 정보를 불러오고 있습니다...</div>
+            </div>
+        {% endif %}
+    </div>
+</div>
+
+{% endblock %}
+
+{% include 'bottom_nav.html' %}
+
+{% block extra_js %}
+<script data-page-script>
+(function() {
+    'use strict';
+    
+    let groups = [];
+    let lights = [];
+    let isDragging = false;
+    let currentSlider = null;
+    let currentStep = null;
+    
+    // 페이지 로드 시 데이터 가져오기
+    async function loadData() {
+        try {
+            console.log(' 개별제어 데이터 로드 중...');
+            
+            const response = await fetch('/api/current-settings');
+            if (!response.ok) {
+                throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+            }
+            
+            const data = await response.json();
+            console.log('📥 개별제어 API 응답:', data);
+            
+            if (data.success && data.settings) {
+                groups = data.settings.groups || [];
+                lights = data.settings.lights || [];
+                
+                console.log(`그룹 ${groups.length}개, 개별 조명 ${lights.length}개 로드 완료`);
+                
+                renderIndividualControls();
+            } else {
+                throw new Error('개별제어 데이터를 불러올 수 없습니다.');
+            }
+            
+        } catch (error) {
+            console.error(' 개별제어 데이터 로드 실패:', error);
+            
+            // 로딩 상태 표시
+            const loadingState = document.getElementById('loading-lights');
+            if (loadingState) {
+                loadingState.classList.add('show');
+                loadingState.querySelector('.loading-text').textContent = '개별제어 데이터 로드 실패. 새로고침해주세요.';
+            }
+            
+            // 초기 데이터가 없으면 에러 메시지 표시
+            const initialLights = document.querySelectorAll('.initial-light');
+            if (initialLights.length === 0) {
+                alert('개별제어 데이터를 불러오는 중 오류가 발생했습니다.');
+            }
+        }
+    }
+    
+    // 개별 조명 제어 UI 렌더링
+    function renderIndividualControls() {
+        const container = document.getElementById('individual-container');
+        if (!container) {
+            console.error('개별제어 컨테이너를 찾을 수 없습니다.');
+            return;
+        }
+        
+        // 로딩 상태 숨기기
+        const loadingState = document.getElementById('loading-lights');
+        if (loadingState) {
+            loadingState.style.display = 'none';
+        }
+        
+        // 기존 초기 데이터 제거 (initial-light 클래스)
+        const initialLights = container.querySelectorAll('.initial-light');
+        initialLights.forEach(element => element.remove());
+        
+        // 기존 동적 생성된 그룹들 모두 제거 (initial-light가 없는 것들)
+        const dynamicGroups = container.querySelectorAll('.individual-group');
+        dynamicGroups.forEach(element => {
+            // initial-light가 없는 동적 생성된 그룹들만 제거
+            if (element.querySelectorAll('.initial-light').length === 0) {
+                element.remove();
+            }
+        });
+        
+        // 데이터 없음 메시지 제거
+        const noDataMessage = container.querySelector('.no-data-message');
+        if (noDataMessage) {
+            noDataMessage.remove();
+        }
+        
+        // G0-A는 제외하고 G1-A,G1-B,G1-C, G2-A,G2-B,G2-C... 순서로 정렬
+        const sortedLights = [...lights]
+            .filter(light => light.id !== 'G0-A') // G0-A 제외
+            .sort((a, b) => {
+                // 그룹별로 정렬 (G1 < G2 < G3 < G4)
+                const aGroup = a.group_id;
+                const bGroup = b.group_id;
+                if (aGroup !== bGroup) {
+                    return aGroup.localeCompare(bGroup);
+                }
+                // 같은 그룹 내에서는 A < B < C 순
+                return a.id.localeCompare(b.id);
+            });
+        
+        // 그룹별로 묶어서 처리
+        const groupedLights = {};
+        sortedLights.forEach(light => {
+            if (!groupedLights[light.group_id]) {
+                groupedLights[light.group_id] = [];
+            }
+            groupedLights[light.group_id].push(light);
+        });
+        
+        // 각 그룹별로 UI 생성
+        Object.keys(groupedLights).sort().forEach(groupId => {
+            const groupLights = groupedLights[groupId];
+            const groupElement = createGroupSection(groupId, groupLights);
+            container.appendChild(groupElement);
+        });
+        
+        // 터치 슬라이더 초기화
+        initTouchSliders();
+        
+        console.log(`✅ ${sortedLights.length}개 개별 조명 렌더링 완료`);
+    }
+    
+    // 그룹 섹션 생성
+    function createGroupSection(groupId, groupLights) {
+        const group = groups.find(g => g.id === groupId);
+        const isGroupOn = group ? group.is_on : false;
+        
+        const groupDiv = document.createElement('div');
+        groupDiv.className = 'individual-group';
+        groupDiv.setAttribute('data-group', groupId);
+        
+        groupLights.forEach(light => {
+            const lightElement = createLightElement(light, isGroupOn);
+            groupDiv.appendChild(lightElement);
+        });
+        
+        return groupDiv;
+    }
+    
+    // 개별 조명 요소 생성
+    function createLightElement(light, isGroupOn) {
+        const isLightOn = light.is_on;
+        const brightness = light.brightness || 0;
+        const isDisabled = !isGroupOn; // 그룹이 Off면 비활성화
+        
+        const lightDiv = document.createElement('div');
+        lightDiv.className = `individual-item ${isDisabled ? 'disabled' : ''}`;
+        lightDiv.setAttribute('data-light', light.id);
+        lightDiv.setAttribute('data-group', light.group_id);
+        
+        // 밝기 단계 계산 (커스텀 매핑: 1%=1, 20%=2, 50%=3, 100%=4)
+        const step = (function mapBrightnessToStep(val){
+            if (val <= 10 && val > 0) return 1;      // ~10%를 1단계로 표시
+            if (val <= 35) return 2;                 // 11~35%
+            if (val <= 75) return 3;                 // 36~75%
+            return 4;                                // 76~100%
+        })(brightness || 0);
+        
+        lightDiv.innerHTML = `
+            <div class="individual-label">${light.name}</div>
+            <div class="individual-slider ${isDisabled ? 'disabled' : ''}" data-light="${light.id}">
+                <div class="individual-step ${step === 1 ? 'active' : ''}" data-step="1">1</div>
+                <div class="individual-step ${step === 2 ? 'active' : ''}" data-step="2">2</div>
+                <div class="individual-step ${step === 3 ? 'active' : ''}" data-step="3">3</div>
+                <div class="individual-step ${step === 4 ? 'active' : ''}" data-step="4">4</div>
+                ${isDisabled ? '<div class="disabled-overlay">그룹이 꺼져 있습니다</div>' : ''}
+            </div>
+        `;
+        
+        return lightDiv;
+    }
+    
+    // 개별 조명 밝기 설정
+    window.setIndividualBrightness = async function(lightId, step) {
+        console.log(`🎯 setIndividualBrightness 함수 호출됨 - lightId: ${lightId}, step: ${step}`);
+        
+        // 해당 조명의 그룹이 On 상태인지 확인
+        const light = lights.find(l => l.id === lightId);
+        if (!light) {
+            console.error(` 조명 ${lightId}를 찾을 수 없습니다.`);
+            return;
+        }
+        
+        const group = groups.find(g => g.id === light.group_id);
+        if (!group || !group.is_on) {
+            console.warn(` 그룹 ${light.group_id}이 꺼져 있어 조명을 제어할 수 없습니다.`);
+            alert('해당 그룹이 꺼져 있어 조명을 제어할 수 없습니다.');
+            return;
+        }
+        
+        // 단계를 밝기로 변환 (1=1, 2=20, 3=50, 4=100)
+        const mapStepToBrightness = (s) => ({1:1, 2:20, 3:50, 4:100})[s] || 0;
+        const brightness = mapStepToBrightness(step);
+        
+        try {
+            console.log(` Socket.IO로 개별 조명 ${lightId} 밝기 ${brightness} 설정...`);
+            
+            if (window.socket) {
+                // Socket.IO로 개별 조명 밝기 설정 요청
+                socket.emit('set_brightness', {
+                    light_id: lightId,
+                    brightness: brightness
+                });
+            } else {
+                console.error(' Socket.IO 연결이 없습니다');
+                throw new Error('서버 연결이 없습니다');
+            }
+            
+        } catch (error) {
+            console.error(` 개별 조명 ${lightId} 밝기 설정 실패:`, error);
+            alert('밝기 설정 중 오류가 발생했습니다: ' + error.message);
+        }
+    };
+    
+    // ===== 터치 슬라이더 관련 함수들 =====
+    
+    function startDrag(e, slider) {
+        // 비활성화된 슬라이더는 드래그 불가
+        if (slider.classList.contains('disabled')) {
+            return;
+        }
+        
+        e.preventDefault();
+        e.stopPropagation();
+        
+        isDragging = true;
+        currentSlider = slider;
+        slider.classList.add('dragging');
+        
+        // Zero 2W 최적화: 경량화된 시각적 피드백
+        slider.classList.add('active-touch');
+        
+        // 전역 이벤트 리스너 추가
+        document.addEventListener('mousemove', updateDrag, { passive: false });
+        document.addEventListener('mouseup', endDrag, { passive: false });
+        document.addEventListener('touchmove', updateDrag, { passive: false });
+        document.addEventListener('touchend', endDrag, { passive: false });
+        
+        // 초기 위치 처리
+        updateDrag(e);
+    }
+    
+    function updateDrag(e) {
+        if (!isDragging || !currentSlider) return;
+        
+        e.preventDefault();
+        e.stopPropagation();
+        
+        const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+        const rect = currentSlider.getBoundingClientRect();
+        const relativeX = clientX - rect.left;
+        const normalizedX = Math.max(0, Math.min(1, relativeX / rect.width));
+        
+        // 개선된 단계 계산 (더 정확한 터치 영역)
+        let step;
+        if (normalizedX <= 0.2) step = 1;     // 1%
+        else if (normalizedX <= 0.45) step = 2; // 20%
+        else if (normalizedX <= 0.7) step = 3;  // 50%
+        else step = 4;                           // 100%
+        
+        // Zero 2W 최적화: 햅틱 피드백 제거, 단계 추적만 유지
+        currentSlider._lastStep = step;
+        
+        currentStep = step; // 현재 단계 저장
+        updateSliderVisual(currentSlider, step);
+    }
+    
+    function endDrag(e) {
+        if (!isDragging || !currentSlider) return;
+        
+        // Zero 2W 최적화: 경량화된 시각적 피드백 복원
+        currentSlider.classList.remove('active-touch');
+        
+        const lightId = currentSlider.getAttribute('data-light');
+        
+        // 저장된 단계 사용 (좌표 재계산 하지 않음)
+        if (currentStep) {
+            setIndividualBrightness(lightId, currentStep);
+            finalizeSliderStyle(currentSlider, currentStep);
+        }
+        
+        // 전역 이벤트 리스너 제거
+        document.removeEventListener('touchmove', updateDrag);
+        document.removeEventListener('touchend', endDrag);
+        document.removeEventListener('mousemove', updateDrag);  
+        document.removeEventListener('mouseup', endDrag);
+        
+        // 드래그 상태 정리
+        currentSlider.classList.remove('dragging');
+        currentSlider._lastStep = null; // 단계 초기화
+        isDragging = false;
+        currentSlider = null;
+        currentStep = null; // 단계 초기화
+        
+        e.preventDefault();
+        e.stopPropagation();
+    }
+    
+    function updateSliderVisual(slider, step) {
+        const steps = slider.querySelectorAll('.individual-step');
+        steps.forEach(s => s.classList.remove('dragging-preview'));
+        
+        const targetStep = slider.querySelector(`[data-step="${step}"]`);
+        if (targetStep) {
+            targetStep.classList.add('dragging-preview');
+        }
+    }
+    
+    function finalizeSliderStyle(slider, finalStep) {
+        const steps = slider.querySelectorAll('.individual-step');
+        
+        // 모든 임시 클래스 제거
+        steps.forEach(s => {
+            s.classList.remove('active', 'dragging-preview');
+        });
+        
+        // 최종 선택된 단계에 active 클래스 추가
+        const finalStepElement = slider.querySelector(`[data-step="${finalStep}"]`);
+        if (finalStepElement) {
+            finalStepElement.classList.add('active');
+        }
+    }
+    
+    function initTouchSliders() {
+        const sliders = document.querySelectorAll('.individual-slider');
+        console.log(` 개별 슬라이더 ${sliders.length}개 초기화 중...`);
+        
+        sliders.forEach(slider => {
+            // 기존 이벤트 리스너 제거 (중복 방지)
+            if (slider._startDragHandler) {
+                slider.removeEventListener('touchstart', slider._startDragHandler);
+                slider.removeEventListener('mousedown', slider._startDragHandler);
+            }
+            if (slider._clickHandler) {
+                slider.removeEventListener('click', slider._clickHandler);
+            }
+            
+            // 새 이벤트 리스너 추가
+            slider._startDragHandler = (e) => {
+                if (!slider.classList.contains('disabled')) {
+                    startDrag(e, slider);
+                }
+            };
+            slider._clickHandler = (e) => {
+                if (!isDragging && !slider.classList.contains('disabled')) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    
+                    // Zero 2W 최적화: 경량화된 시각적 피드백
+                    slider.classList.add('active-press');
+                    setTimeout(() => slider.classList.remove('active-press'), 120);
+                    
+                    const rect = slider.getBoundingClientRect();
+                    const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+                    const relativeX = clientX - rect.left;
+                    const normalizedClick = relativeX / rect.width;
+                    
+        // 개선된 단계 계산 (드래그와 동일한 로직)
+        let step;
+        if (normalizedClick <= 0.2) step = 1;     // 1%
+        else if (normalizedClick <= 0.45) step = 2; // 20%
+        else if (normalizedClick <= 0.7) step = 3;  // 50%
+        else step = 4;                               // 100%
+                    
+                    const lightId = slider.getAttribute('data-light');
+                    console.log(` 개별 조명 ${lightId} 단계 ${step} 설정 요청`);
+                    setIndividualBrightness(lightId, step);
+                }
+            };
+            
+            slider.addEventListener('touchstart', slider._startDragHandler, { passive: false });
+            slider.addEventListener('mousedown', slider._startDragHandler);
+            slider.addEventListener('click', slider._clickHandler);
+        });
+        
+        console.log(` 개별 슬라이더 이벤트 리스너 등록 완료`);
+    }
+    
+    // ===== Socket.IO 이벤트 리스너들 =====
+    
+    function initSocketListeners() {
+        if (!window.socket) {
+            console.log('⏳ Socket.IO 대기 중...');
+            setTimeout(initSocketListeners, 100);
+            return;
+        }
+        
+        console.log(' 개별제어 Socket.IO 이벤트 리스너 등록 중...');
+        
+        // 상태 업데이트 이벤트
+        socket.on('status_update', function(data) {
+            console.log(' 전체 상태 업데이트 수신:', data);
+            groups = data.groups || [];
+            lights = data.lights || [];
+            
+            renderIndividualControls();
+        });
+        
+        // 개별 조명 상태 업데이트 이벤트
+        socket.on('light_updated', function(data) {
+            console.log(' 개별 조명 상태 업데이트 수신:', data);
+            
+            // 메모리 상태 업데이트
+            const light = lights.find(l => l.id === data.light_id);
+            if (light) {
+                light.brightness = data.brightness;
+                light.is_on = data.is_on;
+            }
+            
+            // UI만 다시 렌더링 (전체 새로고침 방지)
+            renderIndividualControls();
+        });
+        
+        // 그룹 상태 업데이트시 개별 조명도 영향받음
+        socket.on('group_updated', function(data) {
+            console.log(' 그룹 상태 업데이트로 개별제어 화면 갱신:', data);
+            
+            // 해당 그룹의 상태 업데이트
+            const group = groups.find(g => g.id === data.group_id);
+            if (group) {
+                group.brightness = data.brightness;
+                group.is_on = data.is_on;
+            }
+            
+            renderIndividualControls();
+        });
+        
+        // API 응답 이벤트들
+        socket.on('brightness_response', function(data) {
+            if (!data.success) {
+                console.error(' 밝기 설정 실패:', data.message);
+                alert('밝기 설정 중 오류가 발생했습니다: ' + data.message);
+            }
+        });
+        
+        console.log(' 개별제어 Socket.IO 이벤트 리스너 등록 완료');
+    }
+    
+    // 페이지 초기화
+    function initPage() {
+        console.log(' 개별제어 페이지 초기화 시작');
+        initSocketListeners(); // Socket.IO 이벤트 리스너 등록
+        loadData(); // 데이터 로드 및 UI 렌더링
+    }
+    
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initPage);
+    } else {
+        initPage();
+    }
+    
+    console.log(' 개별제어 페이지 스크립트 초기화 완료');
+})();
+</script>
+
+<style>
+/* Zero 2W 최적화: 경량화된 터치 피드백 CSS */
+.individual-slider.active-touch {
+    opacity: 0.8;
+    background-color: #e8f5e8;
+}
+
+.individual-slider.active-press {
+    opacity: 0.7;
+}
+
+.individual-slider.dragging {
+    cursor: grabbing;
+    background-color: #f0f8f0;
+}
+
+.individual-step.dragging-preview {
+    background-color: #4CAF50;
+    color: white;
+}
+</style>
+{% endblock %} 

@@ -1,0 +1,210 @@
+{% extends "base.html" %}
+
+{% block title %}스케줄 설정{% endblock %}
+
+{% block body_class %}main-container{% endblock %}
+
+{% block content %}
+<div class="control-content">
+    <!-- 뒤로가기 버튼 -->
+    <div class="back-button">
+        <button onclick="(window.softNavigate?softNavigate('/main_settings'):location.href='/main_settings')" class="schedule-back-btn">← </button>
+    </div>
+    
+    <!-- 스케줄 카드 -->
+    <div class="schedule-card-container">
+        <div class="schedule-card-header">
+            <h3 class="schedule-card-title">자동 스케줄</h3>
+            <div class="schedule-toggle-switch on" onclick="toggleSchedule()">
+                <div class="schedule-toggle-circle"></div>
+                <div class="schedule-toggle-text on-text">ON</div>
+                <div class="schedule-toggle-text off-text">OFF</div>
+            </div>
+        </div>
+        
+        <!-- 요일 선택 -->
+        <div class="weekday-container">
+            <label class="schedule-label">요일 설정:</label>
+            <div class="weekday-grid">
+                <div class="weekday-item active" onclick="toggleWeekday(this)">월</div>
+                <div class="weekday-item active" onclick="toggleWeekday(this)">화</div>
+                <div class="weekday-item active" onclick="toggleWeekday(this)">수</div>
+                <div class="weekday-item active" onclick="toggleWeekday(this)">목</div>
+                <div class="weekday-item active" onclick="toggleWeekday(this)">금</div>
+                <div class="weekday-item" onclick="toggleWeekday(this)">토</div>
+                <div class="weekday-item" onclick="toggleWeekday(this)">일</div>
+            </div>
+        </div>
+        
+        <!-- 시간 설정 -->
+        <div class="time-setting-container">
+            <div>
+                <label class="schedule-label">켜는 시간:</label>
+                <div class="time-controls">
+                    <button onclick="adjustTime('on', -30)" class="time-adjust-btn">-</button>
+                    <div class="time-display">
+                        <span id="on-time" class="time-text">--:--</span>
+                    </div>
+                    <button onclick="adjustTime('on', 30)" class="time-adjust-btn">+</button>
+                </div>
+            </div>
+            
+            <div>
+                <label class="schedule-label">끄는 시간:</label>
+                <div class="time-controls">
+                    <button onclick="adjustTime('off', -30)" class="time-adjust-btn">-</button>
+                    <div class="time-display">
+                        <span id="off-time" class="time-text">--:--</span>
+                    </div>
+                    <button onclick="adjustTime('off', 30)" class="time-adjust-btn">+</button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 저장 버튼 -->
+        <div class="save-button">
+            <button onclick="saveSchedule()" class="schedule-save-btn">저장</button>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% include 'bottom_nav.html' %}
+
+{% block extra_js %}
+<script data-page-script>
+(function() {
+    'use strict';
+    
+    let scheduleEnabled = true;
+    let onTime = { hour: 0, minute: 0 };
+    let offTime = { hour: 0, minute: 0 };
+
+    // 시간 포맷팅
+    function formatTime(hour, minute) {
+        return `${hour.toString().padStart(2, '0')}:${minute.toString().padStart(2, '0')}`;
+    }
+
+    // 현재 시간 기반으로 초기 시간 설정
+    function initializeTimes() {
+        const now = new Date();
+        onTime.hour = now.getHours();
+        onTime.minute = Math.floor(now.getMinutes() / 30) * 30; // 30분 단위로 맞춤
+        
+        // 끄는 시간은 켜는 시간 + 8시간
+        let offHour = (onTime.hour + 8) % 24;
+        offTime.hour = offHour;
+        offTime.minute = onTime.minute;
+        
+        // UI 업데이트
+        document.getElementById('on-time').textContent = formatTime(onTime.hour, onTime.minute);
+        document.getElementById('off-time').textContent = formatTime(offTime.hour, offTime.minute);
+    }
+
+    // 스케줄 상태에 따른 UI 업데이트
+    function updateScheduleUI() {
+        const toggleElement = document.querySelector('.schedule-toggle-switch');
+        const container = document.querySelector('.schedule-card-container');
+        
+        if (scheduleEnabled) {
+            toggleElement.classList.remove('off');
+            toggleElement.classList.add('on');
+            container.classList.remove('schedule-disabled');
+        } else {
+            toggleElement.classList.remove('on');
+            toggleElement.classList.add('off');
+            container.classList.add('schedule-disabled');
+        }
+    }
+
+    // 스케줄 On/Off 토글
+    window.toggleSchedule = function() {
+        scheduleEnabled = !scheduleEnabled;
+        updateScheduleUI();
+        console.log('Schedule enabled:', scheduleEnabled);
+    };
+
+    // 요일 토글 (스케줄 활성화 상태에서만)
+    window.toggleWeekday = function(element) {
+        if (!scheduleEnabled) return;
+        element.classList.toggle('active');
+        console.log('Weekday toggled');
+    };
+
+    // 시간 조정 (30분 단위, 스케줄 활성화 상태에서만)
+    window.adjustTime = function(type, minutes) {
+        if (!scheduleEnabled) return;
+        
+        const timeObj = type === 'on' ? onTime : offTime;
+        const timeDisplay = document.getElementById(`${type}-time`);
+        
+        let totalMinutes = timeObj.hour * 60 + timeObj.minute + minutes;
+        
+        // 24시간 순환
+        if (totalMinutes < 0) totalMinutes += 24 * 60;
+        if (totalMinutes >= 24 * 60) totalMinutes -= 24 * 60;
+        
+        timeObj.hour = Math.floor(totalMinutes / 60);
+        timeObj.minute = totalMinutes % 60;
+        
+        timeDisplay.textContent = formatTime(timeObj.hour, timeObj.minute);
+        
+        // 끄는 시간이 켜는 시간보다 이전이면 자동으로 다음날로 설정
+        if (type === 'on') {
+            updateOffTimeIfNeeded();
+        }
+    };
+
+    // 켜는 시간 변경 시 끄는 시간 자동 조정
+    function updateOffTimeIfNeeded() {
+        const onTotalMinutes = onTime.hour * 60 + onTime.minute;
+        const offTotalMinutes = offTime.hour * 60 + offTime.minute;
+        
+        // 끄는 시간이 켜는 시간보다 이전이면 8시간 후로 설정
+        if (offTotalMinutes <= onTotalMinutes) {
+            let newOffTotalMinutes = onTotalMinutes + (8 * 60); // 8시간 후
+            if (newOffTotalMinutes >= 24 * 60) newOffTotalMinutes -= 24 * 60;
+            
+            offTime.hour = Math.floor(newOffTotalMinutes / 60);
+            offTime.minute = newOffTotalMinutes % 60;
+            
+            document.getElementById('off-time').textContent = formatTime(offTime.hour, offTime.minute);
+        }
+    }
+
+    // 스케줄 저장 (스케줄 활성화 상태에서만)
+    window.saveSchedule = function() {
+        if (!scheduleEnabled) return;
+        
+        // 선택된 요일 수집
+        const selectedWeekdays = [];
+        document.querySelectorAll('.weekday-item.active').forEach(item => {
+            selectedWeekdays.push(item.textContent);
+        });
+        
+        console.log('Schedule saved:', {
+            enabled: scheduleEnabled,
+            weekdays: selectedWeekdays,
+            onTime: onTime,
+            offTime: offTime
+        });
+        alert('스케줄이 저장되었습니다');
+    };
+
+    // 페이지 초기화
+    function initializePage() {
+        initializeTimes();
+        updateScheduleUI();
+        console.log('Schedule page initialized');
+    }
+
+    // DOM이 로드되면 초기화 실행
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initializePage);
+    } else {
+        initializePage();
+    }
+})();
+</script>
+{% endblock %} 

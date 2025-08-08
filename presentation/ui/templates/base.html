@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="ko" class="notranslate" translate="no">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}스마트 스위치 디밍{% endblock %}</title>
+    
+    <!-- 키오스크 모드 설정 -->
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    
+    <!-- 번역 방지 -->
+    <meta name="google" content="notranslate">
+    <meta name="translator" content="notranslate">
+    <meta http-equiv="Content-Language" content="ko">
+    
+    <!-- 키보드 비활성화 -->
+    <style>
+        * {
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+            -webkit-touch-callout: none;
+            -webkit-tap-highlight-color: transparent;
+        }
+        input, textarea, [contenteditable] {
+            display: none !important;
+        }
+        body {
+            -webkit-user-select: none;
+            -khtml-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+    </style>
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/zero2w-feedback.css') }}">
+    {% block extra_css %}{% endblock %}
+</head>
+<body class="{% block body_class %}{% endblock %} notranslate" translate="no">
+    <!-- 터치 오버레이 (상호작용 감지용) -->
+    <div id="touch-overlay" class="touch-overlay"></div>
+    
+    <!-- 메인 컨테이너 -->
+    <div class="container">
+        <!-- 메인 콘텐츠 -->
+        <main class="main-content">
+            {% block content %}{% endblock %}
+        </main>
+        
+    </div>
+    
+    <!-- 메시지 오버레이 -->
+    <div id="message-overlay" class="message-overlay hidden">
+        <div class="message-box">
+            <div class="message-content" id="message-content"></div>
+            <!-- <div class="message-buttons">
+                <button class="btn btn-primary" onclick="hideMessage()">확인</button>
+            </div> -->
+        </div>
+    </div>
+    
+    <!-- 확인 다이얼로그 -->
+    <div id="confirm-overlay" class="message-overlay hidden">
+        <div class="message-box">
+            <div class="message-content" id="confirm-content"></div>
+            <!-- <div class="message-buttons">
+                <button class="btn btn-secondary" onclick="hideConfirm()">취소</button>
+                <button class="btn btn-primary" id="confirm-ok" onclick="confirmAction()">확인</button>
+            </div> -->
+        </div>
+    </div>
+    <!-- JavaScript -->
+    <!-- Socket.IO 제거됨 - 키오스크 환경에서 불필요 -->
+    <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+    
+    <!-- 키보드 입력 완전 차단 -->
+    <script>
+        // 키보드 이벤트 차단
+        document.addEventListener('keydown', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            return false;
+        }, true);
+        
+        document.addEventListener('keyup', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            return false;
+        }, true);
+        
+        document.addEventListener('keypress', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            return false;
+        }, true);
+        
+        // 컨텍스트 메뉴 차단
+        document.addEventListener('contextmenu', function(e) {
+            e.preventDefault();
+            return false;
+        });
+        
+        // 드래그 차단
+        document.addEventListener('dragstart', function(e) {
+            e.preventDefault();
+            return false;
+        });
+        
+        // 공통 inactivity 타이머 (모드별 대기화면 지원)
+        let globalInactivityTimer;
+        let currentMode = 'manual'; // 기본값
+        window.currentMode = currentMode;
+        
+        // 현재 모드 확인
+        async function getCurrentMode() {
+            try {
+                const response = await fetch('/api/system/mode');
+                const data = await response.json();
+                currentMode = (data.mode || 'manual').toLowerCase();
+                window.currentMode = currentMode;
+                console.log('현재 모드:', currentMode);
+                updateNavByMode();
+                enforceAutoLandingIfNeeded();
+            } catch (error) {
+                // API가 없으면 기본값 사용
+                console.log('모드 API 없음, 기본값 사용:', currentMode);
+            }
+        }
+        
+        // 대기화면으로 이동
+        function goToStandbyScreen() {
+            const currentPath = window.location.pathname;
+            const targetPath = currentMode === 'auto' ? '/landing_auto' : '/landing_manual';
+            
+            // 이미 대기화면에 있으면 이동하지 않음
+            if (currentPath === targetPath) {
+                return;
+            }
+            
+            console.log(`5분 무상호작용으로 ${currentMode} 대기화면 이동: ${targetPath}`);
+            window.location.href = targetPath;
+        }
+        
+        function resetGlobalInactivityTimer() {
+            // 대기화면에서는 타이머 작동 안 함
+            const currentPath = window.location.pathname;
+            if (currentPath === '/landing_manual' || currentPath === '/landing_auto') {
+                return;
+            }
+            
+            clearTimeout(globalInactivityTimer);
+            globalInactivityTimer = setTimeout(goToStandbyScreen, 5 * 60 * 1000); // 5분
+        }
+
+        // 더 많은 사용자 활동 감지
+        const activityEvents = ['click', 'touchstart', 'touchmove', 'mousemove', 'keydown', 'scroll', 'wheel'];
+        activityEvents.forEach(event => {
+            document.addEventListener(event, resetGlobalInactivityTimer, true);
+        });
+
+        // 초기화
+        function updateNavByMode() {
+            const groupTab = document.querySelector('.bottom-nav a[href="/main_group"]');
+            const personalTab = document.querySelector('.bottom-nav a[href="/main_personal"]');
+            const macroTab = document.querySelector('.bottom-nav a[href="/main_macro"]');
+            const disable = currentMode === 'auto';
+            [groupTab, personalTab, macroTab].forEach(a => {
+                if (!a) return;
+                a.classList.toggle('disabled', disable);
+                a.setAttribute('aria-disabled', disable ? 'true' : 'false');
+            });
+        }
+
+        function enforceAutoLandingIfNeeded() {
+            if (currentMode !== 'auto') return;
+            const path = window.location.pathname;
+            if (path === '/main_group' || path === '/main_personal') {
+                if (window.softNavigate) return window.softNavigate('/landing_auto');
+                window.location.href = '/landing_auto';
+            }
+        }
+
+        async function initInactivityTimer() {
+            await getCurrentMode();
+            resetGlobalInactivityTimer();
+            console.log('5분 무상호작용 타이머 초기화 완료');
+        }
+        
+        // 페이지 로드 시 초기화
+        initInactivityTimer();
+
+        // 외부에서 갱신/강제 적용할 수 있도록 전역 노출
+        window.updateNavByMode = updateNavByMode;
+        window.enforceAutoLandingIfNeeded = enforceAutoLandingIfNeeded;
+        window.getCurrentMode = getCurrentMode;
+    </script>
+    
+    <!-- Socket.IO 클라이언트 라이브러리 (로컬) -->
+    <script src="{{ url_for('static', filename='libs/socket.io.min.js') }}"></script>
+    
+    <!-- Zero 2W 최적화 피드백 시스템 -->
+    <script src="{{ url_for('static', filename='js/zero2w-feedback.js') }}"></script>
+    
+    {% block extra_js %}{% endblock %}
+
+    <script>
+    (function() {
+      const main = document.querySelector('.main-content');
+      if (!main) return;
+
+      async function softNavigate(href, replace) {
+        try {
+          document.body.classList.add('fade-out');
+          const res = await fetch(href, { credentials: 'same-origin' });
+          const html = await res.text();
+          const doc = new DOMParser().parseFromString(html, 'text/html');
+          const nextMain = doc.querySelector('.main-content');
+          if (!nextMain) {
+            // fallback to hard navigation
+            window.location.href = href;
+            return;
+          }
+          // 기존 페이지의 소켓 이벤트 리스너 정리 (중복 방지)
+          if (window.socket && typeof window.socket.removeAllListeners === 'function') {
+            window.socket.removeAllListeners();
+          }
+
+          main.innerHTML = nextMain.innerHTML;
+
+          // 실행이 필요한 인라인 스크립트 재실행 (src 없는 것만, 페이지 스크립트 한정)
+          const inlineScripts = Array.from(doc.querySelectorAll('script[data-page-script]:not([src])'));
+          inlineScripts.forEach(s => {
+            const ns = document.createElement('script');
+            for (const { name, value } of Array.from(s.attributes)) {
+              if (name !== 'src') ns.setAttribute(name, value);
+            }
+            ns.type = s.type || 'text/javascript';
+            ns.text = s.textContent || '';
+            main.appendChild(ns); // 메인 컨텐츠 내부에 주입해 스코프 보존
+          });
+
+          if (!replace) history.pushState({}, '', href);
+          setActiveTab(href);
+        } catch (e) {
+          // 오류 시 하드 네비게이션
+          window.location.href = href;
+        } finally {
+          requestAnimationFrame(() => document.body.classList.remove('fade-out'));
+        }
+      }
+
+      // 전역에서 호출 가능하도록 노출 (카드/버튼 클릭용)
+      window.softNavigate = softNavigate;
+
+      function setActiveTab(href) {
+        document.querySelectorAll('.bottom-nav .nav-tab').forEach(a => {
+          a.classList.toggle('active', a.getAttribute('href') === href);
+        });
+      }
+
+      // 하단 탭 클릭 가로채기
+      document.addEventListener('click', (e) => {
+        const a = e.target.closest('.bottom-nav .nav-tab[href]');
+        if (!a) return;
+        const href = a.getAttribute('href');
+        if (!href || !href.startsWith('/')) return;
+        // AUTO 모드에서는 그룹/개별 탭 진입 차단 → 자동 랜딩
+        if (window.currentMode === 'auto' && (href === '/main_group' || href === '/main_personal' || href === '/main_macro')) {
+          e.preventDefault();
+          e.stopPropagation();
+          if (typeof e.stopImmediatePropagation === 'function') e.stopImmediatePropagation();
+          document.body.classList.add('nav-lock');
+          const target = '/landing_auto';
+          softNavigate(target, false).finally(() => {
+            setTimeout(() => document.body.classList.remove('nav-lock'), 150);
+          });
+          return;
+        }
+        e.preventDefault();
+        e.stopPropagation();
+        if (typeof e.stopImmediatePropagation === 'function') e.stopImmediatePropagation();
+        document.body.classList.add('nav-lock');
+        softNavigate(href, false).finally(() => {
+          setTimeout(() => document.body.classList.remove('nav-lock'), 150);
+        });
+      });
+
+      // 브라우저 뒤로가기 대응
+      window.addEventListener('popstate', () => softNavigate(location.pathname, true));
+    })();
+    </script>
+</body>
+</html> 

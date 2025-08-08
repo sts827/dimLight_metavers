@@ -1,0 +1,591 @@
+{% extends "base.html" %}
+
+{% block title %}그룹 관리{% endblock %}
+
+{% block body_class %}main-container{% endblock %}
+
+{% block content %}
+<div class="control-content">
+    <!-- 헤더 -->
+    <div class="settings-header">
+        <h2>그룹 관리</h2>
+        <p>조명 그룹을 활성화/비활성화하고 설정을 관리합니다</p>
+    </div>
+    
+    <!-- 현재 활성 그룹 표시 -->
+    <div class="active-groups-section">
+        <h3>현재 활성 그룹</h3>
+        <div class="active-groups-list" id="active-groups-list">
+            <div class="loading-state">
+                <div class="loading-spinner"></div>
+                <div class="loading-text">그룹 정보를 불러오는 중...</div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- 사용 가능한 모든 그룹 -->
+    <div class="available-groups-section">
+        <h3>사용 가능한 그룹</h3>
+        <div class="available-groups-list" id="available-groups-list">
+            <div class="loading-state">
+                <div class="loading-spinner"></div>
+                <div class="loading-text">그룹 정보를 불러오는 중...</div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- 액션 버튼 -->
+    <div class="action-buttons">
+        <button class="btn btn-primary" onclick="reloadGroups()">
+            <span class="btn-icon">🔄</span>
+            설정 다시 로드
+        </button>
+        <button class="btn btn-secondary" onclick="showGroupDetails()">
+            <span class="btn-icon">📋</span>
+            상세 정보
+        </button>
+    </div>
+    
+    <!-- 상세 정보 모달 (필요시) -->
+    <div class="modal" id="group-details-modal" style="display: none;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>그룹 상세 정보</h3>
+                <button class="modal-close" onclick="hideGroupDetails()">&times;</button>
+            </div>
+            <div class="modal-body" id="group-details-content">
+                <!-- 동적으로 채워짐 -->
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% include 'bottom_nav.html' %}
+
+{% block extra_js %}
+<script>
+(function() {
+    'use strict';
+    
+    let availableGroupsData = null;
+    
+    // 페이지 로드 시 그룹 데이터 가져오기
+    async function loadAvailableGroups() {
+        try {
+            console.log('🔄 사용 가능한 그룹 데이터 로드 중...');
+            
+            const response = await fetch('/api/device/groups/available');
+            if (!response.ok) {
+                throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+            }
+            
+            const result = await response.json();
+            console.log('📥 그룹 API 응답:', result);
+            
+            if (result.success && result.data) {
+                availableGroupsData = result.data;
+                console.log(`✅ 그룹 데이터 로드 완료`);
+                
+                renderActiveGroups();
+                renderAvailableGroups();
+            } else {
+                throw new Error(result.message || '그룹 데이터를 불러올 수 없습니다.');
+            }
+            
+        } catch (error) {
+            console.error('❌ 그룹 로드 실패:', error);
+            showError('그룹 데이터를 불러오는 중 오류가 발생했습니다: ' + error.message);
+        }
+    }
+    
+    // 현재 활성 그룹 렌더링
+    function renderActiveGroups() {
+        const container = document.getElementById('active-groups-list');
+        
+        if (!availableGroupsData || !availableGroupsData.current_state) {
+            container.innerHTML = '<div class="no-data-message">활성 그룹 정보를 찾을 수 없습니다.</div>';
+            return;
+        }
+        
+        const activeGroups = availableGroupsData.current_state.groups || [];
+        
+        if (activeGroups.length === 0) {
+            container.innerHTML = '<div class="no-data-message">활성화된 그룹이 없습니다.</div>';
+            return;
+        }
+        
+        let html = '';
+        activeGroups.forEach(group => {
+            const statusClass = group.is_on ? 'group-on' : 'group-off';
+            const statusText = group.is_on ? 'ON' : 'OFF';
+            const brightnessText = group.brightness !== null ? `밝기: ${group.brightness}%` : 'On/Off 전용';
+            
+            html += `
+                <div class="group-item ${statusClass}">
+                    <div class="group-info">
+                        <div class="group-name">${group.name}</div>
+                        <div class="group-details">
+                            <span class="group-id">${group.id}</span>
+                            <span class="group-type">${group.type === 'dimmable' ? '디밍 가능' : 'On/Off 전용'}</span>
+                        </div>
+                        <div class="group-status">
+                            <span class="status-indicator ${statusClass}"></span>
+                            <span class="status-text">${statusText}</span>
+                            ${group.brightness !== null ? `<span class="brightness-text">${brightnessText}</span>` : ''}
+                        </div>
+                    </div>
+                </div>
+            `;
+        });
+        
+        container.innerHTML = html;
+        console.log(`✅ 활성 그룹 ${activeGroups.length}개 렌더링 완료`);
+    }
+    
+    // 사용 가능한 모든 그룹 렌더링
+    function renderAvailableGroups() {
+        const container = document.getElementById('available-groups-list');
+        
+        if (!availableGroupsData) {
+            container.innerHTML = '<div class="no-data-message">그룹 정보를 찾을 수 없습니다.</div>';
+            return;
+        }
+        
+        const allGroups = availableGroupsData.all_groups || {};
+        const activeGroups = availableGroupsData.active_groups || [];
+        const devices = availableGroupsData.devices || {};
+        
+        if (Object.keys(allGroups).length === 0) {
+            container.innerHTML = '<div class="no-data-message">사용 가능한 그룹이 없습니다.</div>';
+            return;
+        }
+        
+        let html = '';
+        Object.entries(allGroups).forEach(([groupId, deviceList]) => {
+            const isActive = activeGroups.includes(groupId);
+            const statusClass = isActive ? 'group-active' : 'group-inactive';
+            
+            // 그룹에 속한 장치들 정보
+            let deviceInfo = '';
+            if (Array.isArray(deviceList)) {
+                deviceInfo = deviceList.map(deviceId => {
+                    const device = devices[deviceId] || {};
+                    return `<div class="device-info">
+                        <span class="device-name">${device.name || deviceId}</span>
+                        <span class="device-status ${device.status || 'unknown'}">${device.status || 'unknown'}</span>
+                    </div>`;
+                }).join('');
+            }
+            
+            html += `
+                <div class="group-item ${statusClass}">
+                    <div class="group-header">
+                        <div class="group-name">${groupId}</div>
+                        <div class="group-toggle">
+                            <label class="toggle-switch">
+                                <input type="checkbox" ${isActive ? 'checked' : ''} 
+                                       onchange="toggleGroupActivation('${groupId}', this.checked)">
+                                <span class="toggle-slider"></span>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="group-devices">
+                        ${deviceInfo || '<div class="no-devices">장치 정보 없음</div>'}
+                    </div>
+                </div>
+            `;
+        });
+        
+        container.innerHTML = html;
+        console.log(`✅ 사용 가능한 그룹 ${Object.keys(allGroups).length}개 렌더링 완료`);
+    }
+    
+    // 그룹 활성화/비활성화 토글
+    window.toggleGroupActivation = async function(groupId, isActive) {
+        console.log(`🔄 그룹 ${groupId} ${isActive ? '활성화' : '비활성화'} 요청...`);
+        
+        try {
+            // 여기서는 실제 API 호출 대신 알림만 표시
+            // 실제 구현에서는 device_manager.py를 통해 설정 파일을 수정해야 함
+            alert(`그룹 ${groupId}를 ${isActive ? '활성화' : '비활성화'}하려면 device_manager.py를 사용하세요.\n\n명령어: python scripts/device_manager.py --activate-group ${groupId} 또는 --deactivate-group ${groupId}`);
+            
+        } catch (error) {
+            console.error(`❌ 그룹 ${groupId} 토글 실패:`, error);
+            alert('그룹 설정 변경 중 오류가 발생했습니다: ' + error.message);
+        }
+    };
+    
+    // 그룹 설정 다시 로드
+    window.reloadGroups = async function() {
+        console.log('🔄 그룹 설정 다시 로드...');
+        
+        try {
+            const response = await fetch('/api/device/groups/reload', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
+            
+            if (!response.ok) {
+                throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+            }
+            
+            const result = await response.json();
+            
+            if (result.success) {
+                console.log('✅ 그룹 설정 다시 로드 완료:', result.message);
+                alert(result.message);
+                
+                // 페이지 새로고침
+                loadAvailableGroups();
+            } else {
+                throw new Error(result.message);
+            }
+            
+        } catch (error) {
+            console.error('❌ 그룹 설정 다시 로드 실패:', error);
+            alert('그룹 설정 다시 로드 중 오류가 발생했습니다: ' + error.message);
+        }
+    };
+    
+    // 그룹 상세 정보 표시
+    window.showGroupDetails = function() {
+        if (!availableGroupsData) {
+            alert('그룹 데이터가 로드되지 않았습니다.');
+            return;
+        }
+        
+        const modal = document.getElementById('group-details-modal');
+        const content = document.getElementById('group-details-content');
+        
+        let html = '<div class="details-section">';
+        html += '<h4>설정 파일 정보</h4>';
+        html += `<pre>${JSON.stringify(availableGroupsData, null, 2)}</pre>`;
+        html += '</div>';
+        
+        content.innerHTML = html;
+        modal.style.display = 'block';
+    };
+    
+    // 그룹 상세 정보 숨기기
+    window.hideGroupDetails = function() {
+        const modal = document.getElementById('group-details-modal');
+        modal.style.display = 'none';
+    };
+    
+    // 에러 표시
+    function showError(message) {
+        const containers = ['active-groups-list', 'available-groups-list'];
+        containers.forEach(containerId => {
+            const container = document.getElementById(containerId);
+            if (container) {
+                container.innerHTML = `<div class="error-message">${message}</div>`;
+            }
+        });
+    }
+    
+    // 페이지 초기화
+    function initPage() {
+        console.log('📄 그룹 관리 페이지 초기화 시작');
+        loadAvailableGroups();
+    }
+    
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initPage);
+    } else {
+        initPage();
+    }
+    
+    console.log('✅ 그룹 관리 페이지 스크립트 초기화 완료');
+})();
+</script>
+
+<style>
+.settings-header {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.settings-header h2 {
+    color: #333;
+    margin-bottom: 0.5rem;
+}
+
+.settings-header p {
+    color: #666;
+    font-size: 0.9rem;
+}
+
+.active-groups-section,
+.available-groups-section {
+    margin-bottom: 2rem;
+}
+
+.active-groups-section h3,
+.available-groups-section h3 {
+    color: #333;
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid #e0e0e0;
+}
+
+.group-item {
+    background: #fff;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    margin-bottom: 1rem;
+    padding: 1rem;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.group-item.group-on {
+    border-left: 4px solid #4CAF50;
+}
+
+.group-item.group-off {
+    border-left: 4px solid #f44336;
+}
+
+.group-item.group-active {
+    border-left: 4px solid #2196F3;
+}
+
+.group-item.group-inactive {
+    border-left: 4px solid #9E9E9E;
+}
+
+.group-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.5rem;
+}
+
+.group-name {
+    font-weight: bold;
+    color: #333;
+}
+
+.group-details {
+    display: flex;
+    gap: 1rem;
+    margin: 0.5rem 0;
+    font-size: 0.85rem;
+    color: #666;
+}
+
+.group-status {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-top: 0.5rem;
+}
+
+.status-indicator {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+}
+
+.status-indicator.group-on {
+    background-color: #4CAF50;
+}
+
+.status-indicator.group-off {
+    background-color: #f44336;
+}
+
+.group-devices {
+    margin-top: 0.5rem;
+    padding-top: 0.5rem;
+    border-top: 1px solid #f0f0f0;
+}
+
+.device-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.25rem 0;
+    font-size: 0.85rem;
+}
+
+.device-name {
+    color: #333;
+}
+
+.device-status {
+    padding: 0.2rem 0.5rem;
+    border-radius: 4px;
+    font-size: 0.75rem;
+    font-weight: bold;
+}
+
+.device-status.active {
+    background-color: #e8f5e8;
+    color: #4CAF50;
+}
+
+.device-status.inactive {
+    background-color: #ffeaea;
+    color: #f44336;
+}
+
+.toggle-switch {
+    position: relative;
+    display: inline-block;
+    width: 50px;
+    height: 24px;
+}
+
+.toggle-switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.toggle-slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    transition: .4s;
+    border-radius: 24px;
+}
+
+.toggle-slider:before {
+    position: absolute;
+    content: "";
+    height: 18px;
+    width: 18px;
+    left: 3px;
+    bottom: 3px;
+    background-color: white;
+    transition: .4s;
+    border-radius: 50%;
+}
+
+input:checked + .toggle-slider {
+    background-color: #2196F3;
+}
+
+input:checked + .toggle-slider:before {
+    transform: translateX(26px);
+}
+
+.action-buttons {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    margin-top: 2rem;
+}
+
+.btn {
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: all 0.3s ease;
+}
+
+.btn-primary {
+    background-color: #2196F3;
+    color: white;
+}
+
+.btn-primary:hover {
+    background-color: #1976D2;
+}
+
+.btn-secondary {
+    background-color: #9E9E9E;
+    color: white;
+}
+
+.btn-secondary:hover {
+    background-color: #757575;
+}
+
+.modal {
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.5);
+}
+
+.modal-content {
+    background-color: #fefefe;
+    margin: 5% auto;
+    padding: 0;
+    border-radius: 8px;
+    width: 80%;
+    max-width: 600px;
+    max-height: 80vh;
+    overflow: hidden;
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+    background-color: #f5f5f5;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.modal-close {
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: #666;
+}
+
+.modal-body {
+    padding: 1rem;
+    max-height: 60vh;
+    overflow-y: auto;
+}
+
+.loading-state,
+.error-message,
+.no-data-message {
+    text-align: center;
+    padding: 2rem;
+    color: #666;
+}
+
+.loading-spinner {
+    border: 3px solid #f3f3f3;
+    border-top: 3px solid #2196F3;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    animation: spin 1s linear infinite;
+    margin: 0 auto 1rem;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.error-message {
+    color: #f44336;
+    background-color: #ffeaea;
+    border: 1px solid #f44336;
+    border-radius: 4px;
+}
+</style>
+{% endblock %}

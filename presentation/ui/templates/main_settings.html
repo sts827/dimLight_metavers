@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+
+{% block title %}설정{% endblock %}
+
+{% block body_class %}main-container{% endblock %}
+
+{% block content %}
+<div class="control-content">
+    <!-- 설정 카드 그리드 -->
+    <div class="settings-grid">
+        <div class="settings-card" onclick="goToMacroSettings()">
+            <div class="settings-icon macro"></div>
+            <div class="settings-title">매크로 설정</div>
+        </div>
+        
+        <div class="settings-card" onclick="goToScheduleSettings()">
+            <div class="settings-icon schedule"></div>
+            <div class="settings-title">스케줄 설정</div>
+        </div>
+        
+        <div class="settings-card" onclick="showModeSettings()">
+            <div class="settings-icon mode"></div>
+            <div class="settings-title">모드 전환</div>
+        </div>
+        
+        <div class="settings-card" onclick="showDeviceInfo()">
+            <div class="settings-icon info"></div>
+            <div class="settings-title">장치 정보</div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% include 'bottom_nav.html' %}
+
+{% block extra_js %}
+<script data-page-script>
+(function() {
+    'use strict';
+    
+    // 매크로 설정으로 이동 (소프트 전환)
+    window.goToMacroSettings = function() {
+        if (window.softNavigate) return window.softNavigate('/macro_setting');
+        window.location.href = '/macro_setting';
+    };
+
+    // 스케줄 설정으로 이동
+    window.goToScheduleSettings = function() {
+        if (window.softNavigate) return window.softNavigate('/main_schedule');
+        window.location.href = '/main_schedule';
+    };
+
+    // 모드 설정으로 이동
+    window.showModeSettings = function() {
+        if (window.softNavigate) return window.softNavigate('/settings_mode');
+        window.location.href = '/settings_mode';
+    };
+
+    // 장치 정보로 이동
+    window.showDeviceInfo = function() {
+        if (window.softNavigate) return window.softNavigate('/settings_device');
+        window.location.href = '/settings_device';
+    };
+
+    // 설정 페이지 초기화 완료
+    console.log('Settings page initialized');
+})();
+</script>
+{% endblock %} 

@@ -1,0 +1,891 @@
+2025-08-08 14:23:25,636 ERROR smart_switch 동적 그룹 로드 실패: 'DeviceConfigManager' object has no attribute 'get' - 하드코딩된 그룹 사용
+2025-08-08 14:23:25,667 INFO smart_switch Starting Smart Switch Dimming Web Application
+2025-08-08 14:23:25,667 INFO smart_switch Access URL: http://localhost:5000
+2025-08-08 14:23:25,668 INFO smart_switch 백그라운드 이벤트 루프 시작
+2025-08-08 14:23:25,688 INFO smart_switch 하드웨어 정리 완료
+2025-08-08 14:24:55,916 ERROR smart_switch 동적 그룹 로드 실패: 'DeviceConfigManager' object has no attribute 'get' - 하드코딩된 그룹 사용
+2025-08-08 14:24:55,947 INFO smart_switch Starting Smart Switch Dimming Web Application
+2025-08-08 14:24:55,948 INFO smart_switch Access URL: http://localhost:5000
+2025-08-08 14:24:55,949 INFO smart_switch 백그라운드 이벤트 루프 시작
+2025-08-08 14:24:55,964 INFO smart_switch 하드웨어 정리 완료
+2025-08-08 14:27:43,831 ERROR smart_switch 동적 그룹 로드 실패: 'DeviceConfigManager' object has no attribute 'get' - 하드코딩된 그룹 사용
+2025-08-08 14:27:43,862 INFO smart_switch Starting Smart Switch Dimming Web Application
+2025-08-08 14:27:43,863 INFO smart_switch Access URL: http://localhost:5000
+2025-08-08 14:27:43,864 INFO smart_switch 백그라운드 이벤트 루프 시작
+2025-08-08 14:27:49,043 INFO smart_switch 하드웨어 초기화 완료
+2025-08-08 14:29:25,307 WARNING smart_switch 그룹 G1 하드웨어 제어 실패 - 메모리 상태만 업데이트
+2025-08-08 14:29:25,309 INFO smart_switch 그룹 'G1 (DALI A)' 메모리 상태 밝기 50로 업데이트
+2025-08-08 14:42:22,007 ERROR smart_switch 동적 그룹 로드 실패: 'DeviceConfigManager' object has no attribute 'get' - 하드코딩된 그룹 사용
+2025-08-08 14:42:22,038 INFO smart_switch Starting Smart Switch Dimming Web Application
+2025-08-08 14:42:22,039 INFO smart_switch Access URL: http://localhost:5000
+2025-08-08 14:42:22,040 INFO smart_switch 백그라운드 이벤트 루프 시작
+2025-08-08 14:42:22,056 INFO smart_switch 하드웨어 정리 완료
+2025-08-08 14:43:12,919 ERROR smart_switch 동적 그룹 로드 실패: 'DeviceConfigManager' object has no attribute 'get' - 하드코딩된 그룹 사용
+2025-08-08 14:43:12,951 INFO smart_switch Starting Smart Switch Dimming Web Application
+2025-08-08 14:43:12,952 INFO smart_switch Access URL: http://localhost:5000
+2025-08-08 14:43:12,953 INFO smart_switch 백그라운드 이벤트 루프 시작
+2025-08-08 14:43:18,112 INFO smart_switch 하드웨어 초기화 완료
+2025-08-08 14:43:19,220 INFO smart_switch 🔗 클라이언트 연결됨: k6eoM2xwerxxV1SwAAAB (총 1개)
+2025-08-08 14:43:51,359 INFO smart_switch 🔌 클라이언트 연결 해제됨: k6eoM2xwerxxV1SwAAAB (남은 0개)
+2025-08-08 14:43:51,360 INFO smart_switch 🔌 클라이언트 연결 해제됨: k6eoM2xwerxxV1SwAAAB
+2025-08-08 14:43:51,757 INFO smart_switch 🔗 클라이언트 연결됨: 6Ph4qtiFcAysC4GRAAAD (총 1개)
+2025-08-08 14:44:44,015 ERROR smart_switch 동적 그룹 로드 실패: 'DeviceConfigManager' object has no attribute 'get' - 하드코딩된 그룹 사용
+2025-08-08 14:44:44,071 INFO smart_switch Starting Smart Switch Dimming Web Application
+2025-08-08 14:44:44,072 INFO smart_switch Access URL: http://localhost:5000
+2025-08-08 14:44:44,073 INFO smart_switch 백그라운드 이벤트 루프 시작
+2025-08-08 14:44:49,246 INFO smart_switch 하드웨어 초기화 완료
+2025-08-08 14:44:52,064 INFO smart_switch 🔗 클라이언트 연결됨: XkAkb3WwRXyr194FAAAB (총 1개)
+2025-08-08 14:45:05,928 INFO smart_switch 🔌 클라이언트 연결 해제됨: XkAkb3WwRXyr194FAAAB (남은 0개)
+2025-08-08 14:45:05,930 INFO smart_switch 🔌 클라이언트 연결 해제됨: XkAkb3WwRXyr194FAAAB
+2025-08-08 14:48:22,363 ERROR smart_switch 동적 그룹 로드 실패: 'DeviceConfigManager' object has no attribute 'get' - 하드코딩된 그룹 사용
+2025-08-08 14:48:22,394 INFO smart_switch Starting Smart Switch Dimming Web Application
+2025-08-08 14:48:22,394 INFO smart_switch Access URL: http://localhost:5000
+2025-08-08 14:48:22,395 INFO smart_switch 백그라운드 이벤트 루프 시작
+2025-08-08 14:48:26,080 INFO smart_switch 🔗 클라이언트 연결됨: UnPK9BySVGY-IVXzAAAB (총 1개)
+2025-08-08 14:48:27,569 INFO smart_switch 하드웨어 초기화 완료
+2025-08-08 14:51:42,998 ERROR smart_switch 동적 그룹 로드 실패: 'DeviceConfigManager' object has no attribute 'get' - 하드코딩된 그룹 사용
+2025-08-08 14:51:43,029 INFO smart_switch Starting Smart Switch Dimming Web Application
+2025-08-08 14:51:43,030 INFO smart_switch Access URL: http://localhost:5000
+2025-08-08 14:51:43,031 INFO smart_switch 백그라운드 이벤트 루프 시작
+2025-08-08 14:51:46,295 INFO smart_switch 🔗 클라이언트 연결됨: dRxC9YZB9d01ZKVHAAAB (총 1개)
+2025-08-08 14:51:48,191 INFO smart_switch 하드웨어 초기화 완료
+2025-08-08 14:51:53,469 INFO smart_switch 🔌 클라이언트 연결 해제됨: dRxC9YZB9d01ZKVHAAAB (남은 0개)
+2025-08-08 14:51:53,469 INFO smart_switch 🔌 클라이언트 연결 해제됨: dRxC9YZB9d01ZKVHAAAB
+2025-08-08 14:51:53,845 INFO smart_switch 🔗 클라이언트 연결됨: t9XEpZdspv3gzbiCAAAD (총 1개)
+2025-08-08 14:54:21,984 ERROR smart_switch 동적 그룹 로드 실패: 'DeviceConfigManager' object has no attribute 'get' - 하드코딩된 그룹 사용
+2025-08-08 14:54:22,015 INFO smart_switch Starting Smart Switch Dimming Web Application
+2025-08-08 14:54:22,016 INFO smart_switch Access URL: http://localhost:5000
+2025-08-08 14:54:22,017 INFO smart_switch 백그라운드 이벤트 루프 시작
+2025-08-08 14:54:27,187 INFO smart_switch 하드웨어 초기화 완료
+2025-08-08 14:54:56,812 INFO smart_switch 🔗 클라이언트 연결됨: XjDToj7ipIvsXtTMAAAB (총 1개)
+2025-08-08 14:55:03,886 INFO smart_switch 🔌 클라이언트 연결 해제됨: XjDToj7ipIvsXtTMAAAB (남은 0개)
+2025-08-08 14:55:03,887 INFO smart_switch 🔌 클라이언트 연결 해제됨: XjDToj7ipIvsXtTMAAAB
+2025-08-08 14:55:04,255 INFO smart_switch 🔗 클라이언트 연결됨: tyASHupKmsmtSc1dAAAD (총 1개)
+2025-08-08 14:55:05,817 INFO smart_switch 🔆 Socket.IO 밝기 설정 요청: group_id=G1, light_id=None, brightness=75
+2025-08-08 14:55:05,825 INFO smart_switch 🔆 Socket.IO 밝기 설정 요청: group_id=G1, light_id=None, brightness=75
+2025-08-08 14:55:10,820 ERROR smart_switch 비동기 작업 실행 실패: 
+2025-08-08 14:55:10,820 WARNING smart_switch 그룹 G1 하드웨어 제어 실패 - 메모리 상태만 업데이트
+2025-08-08 14:55:10,821 INFO smart_switch 그룹 'G1 (DALI A)' 메모리 상태 밝기 75로 업데이트
+2025-08-08 14:55:10,830 ERROR smart_switch 비동기 작업 실행 실패: 
+2025-08-08 14:55:10,831 WARNING smart_switch 그룹 G1 하드웨어 제어 실패 - 메모리 상태만 업데이트
+2025-08-08 14:55:10,832 INFO smart_switch 그룹 'G1 (DALI A)' 메모리 상태 밝기 75로 업데이트
+2025-08-08 14:56:07,972 INFO smart_switch 🔌 클라이언트 연결 해제됨: tyASHupKmsmtSc1dAAAD (남은 0개)
+2025-08-08 14:56:07,976 INFO smart_switch 🔌 클라이언트 연결 해제됨: tyASHupKmsmtSc1dAAAD
+2025-08-08 14:58:52,683 ERROR smart_switch 동적 그룹 로드 실패: 'DeviceConfigManager' object has no attribute 'get' - 하드코딩된 그룹 사용
+2025-08-08 14:58:52,715 INFO smart_switch Starting Smart Switch Dimming Web Application
+2025-08-08 14:58:52,716 INFO smart_switch Access URL: http://localhost:5000
+2025-08-08 14:58:52,717 INFO smart_switch 백그라운드 이벤트 루프 시작
+2025-08-08 14:58:57,872 INFO smart_switch 하드웨어 초기화 완료
+2025-08-08 14:59:17,218 ERROR smart_switch 동적 그룹 로드 실패: 'DeviceConfigManager' object has no attribute 'get' - 하드코딩된 그룹 사용
+2025-08-08 14:59:17,248 INFO smart_switch Starting Smart Switch Dimming Web Application
+2025-08-08 14:59:17,249 INFO smart_switch Access URL: http://localhost:5000
+2025-08-08 14:59:17,250 INFO smart_switch 백그라운드 이벤트 루프 시작
+2025-08-08 14:59:20,890 INFO smart_switch 🔗 클라이언트 연결됨: bGp2tOXb3ppBKtuTAAAB (총 1개)
+2025-08-08 14:59:22,417 INFO smart_switch 하드웨어 초기화 완료
+2025-08-08 15:00:15,459 INFO smart_switch 🔌 클라이언트 연결 해제됨: bGp2tOXb3ppBKtuTAAAB (남은 0개)
+2025-08-08 15:00:15,462 INFO smart_switch 🔌 클라이언트 연결 해제됨: bGp2tOXb3ppBKtuTAAAB
+2025-08-08 15:01:33,060 ERROR smart_switch 동적 그룹 로드 실패: 'DeviceConfigManager' object has no attribute 'get' - 하드코딩된 그룹 사용
+2025-08-08 15:01:33,091 INFO smart_switch Starting Smart Switch Dimming Web Application
+2025-08-08 15:01:33,092 INFO smart_switch Access URL: http://localhost:5000
+2025-08-08 15:01:33,093 INFO smart_switch 백그라운드 이벤트 루프 시작
+2025-08-08 15:01:38,267 INFO smart_switch 하드웨어 초기화 완료
+2025-08-08 15:01:42,488 INFO smart_switch 🔗 클라이언트 연결됨: 0VUWAD1ejvd_KDnyAAAB (총 1개)
+2025-08-08 15:01:42,546 INFO smart_switch 🔌 클라이언트 연결 해제됨: 0VUWAD1ejvd_KDnyAAAB (남은 0개)
+2025-08-08 15:01:42,547 INFO smart_switch 🔌 클라이언트 연결 해제됨: 0VUWAD1ejvd_KDnyAAAB
+2025-08-08 15:01:43,042 INFO smart_switch 🔗 클라이언트 연결됨: 7E5_EnRKKwIn4OpAAAAD (총 1개)
+2025-08-08 15:01:43,573 INFO smart_switch 🔌 클라이언트 연결 해제됨: 7E5_EnRKKwIn4OpAAAAD (남은 0개)
+2025-08-08 15:01:43,574 INFO smart_switch 🔌 클라이언트 연결 해제됨: 7E5_EnRKKwIn4OpAAAAD
+2025-08-08 15:01:44,066 INFO smart_switch 🔗 클라이언트 연결됨: hMjsp13c4g-NAy-vAAAF (총 1개)
+2025-08-08 15:01:44,788 INFO smart_switch 🔌 클라이언트 연결 해제됨: hMjsp13c4g-NAy-vAAAF (남은 0개)
+2025-08-08 15:01:44,790 INFO smart_switch 🔌 클라이언트 연결 해제됨: hMjsp13c4g-NAy-vAAAF
+2025-08-08 15:01:46,174 INFO smart_switch 🔗 클라이언트 연결됨: zFnS8ClZpKdvVMKuAAAH (총 1개)
+2025-08-08 15:01:47,002 INFO smart_switch 🔆 Socket.IO 전체 조명 제어 요청: is_on=False
+2025-08-08 15:01:50,398 INFO smart_switch 🔌 클라이언트 연결 해제됨: zFnS8ClZpKdvVMKuAAAH (남은 0개)
+2025-08-08 15:01:50,399 INFO smart_switch 🔌 클라이언트 연결 해제됨: zFnS8ClZpKdvVMKuAAAH
+2025-08-08 15:01:52,004 ERROR smart_switch 비동기 작업 실행 실패: 
+2025-08-08 15:01:52,005 WARNING smart_switch 그룹 G1 하드웨어 제어 실패 - 메모리 상태만 업데이트
+2025-08-08 15:01:52,005 INFO smart_switch 전체 조명 메모리 상태 OFF로 업데이트 (하드웨어 제어 실패: G1)
+2025-08-08 15:01:54,244 INFO smart_switch 🔗 클라이언트 연결됨: Eo8UmPwY5VOViQKyAAAJ (총 1개)
+2025-08-08 15:01:55,981 INFO smart_switch 🔌 클라이언트 연결 해제됨: Eo8UmPwY5VOViQKyAAAJ (남은 0개)
+2025-08-08 15:01:55,982 INFO smart_switch 🔌 클라이언트 연결 해제됨: Eo8UmPwY5VOViQKyAAAJ
+2025-08-08 15:01:58,087 INFO smart_switch 🔗 클라이언트 연결됨: dL7Ws7SorJXXy5AbAAAM (총 1개)
+2025-08-08 15:01:58,210 INFO smart_switch 🔌 클라이언트 연결 해제됨: dL7Ws7SorJXXy5AbAAAM (남은 0개)
+2025-08-08 15:01:58,211 INFO smart_switch 🔌 클라이언트 연결 해제됨: dL7Ws7SorJXXy5AbAAAM
+2025-08-08 15:02:00,142 INFO smart_switch 🔗 클라이언트 연결됨: XoaAyOO3xPT-Yr8wAAAO (총 1개)
+2025-08-08 15:02:00,209 INFO smart_switch 🔌 클라이언트 연결 해제됨: XoaAyOO3xPT-Yr8wAAAO (남은 0개)
+2025-08-08 15:02:00,210 INFO smart_switch 🔌 클라이언트 연결 해제됨: XoaAyOO3xPT-Yr8wAAAO
+2025-08-08 15:02:01,223 INFO smart_switch 🔗 클라이언트 연결됨: neCf1UIyS5BFWXSdAAAQ (총 1개)
+2025-08-08 15:02:01,735 INFO smart_switch 🔌 클라이언트 연결 해제됨: neCf1UIyS5BFWXSdAAAQ (남은 0개)
+2025-08-08 15:02:01,736 INFO smart_switch 🔌 클라이언트 연결 해제됨: neCf1UIyS5BFWXSdAAAQ
+2025-08-08 15:02:02,992 INFO smart_switch 🔗 클라이언트 연결됨: ToNodh1niYZVb92VAAAS (총 1개)
+2025-08-08 15:02:03,794 INFO smart_switch 🔆 Socket.IO 전체 조명 제어 요청: is_on=True
+2025-08-08 15:02:07,137 INFO smart_switch 🔆 Socket.IO 전체 조명 제어 요청: is_on=True
+2025-08-08 15:02:08,796 ERROR smart_switch 비동기 작업 실행 실패: 
+2025-08-08 15:02:08,797 WARNING smart_switch 그룹 G1 하드웨어 제어 실패 - 메모리 상태만 업데이트
+2025-08-08 15:02:08,798 INFO smart_switch 전체 조명 메모리 상태 ON로 업데이트 (하드웨어 제어 실패: G1)
+2025-08-08 15:02:12,139 ERROR smart_switch 비동기 작업 실행 실패: 
+2025-08-08 15:02:12,139 WARNING smart_switch 그룹 G1 하드웨어 제어 실패 - 메모리 상태만 업데이트
+2025-08-08 15:02:12,147 INFO smart_switch 전체 조명 메모리 상태 ON로 업데이트 (하드웨어 제어 실패: G1)
+2025-08-08 15:02:18,220 INFO smart_switch 🔌 클라이언트 연결 해제됨: ToNodh1niYZVb92VAAAS (남은 0개)
+2025-08-08 15:02:18,223 INFO smart_switch 🔌 클라이언트 연결 해제됨: ToNodh1niYZVb92VAAAS
+2025-08-08 15:02:27,947 INFO smart_switch 🔗 클라이언트 연결됨: hhEViObLwPWa7D9pAAAU (총 1개)
+2025-08-08 15:02:49,642 INFO smart_switch 🔌 클라이언트 연결 해제됨: hhEViObLwPWa7D9pAAAU (남은 0개)
+2025-08-08 15:02:49,643 INFO smart_switch 🔌 클라이언트 연결 해제됨: hhEViObLwPWa7D9pAAAU
+2025-08-08 15:08:07,694 ERROR smart_switch 동적 그룹 로드 실패: 'DeviceConfigManager' object has no attribute 'get' - 하드코딩된 그룹 사용
+2025-08-08 15:08:07,726 INFO smart_switch Starting Smart Switch Dimming Web Application
+2025-08-08 15:08:07,727 INFO smart_switch Access URL: http://localhost:5000
+2025-08-08 15:08:07,728 INFO smart_switch 백그라운드 이벤트 루프 시작
+2025-08-08 15:08:07,781 INFO smart_switch 하드웨어 정리 완료
+2025-08-08 15:08:42,418 INFO smart_switch 🔗 클라이언트 연결됨: PXOq43ZNCWKPAepqAAAW (총 1개)
+2025-08-08 15:08:42,785 INFO smart_switch 🔗 클라이언트 연결됨: N94-DpYBPRZ25OXoAAAY (총 2개)
+2025-08-08 15:08:43,321 INFO smart_switch 🔌 클라이언트 연결 해제됨: N94-DpYBPRZ25OXoAAAY (남은 1개)
+2025-08-08 15:08:43,322 INFO smart_switch 🔌 클라이언트 연결 해제됨: N94-DpYBPRZ25OXoAAAY
+2025-08-08 15:08:43,749 INFO smart_switch 🔗 클라이언트 연결됨: QdVGFInFlusUccfMAAAa (총 2개)
+2025-08-08 15:08:43,952 INFO smart_switch 🔌 클라이언트 연결 해제됨: QdVGFInFlusUccfMAAAa (남은 1개)
+2025-08-08 15:08:43,953 INFO smart_switch 🔌 클라이언트 연결 해제됨: QdVGFInFlusUccfMAAAa
+2025-08-08 15:08:45,282 INFO smart_switch 🔗 클라이언트 연결됨: v3O7jlNbnmPzoPA7AAAc (총 2개)
+2025-08-08 15:08:46,083 INFO smart_switch 🔆 Socket.IO 전체 조명 제어 요청: is_on=False
+2025-08-08 15:08:51,084 ERROR smart_switch 비동기 작업 실행 실패: 
+2025-08-08 15:08:51,085 WARNING smart_switch 그룹 G1 하드웨어 제어 실패 - 메모리 상태만 업데이트
+2025-08-08 15:08:51,086 INFO smart_switch 전체 조명 메모리 상태 OFF로 업데이트 (하드웨어 제어 실패: G1)
+2025-08-08 15:09:02,449 INFO smart_switch 🔌 클라이언트 연결 해제됨: PXOq43ZNCWKPAepqAAAW (남은 1개)
+2025-08-08 15:09:02,450 INFO smart_switch 🔌 클라이언트 연결 해제됨: PXOq43ZNCWKPAepqAAAW
+2025-08-08 15:09:23,797 INFO smart_switch 🔌 클라이언트 연결 해제됨: v3O7jlNbnmPzoPA7AAAc (남은 0개)
+2025-08-08 15:09:23,798 INFO smart_switch 🔌 클라이언트 연결 해제됨: v3O7jlNbnmPzoPA7AAAc
+2025-08-08 15:13:57,346 ERROR smart_switch 동적 그룹 로드 실패: 'DeviceConfigManager' object has no attribute 'get' - 하드코딩된 그룹 사용
+2025-08-08 15:13:57,377 INFO smart_switch Starting Smart Switch Dimming Web Application
+2025-08-08 15:13:57,377 INFO smart_switch Access URL: http://localhost:5000
+2025-08-08 15:13:57,378 INFO smart_switch 백그라운드 이벤트 루프 시작
+2025-08-08 15:14:02,552 INFO smart_switch 하드웨어 초기화 완료
+2025-08-08 15:14:03,109 INFO smart_switch 🔗 클라이언트 연결됨: b5vZ1qmkU-NODv3bAAAB (총 1개)
+2025-08-08 15:15:14,414 INFO smart_switch 🔌 클라이언트 연결 해제됨: b5vZ1qmkU-NODv3bAAAB (남은 0개)
+2025-08-08 15:15:14,415 INFO smart_switch 🔌 클라이언트 연결 해제됨: b5vZ1qmkU-NODv3bAAAB
+2025-08-08 15:19:07,646 ERROR smart_switch 동적 그룹 로드 실패: 'DeviceConfigManager' object has no attribute 'get' - 하드코딩된 그룹 사용
+2025-08-08 15:19:07,676 INFO smart_switch Starting Smart Switch Dimming Web Application
+2025-08-08 15:19:07,677 INFO smart_switch Access URL: http://localhost:5000
+2025-08-08 15:19:07,678 INFO smart_switch 백그라운드 이벤트 루프 시작
+2025-08-08 15:19:13,014 INFO smart_switch 하드웨어 초기화 완료
+2025-08-08 15:19:16,722 INFO smart_switch 🔗 클라이언트 연결됨: JI7IgJ8a27hHII8LAAAC (총 1개)
+2025-08-08 15:19:16,734 INFO smart_switch 🔗 클라이언트 연결됨: XHFQEYSzt1wxeLh-AAAD (총 2개)
+2025-08-08 15:19:34,919 INFO smart_switch 🔌 클라이언트 연결 해제됨: JI7IgJ8a27hHII8LAAAC (남은 1개)
+2025-08-08 15:19:34,920 INFO smart_switch 🔌 클라이언트 연결 해제됨: JI7IgJ8a27hHII8LAAAC
+2025-08-08 15:19:34,931 INFO smart_switch 🔌 클라이언트 연결 해제됨: XHFQEYSzt1wxeLh-AAAD (남은 0개)
+2025-08-08 15:19:34,934 INFO smart_switch 🔌 클라이언트 연결 해제됨: XHFQEYSzt1wxeLh-AAAD
+2025-08-08 15:21:37,855 ERROR smart_switch 동적 그룹 로드 실패: 'DeviceConfigManager' object has no attribute 'get' - 하드코딩된 그룹 사용
+2025-08-08 15:21:37,884 INFO smart_switch Starting Smart Switch Dimming Web Application
+2025-08-08 15:21:37,885 INFO smart_switch Access URL: http://localhost:5000
+2025-08-08 15:21:37,886 INFO smart_switch 백그라운드 이벤트 루프 시작
+2025-08-08 15:21:41,547 INFO smart_switch 🔗 클라이언트 연결됨: BU2NOQ3bi7POMWO4AAAC (총 1개)
+2025-08-08 15:21:41,585 INFO smart_switch 🔗 클라이언트 연결됨: QymOF9uDUltw8dmOAAAD (총 2개)
+2025-08-08 15:21:43,058 INFO smart_switch 하드웨어 초기화 완료
+2025-08-08 15:25:33,822 INFO smart_switch 🔌 클라이언트 연결 해제됨: BU2NOQ3bi7POMWO4AAAC (남은 1개)
+2025-08-08 15:25:33,823 INFO smart_switch 🔌 클라이언트 연결 해제됨: BU2NOQ3bi7POMWO4AAAC
+2025-08-08 15:25:33,860 INFO smart_switch 🔌 클라이언트 연결 해제됨: QymOF9uDUltw8dmOAAAD (남은 0개)
+2025-08-08 15:25:33,868 INFO smart_switch 🔌 클라이언트 연결 해제됨: QymOF9uDUltw8dmOAAAD
+2025-08-08 15:26:00,562 ERROR smart_switch 동적 그룹 로드 실패: 'DeviceConfigManager' object has no attribute 'get' - 하드코딩된 그룹 사용
+2025-08-08 15:26:00,592 INFO smart_switch Starting Smart Switch Dimming Web Application
+2025-08-08 15:26:00,593 INFO smart_switch Access URL: http://localhost:5000
+2025-08-08 15:26:00,594 INFO smart_switch 백그라운드 이벤트 루프 시작
+2025-08-08 15:26:05,949 INFO smart_switch 하드웨어 초기화 완료
+2025-08-08 15:26:09,765 INFO smart_switch 🔗 클라이언트 연결됨: HpwHRXYDOqoZkoVwAAAB (총 1개)
+2025-08-08 15:29:43,821 INFO smart_switch 🔌 클라이언트 연결 해제됨: HpwHRXYDOqoZkoVwAAAB (남은 0개)
+2025-08-08 15:29:43,822 INFO smart_switch 🔌 클라이언트 연결 해제됨: HpwHRXYDOqoZkoVwAAAB
+2025-08-08 16:01:42,770 ERROR smart_switch 동적 그룹 로드 실패: 'DeviceConfigManager' object has no attribute 'get' - 하드코딩된 그룹 사용
+2025-08-08 16:01:42,800 INFO smart_switch Starting Smart Switch Dimming Web Application
+2025-08-08 16:01:42,801 INFO smart_switch Access URL: http://localhost:5000
+2025-08-08 16:01:42,801 INFO smart_switch 백그라운드 이벤트 루프 시작
+2025-08-08 16:01:48,098 INFO smart_switch 하드웨어 초기화 완료
+2025-08-08 16:01:51,957 INFO smart_switch 🔗 클라이언트 연결됨: T_b6AzDC0LAqH8h9AAAB (총 1개)
+2025-08-08 16:06:51,629 INFO smart_switch 🔌 클라이언트 연결 해제됨: T_b6AzDC0LAqH8h9AAAB (남은 0개)
+2025-08-08 16:06:51,630 INFO smart_switch 🔌 클라이언트 연결 해제됨: T_b6AzDC0LAqH8h9AAAB
+2025-08-08 16:06:51,780 INFO smart_switch 🔗 클라이언트 연결됨: EAHhsPs-TtxN6DF1AAAD (총 1개)
+2025-08-08 16:11:51,772 INFO smart_switch 🔌 클라이언트 연결 해제됨: EAHhsPs-TtxN6DF1AAAD (남은 0개)
+2025-08-08 16:11:51,773 INFO smart_switch 🔌 클라이언트 연결 해제됨: EAHhsPs-TtxN6DF1AAAD
+2025-08-08 16:11:51,949 INFO smart_switch 🔗 클라이언트 연결됨: N3VQxDbGvGWEWJzNAAAF (총 1개)
+2025-08-08 16:14:09,180 INFO smart_switch 🔌 클라이언트 연결 해제됨: N3VQxDbGvGWEWJzNAAAF (남은 0개)
+2025-08-08 16:14:09,183 INFO smart_switch 🔌 클라이언트 연결 해제됨: N3VQxDbGvGWEWJzNAAAF
+2025-08-08 16:18:23,026 ERROR smart_switch 동적 그룹 로드 실패: 'DeviceConfigManager' object has no attribute 'get' - 하드코딩된 그룹 사용
+2025-08-08 16:18:23,056 INFO smart_switch Starting Smart Switch Dimming Web Application
+2025-08-08 16:18:23,057 INFO smart_switch Access URL: http://localhost:5000
+2025-08-08 16:18:23,058 INFO smart_switch 백그라운드 이벤트 루프 시작
+2025-08-08 16:18:23,105 INFO smart_switch 하드웨어 정리 완료
+2025-08-08 16:19:02,859 ERROR smart_switch 동적 그룹 로드 실패: 'DeviceConfigManager' object has no attribute 'get' - 하드코딩된 그룹 사용
+2025-08-08 16:19:02,891 INFO smart_switch Starting Smart Switch Dimming Web Application
+2025-08-08 16:19:02,891 INFO smart_switch Access URL: http://localhost:5000
+2025-08-08 16:19:02,892 INFO smart_switch 백그라운드 이벤트 루프 시작
+2025-08-08 16:19:02,923 INFO smart_switch 하드웨어 정리 완료
+2025-08-08 16:20:34,446 ERROR smart_switch 동적 그룹 로드 실패: 'DeviceConfigManager' object has no attribute 'get' - 하드코딩된 그룹 사용
+2025-08-08 16:20:34,478 INFO smart_switch Starting Smart Switch Dimming Web Application
+2025-08-08 16:20:34,478 INFO smart_switch Access URL: http://localhost:5000
+2025-08-08 16:20:34,479 INFO smart_switch 백그라운드 이벤트 루프 시작
+2025-08-08 16:20:39,759 INFO smart_switch 하드웨어 초기화 완료
+2025-08-08 16:20:43,340 INFO smart_switch 🔗 클라이언트 연결됨: TTvLgSP-0WcAhQRWAAAB (총 1개)
+2025-08-08 16:20:50,427 INFO smart_switch 🔗 클라이언트 연결됨: sXjCZic0o_YN8E72AAAD (총 2개)
+2025-08-08 16:20:51,266 INFO smart_switch 🔌 클라이언트 연결 해제됨: sXjCZic0o_YN8E72AAAD (남은 1개)
+2025-08-08 16:20:51,266 INFO smart_switch 🔌 클라이언트 연결 해제됨: sXjCZic0o_YN8E72AAAD
+2025-08-08 16:20:51,447 INFO smart_switch 🔗 클라이언트 연결됨: J9aMtN6lgGFyGrIMAAAF (총 2개)
+2025-08-08 16:21:04,021 INFO smart_switch 🔌 클라이언트 연결 해제됨: J9aMtN6lgGFyGrIMAAAF (남은 1개)
+2025-08-08 16:21:04,022 INFO smart_switch 🔌 클라이언트 연결 해제됨: J9aMtN6lgGFyGrIMAAAF
+2025-08-08 16:21:06,009 INFO smart_switch 🔗 클라이언트 연결됨: xJZMcrrwrpseW4RjAAAH (총 2개)
+2025-08-08 16:21:28,155 INFO smart_switch 🔌 클라이언트 연결 해제됨: xJZMcrrwrpseW4RjAAAH (남은 1개)
+2025-08-08 16:21:28,156 INFO smart_switch 🔌 클라이언트 연결 해제됨: xJZMcrrwrpseW4RjAAAH
+2025-08-08 16:23:38,202 INFO smart_switch 🔗 클라이언트 연결됨: h7lODTdBhVi9rE0GAAAJ (총 2개)
+2025-08-08 16:23:39,157 INFO smart_switch 🔌 클라이언트 연결 해제됨: h7lODTdBhVi9rE0GAAAJ (남은 1개)
+2025-08-08 16:23:39,157 INFO smart_switch 🔌 클라이언트 연결 해제됨: h7lODTdBhVi9rE0GAAAJ
+2025-08-08 16:23:39,539 INFO smart_switch 🔗 클라이언트 연결됨: sU8UtmluNSxJCsGvAAAL (총 2개)
+2025-08-08 16:23:41,643 INFO smart_switch 🔆 Socket.IO 전체 조명 제어 요청: is_on=False
+2025-08-08 16:23:46,646 ERROR smart_switch 비동기 작업 실행 실패: 
+2025-08-08 16:23:46,660 WARNING smart_switch 그룹 G1 하드웨어 제어 실패 - 메모리 상태만 업데이트
+2025-08-08 16:23:46,661 INFO smart_switch 전체 조명 메모리 상태 OFF로 업데이트 (하드웨어 제어 실패: G1)
+2025-08-08 16:24:20,681 INFO smart_switch 🔆 Socket.IO 전체 조명 제어 요청: is_on=True
+2025-08-08 16:24:25,685 ERROR smart_switch 비동기 작업 실행 실패: 
+2025-08-08 16:24:25,685 WARNING smart_switch 그룹 G1 하드웨어 제어 실패 - 메모리 상태만 업데이트
+2025-08-08 16:24:25,686 INFO smart_switch 전체 조명 메모리 상태 ON로 업데이트 (하드웨어 제어 실패: G1)
+2025-08-08 16:24:27,909 INFO smart_switch 🔌 클라이언트 연결 해제됨: sU8UtmluNSxJCsGvAAAL (남은 1개)
+2025-08-08 16:24:27,910 INFO smart_switch 🔌 클라이언트 연결 해제됨: sU8UtmluNSxJCsGvAAAL
+2025-08-08 16:24:28,377 INFO smart_switch 🔗 클라이언트 연결됨: Z-_7zWoqrIAFbnCyAAAN (총 2개)
+2025-08-08 16:24:30,585 INFO smart_switch 🔆 Socket.IO 밝기 설정 요청: group_id=None, light_id=G1-A, brightness=25
+2025-08-08 16:24:31,401 INFO smart_switch 🔆 Socket.IO 밝기 설정 요청: group_id=None, light_id=G1-B, brightness=25
+2025-08-08 16:24:31,409 WARNING smart_switch 개별 조명 G1-B 하드웨어 제어 실패 - 메모리 상태만 업데이트
+2025-08-08 16:24:31,410 INFO smart_switch 개별 조명 'G1-B (A2 조명)' 메모리 상태 25로 업데이트
+2025-08-08 16:24:32,654 INFO smart_switch 🔆 Socket.IO 밝기 설정 요청: group_id=None, light_id=G1-C, brightness=25
+2025-08-08 16:24:32,665 WARNING smart_switch 개별 조명 G1-C 하드웨어 제어 실패 - 메모리 상태만 업데이트
+2025-08-08 16:24:32,666 INFO smart_switch 개별 조명 'G1-C (A3 조명)' 메모리 상태 25로 업데이트
+2025-08-08 16:24:35,588 ERROR smart_switch 비동기 작업 실행 실패: 
+2025-08-08 16:24:35,589 WARNING smart_switch 개별 조명 G1-A 하드웨어 제어 실패 - 메모리 상태만 업데이트
+2025-08-08 16:24:35,589 INFO smart_switch 개별 조명 'G1-A (A1 조명)' 메모리 상태 25로 업데이트
+2025-08-08 16:24:38,180 INFO smart_switch 🔌 클라이언트 연결 해제됨: Z-_7zWoqrIAFbnCyAAAN (남은 1개)
+2025-08-08 16:24:38,180 INFO smart_switch 🔌 클라이언트 연결 해제됨: Z-_7zWoqrIAFbnCyAAAN
+2025-08-08 16:24:38,624 INFO smart_switch 🔗 클라이언트 연결됨: BrbsfGSpUJxhp9viAAAP (총 2개)
+2025-08-08 16:24:39,131 INFO smart_switch 🔌 클라이언트 연결 해제됨: BrbsfGSpUJxhp9viAAAP (남은 1개)
+2025-08-08 16:24:39,132 INFO smart_switch 🔌 클라이언트 연결 해제됨: BrbsfGSpUJxhp9viAAAP
+2025-08-08 16:24:39,483 INFO smart_switch 🔗 클라이언트 연결됨: vNwE51FJt5RW5On2AAAR (총 2개)
+2025-08-08 16:24:59,855 INFO smart_switch 🔌 클라이언트 연결 해제됨: vNwE51FJt5RW5On2AAAR (남은 1개)
+2025-08-08 16:24:59,855 INFO smart_switch 🔌 클라이언트 연결 해제됨: vNwE51FJt5RW5On2AAAR
+2025-08-08 16:25:00,084 INFO smart_switch 🔗 클라이언트 연결됨: nVUumXQALKNLUI48AAAT (총 2개)
+2025-08-08 16:25:01,589 INFO smart_switch 🔆 Socket.IO 밝기 설정 요청: group_id=G1, light_id=None, brightness=25
+2025-08-08 16:25:03,655 INFO smart_switch 🔆 Socket.IO 밝기 설정 요청: group_id=G1, light_id=None, brightness=0
+2025-08-08 16:25:06,592 ERROR smart_switch 비동기 작업 실행 실패: 
+2025-08-08 16:25:06,593 WARNING smart_switch 그룹 G1 하드웨어 제어 실패 - 메모리 상태만 업데이트
+2025-08-08 16:25:06,603 INFO smart_switch 그룹 'G1 (DALI A)' 메모리 상태 밝기 25로 업데이트
+2025-08-08 16:25:08,658 ERROR smart_switch 비동기 작업 실행 실패: 
+2025-08-08 16:25:08,659 WARNING smart_switch 그룹 G1 하드웨어 제어 실패 - 메모리 상태만 업데이트
+2025-08-08 16:25:08,661 INFO smart_switch 그룹 'G1 (DALI A)' 메모리 상태 밝기 0로 업데이트
+2025-08-08 16:25:13,973 INFO smart_switch 🔆 Socket.IO 밝기 설정 요청: group_id=G1, light_id=None, brightness=75
+2025-08-08 16:25:16,089 INFO smart_switch 🔌 클라이언트 연결 해제됨: nVUumXQALKNLUI48AAAT (남은 1개)
+2025-08-08 16:25:16,090 INFO smart_switch 🔌 클라이언트 연결 해제됨: nVUumXQALKNLUI48AAAT
+2025-08-08 16:25:18,977 ERROR smart_switch 비동기 작업 실행 실패: 
+2025-08-08 16:25:18,977 WARNING smart_switch 그룹 G1 하드웨어 제어 실패 - 메모리 상태만 업데이트
+2025-08-08 16:25:18,978 INFO smart_switch 그룹 'G1 (DALI A)' 메모리 상태 밝기 75로 업데이트
+2025-08-08 16:25:43,183 INFO smart_switch 🔌 클라이언트 연결 해제됨: TTvLgSP-0WcAhQRWAAAB (남은 0개)
+2025-08-08 16:25:43,184 INFO smart_switch 🔌 클라이언트 연결 해제됨: TTvLgSP-0WcAhQRWAAAB
+2025-08-08 16:25:43,363 INFO smart_switch 🔗 클라이언트 연결됨: MbTsO1th2DLn9qogAAAV (총 1개)
+2025-08-08 16:29:16,248 INFO smart_switch 🔗 클라이언트 연결됨: 3j1KSygm_O-ONjUBAAAX (총 2개)
+2025-08-08 16:29:17,801 INFO smart_switch 🔗 클라이언트 연결됨: MQ18B0rIlmNIQGuSAAAZ (총 3개)
+2025-08-08 16:29:18,461 INFO smart_switch 🔆 Socket.IO 전체 조명 제어 요청: is_on=False
+2025-08-08 16:29:23,464 ERROR smart_switch 비동기 작업 실행 실패: 
+2025-08-08 16:29:23,465 WARNING smart_switch 그룹 G1 하드웨어 제어 실패 - 메모리 상태만 업데이트
+2025-08-08 16:29:23,465 INFO smart_switch 전체 조명 메모리 상태 OFF로 업데이트 (하드웨어 제어 실패: G1)
+2025-08-08 16:29:36,510 INFO smart_switch 🔌 클라이언트 연결 해제됨: 3j1KSygm_O-ONjUBAAAX (남은 2개)
+2025-08-08 16:29:36,511 INFO smart_switch 🔌 클라이언트 연결 해제됨: 3j1KSygm_O-ONjUBAAAX
+2025-08-08 16:30:14,908 INFO smart_switch 🔗 클라이언트 연결됨: c3pJVkn4X-gE-teQAAAb (총 3개)
+2025-08-08 16:30:43,362 INFO smart_switch 🔌 클라이언트 연결 해제됨: MbTsO1th2DLn9qogAAAV (남은 2개)
+2025-08-08 16:30:43,363 INFO smart_switch 🔌 클라이언트 연결 해제됨: MbTsO1th2DLn9qogAAAV
+2025-08-08 16:30:43,533 INFO smart_switch 🔗 클라이언트 연결됨: rraO2MSm-g4RAAQxAAAd (총 3개)
+2025-08-08 16:31:05,343 INFO smart_switch 🔌 클라이언트 연결 해제됨: MQ18B0rIlmNIQGuSAAAZ (남은 2개)
+2025-08-08 16:31:05,344 INFO smart_switch 🔌 클라이언트 연결 해제됨: MQ18B0rIlmNIQGuSAAAZ
+2025-08-08 16:31:06,459 INFO smart_switch 🔗 클라이언트 연결됨: eljjSdUYbupGciLoAAAf (총 3개)
+2025-08-08 16:31:18,981 INFO smart_switch 🔌 클라이언트 연결 해제됨: c3pJVkn4X-gE-teQAAAb (남은 2개)
+2025-08-08 16:31:18,982 INFO smart_switch 🔌 클라이언트 연결 해제됨: c3pJVkn4X-gE-teQAAAb
+2025-08-08 16:31:20,319 INFO smart_switch 🔌 클라이언트 연결 해제됨: eljjSdUYbupGciLoAAAf (남은 1개)
+2025-08-08 16:31:20,321 INFO smart_switch 🔌 클라이언트 연결 해제됨: eljjSdUYbupGciLoAAAf
+2025-08-08 16:35:16,230 INFO smart_switch 🔗 클라이언트 연결됨: R71M029dog54df5VAAAh (총 2개)
+2025-08-08 16:35:43,537 INFO smart_switch 🔌 클라이언트 연결 해제됨: rraO2MSm-g4RAAQxAAAd (남은 1개)
+2025-08-08 16:35:43,539 INFO smart_switch 🔌 클라이언트 연결 해제됨: rraO2MSm-g4RAAQxAAAd
+2025-08-08 16:35:43,688 INFO smart_switch 🔗 클라이언트 연결됨: enZi_ekykPT7T0JcAAAj (총 2개)
+2025-08-08 16:36:21,341 INFO smart_switch 🔗 클라이언트 연결됨: 5n2TvARCTCMQcFBeAAAl (총 3개)
+2025-08-08 16:40:16,455 INFO smart_switch 🔌 클라이언트 연결 해제됨: R71M029dog54df5VAAAh (남은 2개)
+2025-08-08 16:40:16,461 INFO smart_switch 🔌 클라이언트 연결 해제됨: R71M029dog54df5VAAAh
+2025-08-08 16:40:16,773 INFO smart_switch 🔗 클라이언트 연결됨: i_7t7PhGU5o5TqE3AAAn (총 3개)
+2025-08-08 16:40:43,693 INFO smart_switch 🔌 클라이언트 연결 해제됨: enZi_ekykPT7T0JcAAAj (남은 2개)
+2025-08-08 16:40:43,694 INFO smart_switch 🔌 클라이언트 연결 해제됨: enZi_ekykPT7T0JcAAAj
+2025-08-08 16:40:43,854 INFO smart_switch 🔗 클라이언트 연결됨: VOuI-pc-Jf5g2JD1AAAp (총 3개)
+2025-08-08 16:41:23,085 INFO smart_switch 🔗 클라이언트 연결됨: nthSGZ5WcJPqk_U0AAAr (총 4개)
+2025-08-08 16:41:43,222 INFO smart_switch 🔌 클라이언트 연결 해제됨: 5n2TvARCTCMQcFBeAAAl (남은 3개)
+2025-08-08 16:41:43,223 INFO smart_switch 🔌 클라이언트 연결 해제됨: 5n2TvARCTCMQcFBeAAAl
+2025-08-08 16:44:46,989 ERROR smart_switch 동적 그룹 로드 실패: 'DeviceConfigManager' object has no attribute 'get' - 하드코딩된 그룹 사용
+2025-08-08 16:44:47,020 INFO smart_switch Starting Smart Switch Dimming Web Application
+2025-08-08 16:44:47,021 INFO smart_switch Access URL: http://localhost:5000
+2025-08-08 16:44:47,022 INFO smart_switch 백그라운드 이벤트 루프 시작
+2025-08-08 16:44:50,794 INFO smart_switch 🔗 클라이언트 연결됨: phGGRRNf6UbIpmLwAAAB (총 1개)
+2025-08-08 16:44:52,189 INFO smart_switch 하드웨어 초기화 완료
+2025-08-08 16:52:00,908 ERROR smart_switch 동적 그룹 로드 실패: 'DeviceConfigManager' object has no attribute 'get' - 하드코딩된 그룹 사용
+2025-08-08 16:52:00,940 INFO smart_switch Starting Smart Switch Dimming Web Application
+2025-08-08 16:52:00,941 INFO smart_switch Access URL: http://localhost:5000
+2025-08-08 16:52:00,942 INFO smart_switch 백그라운드 이벤트 루프 시작
+2025-08-08 16:52:06,153 INFO smart_switch 하드웨어 초기화 완료
+2025-08-08 17:06:21,038 INFO smart_switch 하드웨어 정리 완료
+2025-08-08 17:09:11,668 ERROR smart_switch 동적 그룹 로드 실패: 'DeviceConfigManager' object has no attribute 'get' - 하드코딩된 그룹 사용
+2025-08-08 17:09:11,699 INFO smart_switch Starting Smart Switch Dimming Web Application
+2025-08-08 17:09:11,699 INFO smart_switch Access URL: http://localhost:5000
+2025-08-08 17:09:11,700 INFO smart_switch 백그라운드 이벤트 루프 시작
+2025-08-08 17:09:15,357 INFO smart_switch 🔗 클라이언트 연결됨: wUVU_ZN1rApi96xCAAAB (총 1개)
+2025-08-08 17:09:16,870 INFO smart_switch 하드웨어 초기화 완료
+2025-08-08 17:44:13,485 ERROR smart_switch 동적 그룹 로드 실패: 'DeviceConfigManager' object has no attribute 'get' - 하드코딩된 그룹 사용
+2025-08-08 17:44:13,516 INFO smart_switch Starting Smart Switch Dimming Web Application
+2025-08-08 17:44:13,516 INFO smart_switch Access URL: http://localhost:5000
+2025-08-08 17:44:13,517 INFO smart_switch 백그라운드 이벤트 루프 시작
+2025-08-08 17:44:17,196 INFO smart_switch 🔗 클라이언트 연결됨: T_xPK6Y0ExK-RAVDAAAB (총 1개)
+2025-08-08 17:44:18,689 INFO smart_switch 하드웨어 초기화 완료
+2025-08-08 17:44:31,229 INFO smart_switch 🔗 클라이언트 연결됨: jilX8bztojs2cESPAAAD (총 2개)
+2025-08-08 17:44:32,402 INFO smart_switch 🔗 클라이언트 연결됨: XvLIzy6a10WUm3GKAAAF (총 3개)
+2025-08-08 17:44:33,866 INFO smart_switch 🔌 클라이언트 연결 해제됨: XvLIzy6a10WUm3GKAAAF (남은 2개)
+2025-08-08 17:44:33,866 INFO smart_switch 🔌 클라이언트 연결 해제됨: XvLIzy6a10WUm3GKAAAF
+2025-08-08 17:44:34,560 INFO smart_switch 🔗 클라이언트 연결됨: ByWK20UmxkCUc2iUAAAH (총 3개)
+2025-08-08 17:44:39,827 INFO smart_switch 🔆 Socket.IO 전체 조명 제어 요청: is_on=False
+2025-08-08 17:44:41,204 INFO smart_switch 🔌 클라이언트 연결 해제됨: ByWK20UmxkCUc2iUAAAH (남은 2개)
+2025-08-08 17:44:41,204 INFO smart_switch 🔌 클라이언트 연결 해제됨: ByWK20UmxkCUc2iUAAAH
+2025-08-08 17:44:43,268 INFO smart_switch 🔗 클라이언트 연결됨: V_zffHfU4RzSPGVCAAAJ (총 3개)
+2025-08-08 17:44:43,950 INFO smart_switch 🔌 클라이언트 연결 해제됨: V_zffHfU4RzSPGVCAAAJ (남은 2개)
+2025-08-08 17:44:43,951 INFO smart_switch 🔌 클라이언트 연결 해제됨: V_zffHfU4RzSPGVCAAAJ
+2025-08-08 17:44:44,831 ERROR smart_switch 비동기 작업 실행 실패: 
+2025-08-08 17:44:44,831 WARNING smart_switch 그룹 G1 하드웨어 제어 실패 - 메모리 상태만 업데이트
+2025-08-08 17:44:44,832 INFO smart_switch 전체 조명 메모리 상태 OFF로 업데이트 (하드웨어 제어 실패: G1)
+2025-08-08 17:44:47,102 INFO smart_switch 🔗 클라이언트 연결됨: _DCy9hDfUGeyq9f_AAAL (총 3개)
+2025-08-08 17:44:50,375 INFO smart_switch 🔌 클라이언트 연결 해제됨: jilX8bztojs2cESPAAAD (남은 2개)
+2025-08-08 17:44:50,375 INFO smart_switch 🔌 클라이언트 연결 해제됨: jilX8bztojs2cESPAAAD
+2025-08-08 17:45:00,134 INFO smart_switch 🔆 Socket.IO 전체 조명 제어 요청: is_on=False
+2025-08-08 17:45:04,282 INFO smart_switch 🔌 클라이언트 연결 해제됨: _DCy9hDfUGeyq9f_AAAL (남은 1개)
+2025-08-08 17:45:04,284 INFO smart_switch 🔌 클라이언트 연결 해제됨: _DCy9hDfUGeyq9f_AAAL
+2025-08-08 17:45:05,184 ERROR smart_switch 비동기 작업 실행 실패: 
+2025-08-08 17:45:05,201 WARNING smart_switch 그룹 G1 하드웨어 제어 실패 - 메모리 상태만 업데이트
+2025-08-08 17:45:05,204 INFO smart_switch 전체 조명 메모리 상태 OFF로 업데이트 (하드웨어 제어 실패: G1)
+2025-08-08 17:45:06,002 INFO smart_switch 🔗 클라이언트 연결됨: KfDsSvxpv-jdLiA4AAAN (총 2개)
+2025-08-08 17:45:07,686 INFO smart_switch 🔗 클라이언트 연결됨: thWojaKg8-1BPgdmAAAP (총 3개)
+2025-08-08 17:45:08,977 INFO smart_switch 🔆 Socket.IO 전체 조명 제어 요청: is_on=True
+2025-08-08 17:45:11,377 INFO smart_switch 🔌 클라이언트 연결 해제됨: thWojaKg8-1BPgdmAAAP (남은 2개)
+2025-08-08 17:45:11,378 INFO smart_switch 🔌 클라이언트 연결 해제됨: thWojaKg8-1BPgdmAAAP
+2025-08-08 17:45:13,979 ERROR smart_switch 비동기 작업 실행 실패: 
+2025-08-08 17:45:13,980 WARNING smart_switch 그룹 G1 하드웨어 제어 실패 - 메모리 상태만 업데이트
+2025-08-08 17:45:13,981 INFO smart_switch 전체 조명 메모리 상태 ON로 업데이트 (하드웨어 제어 실패: G1)
+2025-08-08 17:45:22,045 INFO smart_switch 🔌 클라이언트 연결 해제됨: KfDsSvxpv-jdLiA4AAAN (남은 1개)
+2025-08-08 17:45:22,045 INFO smart_switch 🔌 클라이언트 연결 해제됨: KfDsSvxpv-jdLiA4AAAN
+2025-08-08 17:45:25,075 INFO smart_switch 🔗 클라이언트 연결됨: zrVXfqsxvhyAowEMAAAR (총 2개)
+2025-08-08 17:45:26,202 INFO smart_switch 🔌 클라이언트 연결 해제됨: zrVXfqsxvhyAowEMAAAR (남은 1개)
+2025-08-08 17:45:26,203 INFO smart_switch 🔌 클라이언트 연결 해제됨: zrVXfqsxvhyAowEMAAAR
+2025-08-08 17:45:38,271 INFO smart_switch 🔗 클라이언트 연결됨: x9y1N6nIGUJU13GJAAAT (총 2개)
+2025-08-08 17:45:56,045 INFO smart_switch 🔌 클라이언트 연결 해제됨: x9y1N6nIGUJU13GJAAAT (남은 1개)
+2025-08-08 17:45:56,046 INFO smart_switch 🔌 클라이언트 연결 해제됨: x9y1N6nIGUJU13GJAAAT
+2025-08-08 17:46:25,458 INFO smart_switch 🔗 클라이언트 연결됨: kIksjaok3TLSY84-AAAV (총 2개)
+2025-08-08 17:46:28,273 INFO smart_switch 🔗 클라이언트 연결됨: 7wGdvHzsi4ThDOg8AAAY (총 3개)
+2025-08-08 17:46:29,548 INFO smart_switch 🔗 클라이언트 연결됨: EyXGnJE23MbYwBwgAAAa (총 4개)
+2025-08-08 17:46:32,324 INFO smart_switch 🔌 클라이언트 연결 해제됨: EyXGnJE23MbYwBwgAAAa (남은 3개)
+2025-08-08 17:46:32,325 INFO smart_switch 🔌 클라이언트 연결 해제됨: EyXGnJE23MbYwBwgAAAa
+2025-08-08 17:46:44,550 INFO smart_switch 🔌 클라이언트 연결 해제됨: 7wGdvHzsi4ThDOg8AAAY (남은 2개)
+2025-08-08 17:46:44,551 INFO smart_switch 🔌 클라이언트 연결 해제됨: 7wGdvHzsi4ThDOg8AAAY
+2025-08-08 17:46:45,002 INFO smart_switch 🔗 클라이언트 연결됨: Vi4YS4D92zAxG02lAAAc (총 3개)
+2025-08-08 17:46:47,836 INFO smart_switch 🔌 클라이언트 연결 해제됨: Vi4YS4D92zAxG02lAAAc (남은 2개)
+2025-08-08 17:46:47,837 INFO smart_switch 🔌 클라이언트 연결 해제됨: Vi4YS4D92zAxG02lAAAc
+2025-08-08 17:46:49,053 INFO smart_switch 🔌 클라이언트 연결 해제됨: kIksjaok3TLSY84-AAAV (남은 1개)
+2025-08-08 17:46:49,054 INFO smart_switch 🔌 클라이언트 연결 해제됨: kIksjaok3TLSY84-AAAV
+2025-08-08 17:47:00,857 INFO smart_switch 🔗 클라이언트 연결됨: FHhp2pwmlGbNBtEcAAAe (총 2개)
+2025-08-08 17:47:01,325 INFO smart_switch 🔌 클라이언트 연결 해제됨: FHhp2pwmlGbNBtEcAAAe (남은 1개)
+2025-08-08 17:47:01,326 INFO smart_switch 🔌 클라이언트 연결 해제됨: FHhp2pwmlGbNBtEcAAAe
+2025-08-08 17:49:16,999 INFO smart_switch 🔌 클라이언트 연결 해제됨: T_xPK6Y0ExK-RAVDAAAB (남은 0개)
+2025-08-08 17:49:17,000 INFO smart_switch 🔌 클라이언트 연결 해제됨: T_xPK6Y0ExK-RAVDAAAB
+2025-08-08 17:49:17,187 INFO smart_switch 🔗 클라이언트 연결됨: 2ThFlhA4zy9ftnYSAAAg (총 1개)
+2025-08-08 17:51:31,378 INFO smart_switch 🔗 클라이언트 연결됨: Lt8aA9bzxdqRT_qrAAAi (총 2개)
+2025-08-08 17:52:10,628 INFO smart_switch 🔌 클라이언트 연결 해제됨: Lt8aA9bzxdqRT_qrAAAi (남은 1개)
+2025-08-08 17:52:10,629 INFO smart_switch 🔌 클라이언트 연결 해제됨: Lt8aA9bzxdqRT_qrAAAi
+2025-08-08 17:52:12,223 INFO smart_switch 🔗 클라이언트 연결됨: 9_ZPWQvaiSUzBIj9AAAk (총 2개)
+2025-08-08 17:52:12,621 INFO smart_switch 🔆 Socket.IO 전체 조명 제어 요청: is_on=False
+2025-08-08 17:52:17,625 ERROR smart_switch 비동기 작업 실행 실패: 
+2025-08-08 17:52:17,626 WARNING smart_switch 그룹 G1 하드웨어 제어 실패 - 메모리 상태만 업데이트
+2025-08-08 17:52:17,626 INFO smart_switch 전체 조명 메모리 상태 OFF로 업데이트 (하드웨어 제어 실패: G1)
+2025-08-08 17:52:20,208 INFO smart_switch 🔆 Socket.IO 전체 조명 제어 요청: is_on=True
+2025-08-08 17:52:25,212 ERROR smart_switch 비동기 작업 실행 실패: 
+2025-08-08 17:52:25,212 WARNING smart_switch 그룹 G1 하드웨어 제어 실패 - 메모리 상태만 업데이트
+2025-08-08 17:52:25,215 INFO smart_switch 전체 조명 메모리 상태 ON로 업데이트 (하드웨어 제어 실패: G1)
+2025-08-08 17:52:27,299 INFO smart_switch 🔆 Socket.IO 밝기 설정 요청: group_id=G1, light_id=None, brightness=25
+2025-08-08 17:52:31,250 INFO smart_switch 🔆 Socket.IO 밝기 설정 요청: group_id=G1, light_id=None, brightness=100
+2025-08-08 17:52:32,304 ERROR smart_switch 비동기 작업 실행 실패: 
+2025-08-08 17:52:32,305 WARNING smart_switch 그룹 G1 하드웨어 제어 실패 - 메모리 상태만 업데이트
+2025-08-08 17:52:32,306 INFO smart_switch 그룹 'G1 (DALI A)' 메모리 상태 밝기 25로 업데이트
+2025-08-08 17:52:36,255 ERROR smart_switch 비동기 작업 실행 실패: 
+2025-08-08 17:52:36,256 WARNING smart_switch 그룹 G1 하드웨어 제어 실패 - 메모리 상태만 업데이트
+2025-08-08 17:52:36,256 INFO smart_switch 그룹 'G1 (DALI A)' 메모리 상태 밝기 100로 업데이트
+2025-08-08 17:53:31,286 INFO smart_switch 🔌 클라이언트 연결 해제됨: 9_ZPWQvaiSUzBIj9AAAk (남은 1개)
+2025-08-08 17:53:31,287 INFO smart_switch 🔌 클라이언트 연결 해제됨: 9_ZPWQvaiSUzBIj9AAAk
+2025-08-08 17:54:11,659 INFO smart_switch 🔗 클라이언트 연결됨: ZGIk83WZfo4w_2iIAAAm (총 2개)
+2025-08-08 17:54:14,818 INFO smart_switch 🔆 Socket.IO 전체 조명 제어 요청: is_on=False
+2025-08-08 17:54:17,175 INFO smart_switch 🔌 클라이언트 연결 해제됨: 2ThFlhA4zy9ftnYSAAAg (남은 1개)
+2025-08-08 17:54:17,176 INFO smart_switch 🔌 클라이언트 연결 해제됨: 2ThFlhA4zy9ftnYSAAAg
+2025-08-08 17:54:17,337 INFO smart_switch 🔗 클라이언트 연결됨: Zz6T2_H7VwYohi8iAAAo (총 2개)
+2025-08-08 17:54:19,822 ERROR smart_switch 비동기 작업 실행 실패: 
+2025-08-08 17:54:19,822 WARNING smart_switch 그룹 G1 하드웨어 제어 실패 - 메모리 상태만 업데이트
+2025-08-08 17:54:19,822 INFO smart_switch 전체 조명 메모리 상태 OFF로 업데이트 (하드웨어 제어 실패: G1)
+2025-08-08 17:54:30,217 INFO smart_switch 🔌 클라이언트 연결 해제됨: ZGIk83WZfo4w_2iIAAAm (남은 1개)
+2025-08-08 17:54:30,218 INFO smart_switch 🔌 클라이언트 연결 해제됨: ZGIk83WZfo4w_2iIAAAm
+2025-08-08 17:54:33,793 INFO smart_switch 🔗 클라이언트 연결됨: YgVUA3GtiqiYdqPXAAAq (총 2개)
+2025-08-08 17:54:52,993 INFO smart_switch 🔆 Socket.IO 밝기 설정 요청: group_id=G1, light_id=None, brightness=25
+2025-08-08 17:54:57,995 ERROR smart_switch 비동기 작업 실행 실패: 
+2025-08-08 17:54:57,996 WARNING smart_switch 그룹 G1 하드웨어 제어 실패 - 메모리 상태만 업데이트
+2025-08-08 17:54:57,996 INFO smart_switch 그룹 'G1 (DALI A)' 메모리 상태 밝기 25로 업데이트
+2025-08-08 17:55:06,951 INFO smart_switch 🔆 Socket.IO 밝기 설정 요청: group_id=G1, light_id=None, brightness=100
+2025-08-08 17:55:09,003 INFO smart_switch 🔆 Socket.IO 밝기 설정 요청: group_id=G1, light_id=None, brightness=75
+2025-08-08 17:55:10,817 INFO smart_switch 🔆 Socket.IO 밝기 설정 요청: group_id=G1, light_id=None, brightness=50
+2025-08-08 17:55:11,953 ERROR smart_switch 비동기 작업 실행 실패: 
+2025-08-08 17:55:11,954 WARNING smart_switch 그룹 G1 하드웨어 제어 실패 - 메모리 상태만 업데이트
+2025-08-08 17:55:11,954 INFO smart_switch 그룹 'G1 (DALI A)' 메모리 상태 밝기 100로 업데이트
+2025-08-08 17:55:12,241 INFO smart_switch 🔆 Socket.IO 밝기 설정 요청: group_id=G1, light_id=None, brightness=25
+2025-08-08 17:55:14,005 ERROR smart_switch 비동기 작업 실행 실패: 
+2025-08-08 17:55:14,007 WARNING smart_switch 그룹 G1 하드웨어 제어 실패 - 메모리 상태만 업데이트
+2025-08-08 17:55:14,009 INFO smart_switch 그룹 'G1 (DALI A)' 메모리 상태 밝기 75로 업데이트
+2025-08-08 17:55:14,890 INFO smart_switch 🔌 클라이언트 연결 해제됨: YgVUA3GtiqiYdqPXAAAq (남은 1개)
+2025-08-08 17:55:14,891 INFO smart_switch 🔌 클라이언트 연결 해제됨: YgVUA3GtiqiYdqPXAAAq
+2025-08-08 17:55:15,822 ERROR smart_switch 비동기 작업 실행 실패: 
+2025-08-08 17:55:15,823 WARNING smart_switch 그룹 G1 하드웨어 제어 실패 - 메모리 상태만 업데이트
+2025-08-08 17:55:15,823 INFO smart_switch 그룹 'G1 (DALI A)' 메모리 상태 밝기 50로 업데이트
+2025-08-08 17:55:17,244 ERROR smart_switch 비동기 작업 실행 실패: 
+2025-08-08 17:55:17,245 WARNING smart_switch 그룹 G1 하드웨어 제어 실패 - 메모리 상태만 업데이트
+2025-08-08 17:55:17,246 INFO smart_switch 그룹 'G1 (DALI A)' 메모리 상태 밝기 25로 업데이트
+2025-08-08 17:55:42,836 INFO smart_switch 🔗 클라이언트 연결됨: cP62tlEp7tZF2IIfAAAs (총 2개)
+2025-08-08 17:55:45,915 INFO smart_switch 🔌 클라이언트 연결 해제됨: cP62tlEp7tZF2IIfAAAs (남은 1개)
+2025-08-08 17:55:45,916 INFO smart_switch 🔌 클라이언트 연결 해제됨: cP62tlEp7tZF2IIfAAAs
+2025-08-08 17:55:53,093 INFO smart_switch 🔗 클라이언트 연결됨: gRM2yRx5YiAeUkLkAAAu (총 2개)
+2025-08-08 17:55:54,883 INFO smart_switch 🔌 클라이언트 연결 해제됨: gRM2yRx5YiAeUkLkAAAu (남은 1개)
+2025-08-08 17:55:54,884 INFO smart_switch 🔌 클라이언트 연결 해제됨: gRM2yRx5YiAeUkLkAAAu
+2025-08-08 17:56:26,163 INFO smart_switch 🔗 클라이언트 연결됨: scsYj3Is9uNwrALmAAAw (총 2개)
+2025-08-08 17:56:28,358 INFO smart_switch 🔌 클라이언트 연결 해제됨: scsYj3Is9uNwrALmAAAw (남은 1개)
+2025-08-08 17:56:28,359 INFO smart_switch 🔌 클라이언트 연결 해제됨: scsYj3Is9uNwrALmAAAw
+2025-08-08 17:56:31,099 INFO smart_switch 🔗 클라이언트 연결됨: HpIMHNbe2gB2WQ-QAAAy (총 2개)
+2025-08-08 17:56:39,251 INFO smart_switch 🔆 Socket.IO 밝기 설정 요청: group_id=G1, light_id=None, brightness=50
+2025-08-08 17:56:40,463 INFO smart_switch 🔆 Socket.IO 밝기 설정 요청: group_id=G1, light_id=None, brightness=75
+2025-08-08 17:56:42,426 INFO smart_switch 🔆 Socket.IO 밝기 설정 요청: group_id=G1, light_id=None, brightness=100
+2025-08-08 17:56:43,354 INFO smart_switch 🔆 Socket.IO 밝기 설정 요청: group_id=G1, light_id=None, brightness=25
+2025-08-08 17:56:44,253 ERROR smart_switch 비동기 작업 실행 실패: 
+2025-08-08 17:56:44,254 WARNING smart_switch 그룹 G1 하드웨어 제어 실패 - 메모리 상태만 업데이트
+2025-08-08 17:56:44,254 INFO smart_switch 그룹 'G1 (DALI A)' 메모리 상태 밝기 50로 업데이트
+2025-08-08 17:56:44,959 INFO smart_switch 🔌 클라이언트 연결 해제됨: HpIMHNbe2gB2WQ-QAAAy (남은 1개)
+2025-08-08 17:56:44,961 INFO smart_switch 🔌 클라이언트 연결 해제됨: HpIMHNbe2gB2WQ-QAAAy
+2025-08-08 17:56:45,466 ERROR smart_switch 비동기 작업 실행 실패: 
+2025-08-08 17:56:45,467 WARNING smart_switch 그룹 G1 하드웨어 제어 실패 - 메모리 상태만 업데이트
+2025-08-08 17:56:45,467 INFO smart_switch 그룹 'G1 (DALI A)' 메모리 상태 밝기 75로 업데이트
+2025-08-08 17:56:47,429 ERROR smart_switch 비동기 작업 실행 실패: 
+2025-08-08 17:56:47,431 WARNING smart_switch 그룹 G1 하드웨어 제어 실패 - 메모리 상태만 업데이트
+2025-08-08 17:56:47,432 INFO smart_switch 그룹 'G1 (DALI A)' 메모리 상태 밝기 100로 업데이트
+2025-08-08 17:56:48,358 ERROR smart_switch 비동기 작업 실행 실패: 
+2025-08-08 17:56:48,358 WARNING smart_switch 그룹 G1 하드웨어 제어 실패 - 메모리 상태만 업데이트
+2025-08-08 17:56:48,359 INFO smart_switch 그룹 'G1 (DALI A)' 메모리 상태 밝기 25로 업데이트
+2025-08-08 17:58:28,356 INFO smart_switch 🔗 클라이언트 연결됨: mC1CLWCUEtUOdLrMAAA0 (총 2개)
+2025-08-08 17:58:29,265 INFO smart_switch 🔌 클라이언트 연결 해제됨: mC1CLWCUEtUOdLrMAAA0 (남은 1개)
+2025-08-08 17:58:29,267 INFO smart_switch 🔌 클라이언트 연결 해제됨: mC1CLWCUEtUOdLrMAAA0
+2025-08-08 17:58:30,445 INFO smart_switch 🔗 클라이언트 연결됨: WHeYUDU1o7FhUCTsAAA2 (총 2개)
+2025-08-08 17:58:33,975 INFO smart_switch 🔆 Socket.IO 밝기 설정 요청: group_id=None, light_id=G1-A, brightness=100
+2025-08-08 17:58:36,278 INFO smart_switch 🔆 Socket.IO 밝기 설정 요청: group_id=None, light_id=G1-B, brightness=100
+2025-08-08 17:58:36,293 WARNING smart_switch 개별 조명 G1-B 하드웨어 제어 실패 - 메모리 상태만 업데이트
+2025-08-08 17:58:36,294 INFO smart_switch 개별 조명 'G1-B (A2 조명)' 메모리 상태 100로 업데이트
+2025-08-08 17:58:38,978 ERROR smart_switch 비동기 작업 실행 실패: 
+2025-08-08 17:58:38,979 WARNING smart_switch 개별 조명 G1-A 하드웨어 제어 실패 - 메모리 상태만 업데이트
+2025-08-08 17:58:38,979 INFO smart_switch 개별 조명 'G1-A (A1 조명)' 메모리 상태 100로 업데이트
+2025-08-08 17:59:07,467 INFO smart_switch 🔌 클라이언트 연결 해제됨: WHeYUDU1o7FhUCTsAAA2 (남은 1개)
+2025-08-08 17:59:07,468 INFO smart_switch 🔌 클라이언트 연결 해제됨: WHeYUDU1o7FhUCTsAAA2
+2025-08-08 17:59:17,335 INFO smart_switch 🔌 클라이언트 연결 해제됨: Zz6T2_H7VwYohi8iAAAo (남은 0개)
+2025-08-08 17:59:17,337 INFO smart_switch 🔌 클라이언트 연결 해제됨: Zz6T2_H7VwYohi8iAAAo
+2025-08-08 17:59:17,497 INFO smart_switch 🔗 클라이언트 연결됨: vNquFO9WVZaqsLOWAAA4 (총 1개)
+2025-08-08 17:59:18,123 INFO smart_switch 🔗 클라이언트 연결됨: T2aGPWe7f8MdmSgxAAA6 (총 2개)
+2025-08-08 18:07:07,325 ERROR smart_switch 동적 그룹 로드 실패: 'DeviceConfigManager' object has no attribute 'get' - 하드코딩된 그룹 사용
+2025-08-08 18:07:07,357 INFO smart_switch Starting Smart Switch Dimming Web Application
+2025-08-08 18:07:07,358 INFO smart_switch Access URL: http://localhost:5000
+2025-08-08 18:07:07,359 INFO smart_switch 백그라운드 이벤트 루프 시작
+2025-08-08 18:07:11,126 INFO smart_switch 🔗 클라이언트 연결됨: A8H128gWOddPGDuXAAAB (총 1개)
+2025-08-08 18:07:11,789 INFO smart_switch 🔗 클라이언트 연결됨: eXgVV1SzxU0S02QeAAAD (총 2개)
+2025-08-08 18:07:12,219 INFO smart_switch 🔌 클라이언트 연결 해제됨: eXgVV1SzxU0S02QeAAAD (남은 1개)
+2025-08-08 18:07:12,234 INFO smart_switch 🔌 클라이언트 연결 해제됨: eXgVV1SzxU0S02QeAAAD
+2025-08-08 18:07:12,530 INFO smart_switch 하드웨어 초기화 완료
+2025-08-08 18:07:13,373 INFO smart_switch 🔗 클라이언트 연결됨: ONxsFaoAalh40GuVAAAF (총 2개)
+2025-08-08 18:07:22,665 INFO smart_switch 🔆 Socket.IO 밝기 설정 요청: group_id=G1, light_id=None, brightness=1
+2025-08-08 18:07:23,050 INFO smart_switch 🔆 Socket.IO 밝기 설정 요청: group_id=G1, light_id=None, brightness=1
+2025-08-08 18:07:27,668 ERROR smart_switch 비동기 작업 실행 실패: 
+2025-08-08 18:07:27,669 WARNING smart_switch 그룹 G1 하드웨어 제어 실패 - 메모리 상태만 업데이트
+2025-08-08 18:07:27,669 INFO smart_switch 그룹 'G1 (DALI A)' 메모리 상태 밝기 1로 업데이트
+2025-08-08 18:07:28,053 ERROR smart_switch 비동기 작업 실행 실패: 
+2025-08-08 18:07:28,054 WARNING smart_switch 그룹 G1 하드웨어 제어 실패 - 메모리 상태만 업데이트
+2025-08-08 18:07:28,054 INFO smart_switch 그룹 'G1 (DALI A)' 메모리 상태 밝기 1로 업데이트
+2025-08-08 18:07:38,749 INFO smart_switch 🔆 Socket.IO 밝기 설정 요청: group_id=G1, light_id=None, brightness=100
+2025-08-08 18:07:43,752 ERROR smart_switch 비동기 작업 실행 실패: 
+2025-08-08 18:07:43,753 WARNING smart_switch 그룹 G1 하드웨어 제어 실패 - 메모리 상태만 업데이트
+2025-08-08 18:07:43,754 INFO smart_switch 그룹 'G1 (DALI A)' 메모리 상태 밝기 100로 업데이트
+2025-08-08 18:08:39,388 INFO smart_switch 🔌 클라이언트 연결 해제됨: ONxsFaoAalh40GuVAAAF (남은 1개)
+2025-08-08 18:08:39,389 INFO smart_switch 🔌 클라이언트 연결 해제됨: ONxsFaoAalh40GuVAAAF
+2025-08-08 18:09:43,037 INFO smart_switch 🔗 클라이언트 연결됨: WuzASEPqkNovK2HrAAAH (총 2개)
+2025-08-08 18:09:44,217 INFO smart_switch 🔌 클라이언트 연결 해제됨: WuzASEPqkNovK2HrAAAH (남은 1개)
+2025-08-08 18:09:44,218 INFO smart_switch 🔌 클라이언트 연결 해제됨: WuzASEPqkNovK2HrAAAH
+2025-08-08 18:09:45,759 INFO smart_switch 🔗 클라이언트 연결됨: UaGFA1qGvMyupIZFAAAJ (총 2개)
+2025-08-08 18:09:46,997 INFO smart_switch 🔌 클라이언트 연결 해제됨: UaGFA1qGvMyupIZFAAAJ (남은 1개)
+2025-08-08 18:09:46,997 INFO smart_switch 🔌 클라이언트 연결 해제됨: UaGFA1qGvMyupIZFAAAJ
+2025-08-08 18:11:47,644 INFO smart_switch 🔗 클라이언트 연결됨: kxMmcB3KMpdOJofjAAAL (총 2개)
+2025-08-08 18:11:50,617 INFO smart_switch 🔌 클라이언트 연결 해제됨: kxMmcB3KMpdOJofjAAAL (남은 1개)
+2025-08-08 18:11:50,617 INFO smart_switch 🔌 클라이언트 연결 해제됨: kxMmcB3KMpdOJofjAAAL
+2025-08-08 18:12:10,864 INFO smart_switch 🔌 클라이언트 연결 해제됨: A8H128gWOddPGDuXAAAB (남은 0개)
+2025-08-08 18:12:10,865 INFO smart_switch 🔌 클라이언트 연결 해제됨: A8H128gWOddPGDuXAAAB
+2025-08-08 18:12:11,066 INFO smart_switch 🔗 클라이언트 연결됨: ulX-PoBwqn95KgDoAAAN (총 1개)
+2025-08-08 18:12:28,176 INFO smart_switch 🔗 클라이언트 연결됨: CcT4g8rdnykSPjJcAAAP (총 2개)
+2025-08-08 18:12:52,685 INFO smart_switch 🔗 클라이언트 연결됨: dfmTeXSyAodjZGtHAAAR (총 3개)
+2025-08-08 18:12:56,813 INFO smart_switch 🔌 클라이언트 연결 해제됨: dfmTeXSyAodjZGtHAAAR (남은 2개)
+2025-08-08 18:12:56,814 INFO smart_switch 🔌 클라이언트 연결 해제됨: dfmTeXSyAodjZGtHAAAR
+2025-08-08 18:12:58,103 INFO smart_switch 🔗 클라이언트 연결됨: tXkv2UOrw4gYiZuYAAAT (총 3개)
+2025-08-08 18:13:03,567 INFO smart_switch 🔆 Socket.IO 전체 조명 제어 요청: is_on=False
+2025-08-08 18:13:08,571 ERROR smart_switch 비동기 작업 실행 실패: 
+2025-08-08 18:13:08,572 WARNING smart_switch 그룹 G1 하드웨어 제어 실패 - 메모리 상태만 업데이트
+2025-08-08 18:13:08,573 INFO smart_switch 전체 조명 메모리 상태 OFF로 업데이트 (하드웨어 제어 실패: G1)
+2025-08-08 18:13:14,289 INFO smart_switch 🔌 클라이언트 연결 해제됨: CcT4g8rdnykSPjJcAAAP (남은 2개)
+2025-08-08 18:13:14,290 INFO smart_switch 🔌 클라이언트 연결 해제됨: CcT4g8rdnykSPjJcAAAP
+2025-08-08 18:13:24,857 INFO smart_switch 🔆 Socket.IO 전체 조명 제어 요청: is_on=False
+2025-08-08 18:13:29,862 ERROR smart_switch 비동기 작업 실행 실패: 
+2025-08-08 18:13:29,862 WARNING smart_switch 그룹 G1 하드웨어 제어 실패 - 메모리 상태만 업데이트
+2025-08-08 18:13:29,863 INFO smart_switch 전체 조명 메모리 상태 OFF로 업데이트 (하드웨어 제어 실패: G1)
+2025-08-08 18:13:43,318 INFO smart_switch 🔌 클라이언트 연결 해제됨: tXkv2UOrw4gYiZuYAAAT (남은 1개)
+2025-08-08 18:13:43,319 INFO smart_switch 🔌 클라이언트 연결 해제됨: tXkv2UOrw4gYiZuYAAAT
+2025-08-08 18:13:44,999 INFO smart_switch 🔗 클라이언트 연결됨: EMoBKTEdUQdwr42SAAAV (총 2개)
+2025-08-08 18:13:46,749 INFO smart_switch 🔗 클라이언트 연결됨: imtBYE21tYmesUHDAAAX (총 3개)
+2025-08-08 18:13:47,631 INFO smart_switch 🔆 Socket.IO 전체 조명 제어 요청: is_on=True
+2025-08-08 18:13:51,868 INFO smart_switch 🔌 클라이언트 연결 해제됨: imtBYE21tYmesUHDAAAX (남은 2개)
+2025-08-08 18:13:51,869 INFO smart_switch 🔌 클라이언트 연결 해제됨: imtBYE21tYmesUHDAAAX
+2025-08-08 18:13:52,633 ERROR smart_switch 비동기 작업 실행 실패: 
+2025-08-08 18:13:52,634 WARNING smart_switch 그룹 G1 하드웨어 제어 실패 - 메모리 상태만 업데이트
+2025-08-08 18:13:52,634 INFO smart_switch 전체 조명 메모리 상태 ON로 업데이트 (하드웨어 제어 실패: G1)
+2025-08-08 18:13:53,470 INFO smart_switch 🔗 클라이언트 연결됨: KjDtw8OUOhEU1CGeAAAZ (총 3개)
+2025-08-08 18:13:57,720 INFO smart_switch 🔆 Socket.IO 밝기 설정 요청: group_id=None, light_id=G1-A, brightness=1
+2025-08-08 18:13:58,764 INFO smart_switch 🔆 Socket.IO 밝기 설정 요청: group_id=None, light_id=G1-B, brightness=1
+2025-08-08 18:13:59,666 INFO smart_switch 🔆 Socket.IO 밝기 설정 요청: group_id=None, light_id=G1-C, brightness=1
+2025-08-08 18:13:59,670 INFO smart_switch 🔌 클라이언트 연결 해제됨: EMoBKTEdUQdwr42SAAAV (남은 2개)
+2025-08-08 18:13:59,674 INFO smart_switch 🔌 클라이언트 연결 해제됨: EMoBKTEdUQdwr42SAAAV
+2025-08-08 18:14:02,722 ERROR smart_switch 비동기 작업 실행 실패: 
+2025-08-08 18:14:02,723 WARNING smart_switch 개별 조명 G1-A 하드웨어 제어 실패 - 메모리 상태만 업데이트
+2025-08-08 18:14:02,724 INFO smart_switch 개별 조명 'G1-A (A1 조명)' 메모리 상태 1로 업데이트
+2025-08-08 18:14:03,767 ERROR smart_switch 비동기 작업 실행 실패: 
+2025-08-08 18:14:03,768 WARNING smart_switch 개별 조명 G1-B 하드웨어 제어 실패 - 메모리 상태만 업데이트
+2025-08-08 18:14:03,771 INFO smart_switch 개별 조명 'G1-B (A2 조명)' 메모리 상태 1로 업데이트
+2025-08-08 18:14:04,677 ERROR smart_switch 비동기 작업 실행 실패: 
+2025-08-08 18:14:04,677 WARNING smart_switch 개별 조명 G1-C 하드웨어 제어 실패 - 메모리 상태만 업데이트
+2025-08-08 18:14:04,678 INFO smart_switch 개별 조명 'G1-C (A3 조명)' 메모리 상태 1로 업데이트
+2025-08-08 18:14:07,951 INFO smart_switch 🔆 Socket.IO 밝기 설정 요청: group_id=None, light_id=G1-A, brightness=100
+2025-08-08 18:14:08,878 INFO smart_switch 🔆 Socket.IO 밝기 설정 요청: group_id=None, light_id=G1-B, brightness=100
+2025-08-08 18:14:09,769 INFO smart_switch 🔆 Socket.IO 밝기 설정 요청: group_id=None, light_id=G1-C, brightness=100
+2025-08-08 18:14:10,706 INFO smart_switch 개별 조명 'G1-C (A3 조명)' 메모리 상태 100로 업데이트
+2025-08-08 18:14:12,953 ERROR smart_switch 비동기 작업 실행 실패: 
+2025-08-08 18:14:12,954 WARNING smart_switch 개별 조명 G1-A 하드웨어 제어 실패 - 메모리 상태만 업데이트
+2025-08-08 18:14:12,954 INFO smart_switch 개별 조명 'G1-A (A1 조명)' 메모리 상태 100로 업데이트
+2025-08-08 18:14:13,880 ERROR smart_switch 비동기 작업 실행 실패: 
+2025-08-08 18:14:13,881 WARNING smart_switch 개별 조명 G1-B 하드웨어 제어 실패 - 메모리 상태만 업데이트
+2025-08-08 18:14:13,881 INFO smart_switch 개별 조명 'G1-B (A2 조명)' 메모리 상태 100로 업데이트
+2025-08-08 18:14:19,261 INFO smart_switch 🔆 Socket.IO 밝기 설정 요청: group_id=None, light_id=G1-C, brightness=1
+2025-08-08 18:14:20,009 INFO smart_switch 🔆 Socket.IO 밝기 설정 요청: group_id=None, light_id=G1-B, brightness=1
+2025-08-08 18:14:20,162 INFO smart_switch 개별 조명 'G1-C (A3 조명)' 메모리 상태 1로 업데이트
+2025-08-08 18:14:21,299 INFO smart_switch 🔆 Socket.IO 밝기 설정 요청: group_id=None, light_id=G1-A, brightness=1
+2025-08-08 18:14:22,218 INFO smart_switch 개별 조명 'G1-A (A1 조명)' 메모리 상태 1로 업데이트
+2025-08-08 18:14:25,011 ERROR smart_switch 비동기 작업 실행 실패: 
+2025-08-08 18:14:25,012 WARNING smart_switch 개별 조명 G1-B 하드웨어 제어 실패 - 메모리 상태만 업데이트
+2025-08-08 18:14:25,013 INFO smart_switch 개별 조명 'G1-B (A2 조명)' 메모리 상태 1로 업데이트
+2025-08-08 18:14:32,183 INFO smart_switch 🔌 클라이언트 연결 해제됨: KjDtw8OUOhEU1CGeAAAZ (남은 1개)
+2025-08-08 18:14:32,184 INFO smart_switch 🔌 클라이언트 연결 해제됨: KjDtw8OUOhEU1CGeAAAZ
+2025-08-08 18:14:33,797 INFO smart_switch 🔗 클라이언트 연결됨: JzFFPN7jWBuFhaVdAAAb (총 2개)
+2025-08-08 18:14:35,005 INFO smart_switch 🔆 Socket.IO 밝기 설정 요청: group_id=G1, light_id=None, brightness=20
+2025-08-08 18:14:40,008 ERROR smart_switch 비동기 작업 실행 실패: 
+2025-08-08 18:14:40,009 WARNING smart_switch 그룹 G1 하드웨어 제어 실패 - 메모리 상태만 업데이트
+2025-08-08 18:14:40,010 INFO smart_switch 그룹 'G1 (DALI A)' 메모리 상태 밝기 20로 업데이트
+2025-08-08 18:14:52,369 INFO smart_switch 🔌 클라이언트 연결 해제됨: JzFFPN7jWBuFhaVdAAAb (남은 1개)
+2025-08-08 18:14:52,370 INFO smart_switch 🔌 클라이언트 연결 해제됨: JzFFPN7jWBuFhaVdAAAb
+2025-08-08 18:14:53,973 INFO smart_switch 🔗 클라이언트 연결됨: ICw8js0Ao7wXnGwEAAAd (총 2개)
+2025-08-08 18:14:55,198 INFO smart_switch 🔆 Socket.IO 밝기 설정 요청: group_id=None, light_id=G1-A, brightness=100
+2025-08-08 18:14:56,101 INFO smart_switch 🔆 Socket.IO 밝기 설정 요청: group_id=None, light_id=G1-C, brightness=100
+2025-08-08 18:14:56,150 INFO smart_switch 개별 조명 'G1-A (A1 조명)' 메모리 상태 100로 업데이트
+2025-08-08 18:14:57,020 INFO smart_switch 개별 조명 'G1-C (A3 조명)' 메모리 상태 100로 업데이트
+2025-08-08 18:15:17,539 INFO smart_switch 🔆 Socket.IO 밝기 설정 요청: group_id=None, light_id=G1-A, brightness=1
+2025-08-08 18:15:18,481 INFO smart_switch 개별 조명 'G1-A (A1 조명)' 메모리 상태 1로 업데이트
+2025-08-08 18:15:18,778 INFO smart_switch 🔆 Socket.IO 밝기 설정 요청: group_id=None, light_id=G1-B, brightness=1
+2025-08-08 18:15:19,648 INFO smart_switch 🔆 Socket.IO 밝기 설정 요청: group_id=None, light_id=G1-C, brightness=1
+2025-08-08 18:15:20,565 INFO smart_switch 개별 조명 'G1-C (A3 조명)' 메모리 상태 1로 업데이트
+2025-08-08 18:15:23,782 ERROR smart_switch 비동기 작업 실행 실패: 
+2025-08-08 18:15:23,783 WARNING smart_switch 개별 조명 G1-B 하드웨어 제어 실패 - 메모리 상태만 업데이트
+2025-08-08 18:15:23,783 INFO smart_switch 개별 조명 'G1-B (A2 조명)' 메모리 상태 1로 업데이트
+2025-08-08 18:15:42,413 INFO smart_switch 🔆 Socket.IO 밝기 설정 요청: group_id=None, light_id=G1-A, brightness=50
+2025-08-08 18:15:43,202 INFO smart_switch 🔆 Socket.IO 밝기 설정 요청: group_id=None, light_id=G1-B, brightness=50
+2025-08-08 18:15:43,354 INFO smart_switch 개별 조명 'G1-A (A1 조명)' 메모리 상태 50로 업데이트
+2025-08-08 18:15:44,026 INFO smart_switch 🔆 Socket.IO 밝기 설정 요청: group_id=None, light_id=G1-C, brightness=50
+2025-08-08 18:15:44,989 INFO smart_switch 개별 조명 'G1-C (A3 조명)' 메모리 상태 50로 업데이트
+2025-08-08 18:15:48,205 ERROR smart_switch 비동기 작업 실행 실패: 
+2025-08-08 18:15:48,206 WARNING smart_switch 개별 조명 G1-B 하드웨어 제어 실패 - 메모리 상태만 업데이트
+2025-08-08 18:15:48,206 INFO smart_switch 개별 조명 'G1-B (A2 조명)' 메모리 상태 50로 업데이트
+2025-08-08 18:16:03,023 INFO smart_switch 🔌 클라이언트 연결 해제됨: ICw8js0Ao7wXnGwEAAAd (남은 1개)
+2025-08-08 18:16:03,024 INFO smart_switch 🔌 클라이언트 연결 해제됨: ICw8js0Ao7wXnGwEAAAd
+2025-08-08 18:16:04,392 INFO smart_switch 🔗 클라이언트 연결됨: _Psi_jERk6fKc-9jAAAf (총 2개)
+2025-08-08 18:16:08,385 INFO smart_switch 🔆 Socket.IO 전체 조명 제어 요청: is_on=False
+2025-08-08 18:16:13,390 ERROR smart_switch 비동기 작업 실행 실패: 
+2025-08-08 18:16:13,391 WARNING smart_switch 그룹 G1 하드웨어 제어 실패 - 메모리 상태만 업데이트
+2025-08-08 18:16:13,392 INFO smart_switch 전체 조명 메모리 상태 OFF로 업데이트 (하드웨어 제어 실패: G1)
+2025-08-08 18:16:32,071 INFO smart_switch 🔆 Socket.IO 전체 조명 제어 요청: is_on=True
+2025-08-08 18:16:37,075 ERROR smart_switch 비동기 작업 실행 실패: 
+2025-08-08 18:16:37,076 WARNING smart_switch 그룹 G1 하드웨어 제어 실패 - 메모리 상태만 업데이트
+2025-08-08 18:16:37,076 INFO smart_switch 전체 조명 메모리 상태 ON로 업데이트 (하드웨어 제어 실패: G1)
+2025-08-08 18:16:43,476 INFO smart_switch 🔆 Socket.IO 전체 조명 제어 요청: is_on=False
+2025-08-08 18:16:48,481 ERROR smart_switch 비동기 작업 실행 실패: 
+2025-08-08 18:16:48,482 WARNING smart_switch 그룹 G1 하드웨어 제어 실패 - 메모리 상태만 업데이트
+2025-08-08 18:16:48,483 INFO smart_switch 전체 조명 메모리 상태 OFF로 업데이트 (하드웨어 제어 실패: G1)
+2025-08-08 18:16:52,848 INFO smart_switch 🔌 클라이언트 연결 해제됨: _Psi_jERk6fKc-9jAAAf (남은 1개)
+2025-08-08 18:16:52,849 INFO smart_switch 🔌 클라이언트 연결 해제됨: _Psi_jERk6fKc-9jAAAf
+2025-08-08 18:17:11,061 INFO smart_switch 🔌 클라이언트 연결 해제됨: ulX-PoBwqn95KgDoAAAN (남은 0개)
+2025-08-08 18:17:11,062 INFO smart_switch 🔌 클라이언트 연결 해제됨: ulX-PoBwqn95KgDoAAAN
+2025-08-08 18:26:52,293 ERROR smart_switch 동적 그룹 로드 실패: 'DeviceConfigManager' object has no attribute 'get' - 하드코딩된 그룹 사용
+2025-08-08 18:26:52,325 INFO smart_switch Starting Smart Switch Dimming Web Application
+2025-08-08 18:26:52,326 INFO smart_switch Access URL: http://localhost:5000
+2025-08-08 18:26:52,326 INFO smart_switch 백그라운드 이벤트 루프 시작
+2025-08-08 18:26:52,458 WARNING smart_switch 하드웨어 연결 실패 - 시뮬레이션 모드로 동작
+2025-08-08 18:26:55,685 INFO smart_switch 🔗 클라이언트 연결됨: fKKAgiPOC6SAgMb3AAAB (총 1개)
+2025-08-08 18:27:07,025 INFO smart_switch 🔗 클라이언트 연결됨: 48j8nRlZMgy-AEgJAAAD (총 2개)
+2025-08-08 18:27:09,177 INFO smart_switch 🔗 클라이언트 연결됨: 8YqHTjeUtSfXXHcGAAAF (총 3개)
+2025-08-08 18:27:11,448 INFO smart_switch 🔆 Socket.IO 전체 조명 제어 요청: is_on=False
+2025-08-08 18:27:11,466 WARNING smart_switch 그룹 G1 하드웨어 제어 실패 - 메모리 상태만 업데이트
+2025-08-08 18:27:11,466 INFO smart_switch 전체 조명 메모리 상태 OFF로 업데이트 (하드웨어 제어 실패: G1)
+2025-08-08 18:27:22,086 INFO smart_switch 🔆 Socket.IO 전체 조명 제어 요청: is_on=True
+2025-08-08 18:27:22,091 WARNING smart_switch 그룹 G1 하드웨어 제어 실패 - 메모리 상태만 업데이트
+2025-08-08 18:27:22,092 INFO smart_switch 전체 조명 메모리 상태 ON로 업데이트 (하드웨어 제어 실패: G1)
+2025-08-08 18:27:22,093 INFO smart_switch 🔌 클라이언트 연결 해제됨: 48j8nRlZMgy-AEgJAAAD (남은 2개)
+2025-08-08 18:27:22,094 INFO smart_switch 🔌 클라이언트 연결 해제됨: 48j8nRlZMgy-AEgJAAAD
+2025-08-08 18:27:32,779 INFO smart_switch 🔆 Socket.IO 밝기 설정 요청: group_id=G1, light_id=None, brightness=100
+2025-08-08 18:27:32,792 WARNING smart_switch 그룹 G1 하드웨어 제어 실패 - 메모리 상태만 업데이트
+2025-08-08 18:27:32,794 INFO smart_switch 그룹 'G1 (DALI A)' 메모리 상태 밝기 100로 업데이트
+2025-08-08 18:27:46,327 INFO smart_switch 🔆 Socket.IO 밝기 설정 요청: group_id=G1, light_id=None, brightness=1
+2025-08-08 18:27:46,342 WARNING smart_switch 그룹 G1 하드웨어 제어 실패 - 메모리 상태만 업데이트
+2025-08-08 18:27:46,345 INFO smart_switch 그룹 'G1 (DALI A)' 메모리 상태 밝기 1로 업데이트
+2025-08-08 18:27:55,320 INFO smart_switch 🔌 클라이언트 연결 해제됨: 8YqHTjeUtSfXXHcGAAAF (남은 1개)
+2025-08-08 18:27:55,347 INFO smart_switch 🔌 클라이언트 연결 해제됨: 8YqHTjeUtSfXXHcGAAAF
+2025-08-08 18:27:56,594 INFO smart_switch 🔗 클라이언트 연결됨: z-YfSW_Q5wfHZ1pYAAAH (총 2개)
+2025-08-08 18:27:58,278 INFO smart_switch 🔌 클라이언트 연결 해제됨: z-YfSW_Q5wfHZ1pYAAAH (남은 1개)
+2025-08-08 18:27:58,279 INFO smart_switch 🔌 클라이언트 연결 해제됨: z-YfSW_Q5wfHZ1pYAAAH
+2025-08-08 18:27:59,774 INFO smart_switch 🔗 클라이언트 연결됨: hl_ThZeEiv_EIJeJAAAJ (총 2개)
+2025-08-08 18:28:02,284 INFO smart_switch 🔆 Socket.IO 전체 조명 제어 요청: is_on=False
+2025-08-08 18:28:02,291 WARNING smart_switch 그룹 G1 하드웨어 제어 실패 - 메모리 상태만 업데이트
+2025-08-08 18:28:02,291 INFO smart_switch 전체 조명 메모리 상태 OFF로 업데이트 (하드웨어 제어 실패: G1)
+2025-08-08 18:28:10,518 INFO smart_switch 🔌 클라이언트 연결 해제됨: hl_ThZeEiv_EIJeJAAAJ (남은 1개)
+2025-08-08 18:28:10,518 INFO smart_switch 🔌 클라이언트 연결 해제됨: hl_ThZeEiv_EIJeJAAAJ
+2025-08-08 18:28:49,551 ERROR smart_switch 동적 그룹 로드 실패: 'DeviceConfigManager' object has no attribute 'get' - 하드코딩된 그룹 사용
+2025-08-08 18:28:49,586 INFO smart_switch Starting Smart Switch Dimming Web Application
+2025-08-08 18:28:49,587 INFO smart_switch Access URL: http://localhost:5000
+2025-08-08 18:28:49,587 INFO smart_switch 백그라운드 이벤트 루프 시작
+2025-08-08 18:28:53,231 INFO smart_switch 🔗 클라이언트 연결됨: tBPD-83f4KEHnB1yAAAB (총 1개)
+2025-08-08 18:28:54,750 INFO smart_switch 하드웨어 초기화 완료
+2025-08-08 18:28:55,247 INFO smart_switch 🔗 클라이언트 연결됨: CtxXx4lmlo_I1YrlAAAD (총 2개)
+2025-08-08 18:28:56,103 INFO smart_switch 🔗 클라이언트 연결됨: EIus9-iuTpZ5yyoCAAAF (총 3개)
+2025-08-08 18:28:58,277 INFO smart_switch 🔗 클라이언트 연결됨: O6RWBOrl_9PP11K-AAAH (총 4개)
+2025-08-08 18:29:00,085 INFO smart_switch 🔆 Socket.IO 전체 조명 제어 요청: is_on=False
+2025-08-08 18:29:05,087 ERROR smart_switch 비동기 작업 실행 실패: 
+2025-08-08 18:29:05,088 WARNING smart_switch 그룹 G1 하드웨어 제어 실패 - 메모리 상태만 업데이트
+2025-08-08 18:29:05,089 INFO smart_switch 전체 조명 메모리 상태 OFF로 업데이트 (하드웨어 제어 실패: G1)
+2025-08-08 18:29:08,913 INFO smart_switch 🔆 Socket.IO 전체 조명 제어 요청: is_on=True
+2025-08-08 18:29:13,916 ERROR smart_switch 비동기 작업 실행 실패: 
+2025-08-08 18:29:13,917 WARNING smart_switch 그룹 G1 하드웨어 제어 실패 - 메모리 상태만 업데이트
+2025-08-08 18:29:13,917 INFO smart_switch 전체 조명 메모리 상태 ON로 업데이트 (하드웨어 제어 실패: G1)
+2025-08-08 18:29:13,918 INFO smart_switch 🔌 클라이언트 연결 해제됨: CtxXx4lmlo_I1YrlAAAD (남은 3개)
+2025-08-08 18:29:13,919 INFO smart_switch 🔌 클라이언트 연결 해제됨: CtxXx4lmlo_I1YrlAAAD
+2025-08-08 18:29:13,921 INFO smart_switch 🔌 클라이언트 연결 해제됨: EIus9-iuTpZ5yyoCAAAF (남은 2개)
+2025-08-08 18:29:13,922 INFO smart_switch 🔌 클라이언트 연결 해제됨: EIus9-iuTpZ5yyoCAAAF
+2025-08-08 18:29:21,151 INFO smart_switch 🔆 Socket.IO 밝기 설정 요청: group_id=G1, light_id=None, brightness=100
+2025-08-08 18:29:25,183 INFO smart_switch 🔌 클라이언트 연결 해제됨: O6RWBOrl_9PP11K-AAAH (남은 1개)
+2025-08-08 18:29:25,183 INFO smart_switch 🔌 클라이언트 연결 해제됨: O6RWBOrl_9PP11K-AAAH
+2025-08-08 18:29:26,154 ERROR smart_switch 비동기 작업 실행 실패: 
+2025-08-08 18:29:26,154 WARNING smart_switch 그룹 G1 하드웨어 제어 실패 - 메모리 상태만 업데이트
+2025-08-08 18:29:26,155 INFO smart_switch 그룹 'G1 (DALI A)' 메모리 상태 밝기 100로 업데이트
+2025-08-08 18:29:37,446 INFO smart_switch 🔗 클라이언트 연결됨: GOplgoJIl2aYiHQfAAAJ (총 2개)
+2025-08-08 18:29:39,139 INFO smart_switch 🔆 Socket.IO 밝기 설정 요청: group_id=G1, light_id=None, brightness=1
+2025-08-08 18:29:43,637 INFO smart_switch 🔆 Socket.IO 밝기 설정 요청: group_id=G1, light_id=None, brightness=0
+2025-08-08 18:29:44,142 ERROR smart_switch 비동기 작업 실행 실패: 
+2025-08-08 18:29:44,143 WARNING smart_switch 그룹 G1 하드웨어 제어 실패 - 메모리 상태만 업데이트
+2025-08-08 18:29:44,143 INFO smart_switch 그룹 'G1 (DALI A)' 메모리 상태 밝기 1로 업데이트
+2025-08-08 18:29:48,641 ERROR smart_switch 비동기 작업 실행 실패: 
+2025-08-08 18:29:48,642 WARNING smart_switch 그룹 G1 하드웨어 제어 실패 - 메모리 상태만 업데이트
+2025-08-08 18:29:48,642 INFO smart_switch 그룹 'G1 (DALI A)' 메모리 상태 밝기 0로 업데이트
+2025-08-08 18:30:01,820 INFO smart_switch 🔆 Socket.IO 전체 조명 제어 요청: is_on=False
+2025-08-08 18:30:03,256 INFO smart_switch 🔌 클라이언트 연결 해제됨: GOplgoJIl2aYiHQfAAAJ (남은 1개)
+2025-08-08 18:30:03,257 INFO smart_switch 🔌 클라이언트 연결 해제됨: GOplgoJIl2aYiHQfAAAJ
+2025-08-08 18:30:04,944 INFO smart_switch 🔗 클라이언트 연결됨: ktnZOLE-3T_8TtccAAAL (총 2개)
+2025-08-08 18:30:06,586 INFO smart_switch 🔗 클라이언트 연결됨: QVoUwxptsq_yceEkAAAN (총 3개)
+2025-08-08 18:30:06,824 ERROR smart_switch 비동기 작업 실행 실패: 
+2025-08-08 18:30:06,824 WARNING smart_switch 그룹 G1 하드웨어 제어 실패 - 메모리 상태만 업데이트
+2025-08-08 18:30:06,825 INFO smart_switch 전체 조명 메모리 상태 OFF로 업데이트 (하드웨어 제어 실패: G1)
+2025-08-08 18:30:07,351 INFO smart_switch 🔆 Socket.IO 밝기 설정 요청: group_id=G1, light_id=None, brightness=75
+2025-08-08 18:30:12,176 INFO smart_switch 🔌 클라이언트 연결 해제됨: QVoUwxptsq_yceEkAAAN (남은 2개)
+2025-08-08 18:30:12,177 INFO smart_switch 🔌 클라이언트 연결 해제됨: QVoUwxptsq_yceEkAAAN
+2025-08-08 18:30:12,353 ERROR smart_switch 비동기 작업 실행 실패: 
+2025-08-08 18:30:12,354 WARNING smart_switch 그룹 G1 하드웨어 제어 실패 - 메모리 상태만 업데이트
+2025-08-08 18:30:12,354 INFO smart_switch 그룹 'G1 (DALI A)' 메모리 상태 밝기 75로 업데이트
+2025-08-08 18:30:13,865 INFO smart_switch 🔗 클라이언트 연결됨: 8HaRsr6zizyjQaceAAAP (총 3개)
+2025-08-08 18:30:15,273 INFO smart_switch 🔆 Socket.IO 밝기 설정 요청: group_id=None, light_id=G1-B, brightness=20
+2025-08-08 18:30:15,916 INFO smart_switch 🔆 Socket.IO 밝기 설정 요청: group_id=None, light_id=G1-C, brightness=20
+2025-08-08 18:30:18,570 INFO smart_switch 🔆 Socket.IO 밝기 설정 요청: group_id=None, light_id=G1-A, brightness=20
+2025-08-08 18:30:19,546 INFO smart_switch 개별 조명 'G1-A (A1 조명)' 메모리 상태 20로 업데이트
+2025-08-08 18:30:20,193 INFO smart_switch 🔌 클라이언트 연결 해제됨: 8HaRsr6zizyjQaceAAAP (남은 2개)
+2025-08-08 18:30:20,193 INFO smart_switch 🔌 클라이언트 연결 해제됨: 8HaRsr6zizyjQaceAAAP
+2025-08-08 18:30:20,275 ERROR smart_switch 비동기 작업 실행 실패: 
+2025-08-08 18:30:20,276 WARNING smart_switch 개별 조명 G1-B 하드웨어 제어 실패 - 메모리 상태만 업데이트
+2025-08-08 18:30:20,276 INFO smart_switch 개별 조명 'G1-B (A2 조명)' 메모리 상태 20로 업데이트
+2025-08-08 18:30:20,277 INFO smart_switch 🔌 클라이언트 연결 해제됨: ktnZOLE-3T_8TtccAAAL (남은 1개)
+2025-08-08 18:30:20,278 INFO smart_switch 🔌 클라이언트 연결 해제됨: ktnZOLE-3T_8TtccAAAL
+2025-08-08 18:30:20,921 ERROR smart_switch 비동기 작업 실행 실패: 
+2025-08-08 18:30:20,922 WARNING smart_switch 개별 조명 G1-C 하드웨어 제어 실패 - 메모리 상태만 업데이트
+2025-08-08 18:30:20,922 INFO smart_switch 개별 조명 'G1-C (A3 조명)' 메모리 상태 20로 업데이트
+2025-08-08 18:30:21,696 INFO smart_switch 🔗 클라이언트 연결됨: Lyq3rsl-P7QljnheAAAR (총 2개)
+2025-08-08 18:30:24,115 INFO smart_switch 🔌 클라이언트 연결 해제됨: Lyq3rsl-P7QljnheAAAR (남은 1개)
+2025-08-08 18:30:24,117 INFO smart_switch 🔌 클라이언트 연결 해제됨: Lyq3rsl-P7QljnheAAAR
+2025-08-08 18:30:25,401 INFO smart_switch 🔗 클라이언트 연결됨: 1RZxVCGfu5cAax11AAAT (총 2개)
+2025-08-08 18:30:26,417 INFO smart_switch 🔆 Socket.IO 밝기 설정 요청: group_id=None, light_id=G1-B, brightness=100
+2025-08-08 18:30:27,674 INFO smart_switch 🔆 Socket.IO 밝기 설정 요청: group_id=None, light_id=G1-C, brightness=100
+2025-08-08 18:30:28,959 WARNING smart_switch 개별 조명 G1-C 하드웨어 제어 실패 - 메모리 상태만 업데이트
+2025-08-08 18:30:28,959 INFO smart_switch 개별 조명 'G1-C (A3 조명)' 메모리 상태 100로 업데이트
+2025-08-08 18:30:31,423 ERROR smart_switch 비동기 작업 실행 실패: 
+2025-08-08 18:30:31,423 WARNING smart_switch 개별 조명 G1-B 하드웨어 제어 실패 - 메모리 상태만 업데이트
+2025-08-08 18:30:31,424 INFO smart_switch 개별 조명 'G1-B (A2 조명)' 메모리 상태 100로 업데이트
+2025-08-08 18:30:36,995 INFO smart_switch 🔗 클라이언트 연결됨: OiSgsuzVkVajukBgAAAV (총 3개)
+2025-08-08 18:30:40,047 INFO smart_switch 🔌 클라이언트 연결 해제됨: OiSgsuzVkVajukBgAAAV (남은 2개)
+2025-08-08 18:30:40,047 INFO smart_switch 🔌 클라이언트 연결 해제됨: OiSgsuzVkVajukBgAAAV
+2025-08-08 18:30:41,588 INFO smart_switch 🔗 클라이언트 연결됨: s7knxUHO6Iss_mAZAAAX (총 3개)
+2025-08-08 18:30:43,796 INFO smart_switch 🔆 Socket.IO 밝기 설정 요청: group_id=None, light_id=G1-A, brightness=100
+2025-08-08 18:30:44,793 INFO smart_switch 개별 조명 'G1-A (A1 조명)' 메모리 상태 100로 업데이트
+2025-08-08 18:30:45,410 INFO smart_switch 🔆 Socket.IO 밝기 설정 요청: group_id=None, light_id=G1-B, brightness=50
+2025-08-08 18:30:46,040 INFO smart_switch 🔆 Socket.IO 밝기 설정 요청: group_id=None, light_id=G1-C, brightness=50
+2025-08-08 18:30:46,664 INFO smart_switch 🔆 Socket.IO 밝기 설정 요청: group_id=None, light_id=G1-A, brightness=50
+2025-08-08 18:30:47,569 INFO smart_switch 개별 조명 'G1-A (A1 조명)' 메모리 상태 50로 업데이트
+2025-08-08 18:30:48,359 INFO smart_switch 🔌 클라이언트 연결 해제됨: s7knxUHO6Iss_mAZAAAX (남은 2개)
+2025-08-08 18:30:48,359 INFO smart_switch 🔌 클라이언트 연결 해제됨: s7knxUHO6Iss_mAZAAAX
+2025-08-08 18:30:49,662 INFO smart_switch 🔗 클라이언트 연결됨: 3gP-J7TRAGwgftIRAAAZ (총 3개)
+2025-08-08 18:30:50,108 INFO smart_switch 🔆 Socket.IO 밝기 설정 요청: group_id=G1, light_id=None, brightness=100
+2025-08-08 18:30:50,413 ERROR smart_switch 비동기 작업 실행 실패: 
+2025-08-08 18:30:50,413 WARNING smart_switch 개별 조명 G1-B 하드웨어 제어 실패 - 메모리 상태만 업데이트
+2025-08-08 18:30:50,414 INFO smart_switch 개별 조명 'G1-B (A2 조명)' 메모리 상태 50로 업데이트
+2025-08-08 18:30:50,924 INFO smart_switch 🔆 Socket.IO 밝기 설정 요청: group_id=G1, light_id=None, brightness=100
+2025-08-08 18:30:50,927 INFO smart_switch 🔌 클라이언트 연결 해제됨: 1RZxVCGfu5cAax11AAAT (남은 2개)
+2025-08-08 18:30:50,929 INFO smart_switch 🔌 클라이언트 연결 해제됨: 1RZxVCGfu5cAax11AAAT
+2025-08-08 18:30:51,042 ERROR smart_switch 비동기 작업 실행 실패: 
+2025-08-08 18:30:51,043 WARNING smart_switch 개별 조명 G1-C 하드웨어 제어 실패 - 메모리 상태만 업데이트
+2025-08-08 18:30:51,043 INFO smart_switch 개별 조명 'G1-C (A3 조명)' 메모리 상태 50로 업데이트
+2025-08-08 18:30:52,378 INFO smart_switch 🔆 Socket.IO 전체 조명 제어 요청: is_on=True
+2025-08-08 18:30:55,110 ERROR smart_switch 비동기 작업 실행 실패: 
+2025-08-08 18:30:55,111 WARNING smart_switch 그룹 G1 하드웨어 제어 실패 - 메모리 상태만 업데이트
+2025-08-08 18:30:55,111 INFO smart_switch 그룹 'G1 (DALI A)' 메모리 상태 밝기 100로 업데이트
+2025-08-08 18:30:55,931 ERROR smart_switch 비동기 작업 실행 실패: 
+2025-08-08 18:30:55,932 WARNING smart_switch 그룹 G1 하드웨어 제어 실패 - 메모리 상태만 업데이트
+2025-08-08 18:30:55,932 INFO smart_switch 그룹 'G1 (DALI A)' 메모리 상태 밝기 100로 업데이트
+2025-08-08 18:30:57,384 ERROR smart_switch 비동기 작업 실행 실패: 
+2025-08-08 18:30:57,385 WARNING smart_switch 그룹 G1 하드웨어 제어 실패 - 메모리 상태만 업데이트
+2025-08-08 18:30:57,386 INFO smart_switch 전체 조명 메모리 상태 ON로 업데이트 (하드웨어 제어 실패: G1)
+2025-08-08 18:30:59,493 INFO smart_switch 🔆 Socket.IO 전체 조명 제어 요청: is_on=False
+2025-08-08 18:31:04,497 ERROR smart_switch 비동기 작업 실행 실패: 
+2025-08-08 18:31:04,498 WARNING smart_switch 그룹 G1 하드웨어 제어 실패 - 메모리 상태만 업데이트
+2025-08-08 18:31:04,499 INFO smart_switch 전체 조명 메모리 상태 OFF로 업데이트 (하드웨어 제어 실패: G1)
+2025-08-08 21:34:47,468 ERROR smart_switch 동적 그룹 로드 실패: 'DeviceConfigManager' object has no attribute 'get' - 하드코딩된 그룹 사용
+2025-08-08 21:34:47,502 INFO smart_switch Starting Smart Switch Dimming Web Application
+2025-08-08 21:34:47,503 INFO smart_switch Access URL: http://localhost:5000
+2025-08-08 21:34:47,504 INFO smart_switch 백그라운드 이벤트 루프 시작
+2025-08-08 21:34:47,654 WARNING smart_switch 하드웨어 연결 실패 - 시뮬레이션 모드로 동작
+2025-08-08 21:34:55,684 INFO smart_switch 🔗 클라이언트 연결됨: fkVoUXDFfGv9Ua00AAAB (총 1개)
+2025-08-08 21:35:01,455 INFO smart_switch 🔗 클라이언트 연결됨: vz-GmaHG3gGzgiOhAAAD (총 2개)
+2025-08-08 21:35:01,937 INFO smart_switch 🔌 클라이언트 연결 해제됨: vz-GmaHG3gGzgiOhAAAD (남은 1개)
+2025-08-08 21:35:01,937 INFO smart_switch 🔌 클라이언트 연결 해제됨: vz-GmaHG3gGzgiOhAAAD
+2025-08-08 21:35:03,422 INFO smart_switch 🔗 클라이언트 연결됨: 8iOsQlNLj1UlNHmtAAAF (총 2개)
+2025-08-08 21:35:04,992 INFO smart_switch 🔆 Socket.IO 전체 조명 제어 요청: is_on=False
+2025-08-08 21:35:05,023 WARNING smart_switch 그룹 G1 하드웨어 제어 실패 - 메모리 상태만 업데이트
+2025-08-08 21:35:05,024 INFO smart_switch 전체 조명 메모리 상태 OFF로 업데이트 (하드웨어 제어 실패: G1)
+2025-08-08 21:35:15,585 INFO smart_switch 🔆 Socket.IO 전체 조명 제어 요청: is_on=True
+2025-08-08 21:35:15,603 WARNING smart_switch 그룹 G1 하드웨어 제어 실패 - 메모리 상태만 업데이트
+2025-08-08 21:35:15,604 INFO smart_switch 전체 조명 메모리 상태 ON로 업데이트 (하드웨어 제어 실패: G1)
+2025-08-08 21:35:23,719 INFO smart_switch 🔌 클라이언트 연결 해제됨: 8iOsQlNLj1UlNHmtAAAF (남은 1개)
+2025-08-08 21:35:23,720 INFO smart_switch 🔌 클라이언트 연결 해제됨: 8iOsQlNLj1UlNHmtAAAF
+2025-08-08 21:35:33,188 INFO smart_switch 🔗 클라이언트 연결됨: XvyQbt5Gky5PXM0aAAAH (총 2개)
+2025-08-08 21:35:40,647 INFO smart_switch 🔆 Socket.IO 밝기 설정 요청: group_id=G1, light_id=None, brightness=20
+2025-08-08 21:35:40,683 WARNING smart_switch 그룹 G1 하드웨어 제어 실패 - 메모리 상태만 업데이트
+2025-08-08 21:35:40,684 INFO smart_switch 그룹 'G1 (DALI A)' 메모리 상태 밝기 20로 업데이트
+2025-08-08 21:35:41,023 INFO smart_switch 🔆 Socket.IO 밝기 설정 요청: group_id=G1, light_id=None, brightness=20
+2025-08-08 21:35:41,031 WARNING smart_switch 그룹 G1 하드웨어 제어 실패 - 메모리 상태만 업데이트
+2025-08-08 21:35:41,033 INFO smart_switch 그룹 'G1 (DALI A)' 메모리 상태 밝기 20로 업데이트
+2025-08-08 21:35:50,509 INFO smart_switch 🔆 Socket.IO 밝기 설정 요청: group_id=G1, light_id=None, brightness=100
+2025-08-08 21:35:50,520 WARNING smart_switch 그룹 G1 하드웨어 제어 실패 - 메모리 상태만 업데이트
+2025-08-08 21:35:50,521 INFO smart_switch 그룹 'G1 (DALI A)' 메모리 상태 밝기 100로 업데이트
+2025-08-08 21:35:50,860 INFO smart_switch 🔆 Socket.IO 밝기 설정 요청: group_id=G1, light_id=None, brightness=100
+2025-08-08 21:35:50,873 WARNING smart_switch 그룹 G1 하드웨어 제어 실패 - 메모리 상태만 업데이트
+2025-08-08 21:35:50,874 INFO smart_switch 그룹 'G1 (DALI A)' 메모리 상태 밝기 100로 업데이트
+2025-08-08 21:36:10,894 INFO smart_switch 🔌 클라이언트 연결 해제됨: XvyQbt5Gky5PXM0aAAAH (남은 1개)
+2025-08-08 21:36:10,895 INFO smart_switch 🔌 클라이언트 연결 해제됨: XvyQbt5Gky5PXM0aAAAH
+2025-08-08 21:36:12,634 INFO smart_switch 🔗 클라이언트 연결됨: RqVickBF1_M0X0tCAAAJ (총 2개)
+2025-08-08 21:36:14,150 INFO smart_switch 🔌 클라이언트 연결 해제됨: RqVickBF1_M0X0tCAAAJ (남은 1개)
+2025-08-08 21:36:14,150 INFO smart_switch 🔌 클라이언트 연결 해제됨: RqVickBF1_M0X0tCAAAJ
+2025-08-08 21:36:15,259 INFO smart_switch 🔗 클라이언트 연결됨: 6-MJ1aVcuEfJ2IZfAAAL (총 2개)
+2025-08-08 21:36:25,492 INFO smart_switch 🔗 클라이언트 연결됨: ZpeWe32KwIhAgQ9eAAAN (총 3개)
+2025-08-08 21:36:26,821 INFO smart_switch 🔆 Socket.IO 밝기 설정 요청: group_id=None, light_id=G1-B, brightness=20
+2025-08-08 21:36:26,827 WARNING smart_switch 개별 조명 G1-B 하드웨어 제어 실패 - 메모리 상태만 업데이트
+2025-08-08 21:36:26,828 INFO smart_switch 개별 조명 'G1-B (A2 조명)' 메모리 상태 20로 업데이트
+2025-08-08 21:36:27,210 INFO smart_switch 🔆 Socket.IO 밝기 설정 요청: group_id=None, light_id=G1-B, brightness=20
+2025-08-08 21:36:27,218 WARNING smart_switch 개별 조명 G1-B 하드웨어 제어 실패 - 메모리 상태만 업데이트
+2025-08-08 21:36:27,218 INFO smart_switch 개별 조명 'G1-B (A2 조명)' 메모리 상태 20로 업데이트
+2025-08-08 21:36:28,740 INFO smart_switch 🔆 Socket.IO 밝기 설정 요청: group_id=None, light_id=G1-C, brightness=20
+2025-08-08 21:36:28,746 WARNING smart_switch 개별 조명 G1-C 하드웨어 제어 실패 - 메모리 상태만 업데이트
+2025-08-08 21:36:28,747 INFO smart_switch 개별 조명 'G1-C (A3 조명)' 메모리 상태 20로 업데이트
+2025-08-08 21:36:29,079 INFO smart_switch 🔆 Socket.IO 밝기 설정 요청: group_id=None, light_id=G1-C, brightness=20
+2025-08-08 21:36:29,087 WARNING smart_switch 개별 조명 G1-C 하드웨어 제어 실패 - 메모리 상태만 업데이트
+2025-08-08 21:36:29,088 INFO smart_switch 개별 조명 'G1-C (A3 조명)' 메모리 상태 20로 업데이트
+2025-08-08 21:36:32,301 INFO smart_switch 🔌 클라이언트 연결 해제됨: ZpeWe32KwIhAgQ9eAAAN (남은 2개)
+2025-08-08 21:36:32,302 INFO smart_switch 🔌 클라이언트 연결 해제됨: ZpeWe32KwIhAgQ9eAAAN
+2025-08-08 21:36:42,193 INFO smart_switch 🔌 클라이언트 연결 해제됨: 6-MJ1aVcuEfJ2IZfAAAL (남은 1개)
+2025-08-08 21:36:42,194 INFO smart_switch 🔌 클라이언트 연결 해제됨: 6-MJ1aVcuEfJ2IZfAAAL
+2025-08-08 21:37:06,284 INFO smart_switch 🔗 클라이언트 연결됨: 5fECwFDBj5pB10OzAAAP (총 2개)
+2025-08-08 21:37:08,562 INFO smart_switch 🔗 클라이언트 연결됨: AD4w5s7Z-7sdU-V8AAAR (총 3개)
+2025-08-08 21:37:27,306 INFO smart_switch 🔆 Socket.IO 밝기 설정 요청: group_id=G1, light_id=None, brightness=20
+2025-08-08 21:37:27,310 INFO smart_switch 🔌 클라이언트 연결 해제됨: 5fECwFDBj5pB10OzAAAP (남은 2개)
+2025-08-08 21:37:27,313 INFO smart_switch 🔌 클라이언트 연결 해제됨: 5fECwFDBj5pB10OzAAAP
+2025-08-08 21:37:27,332 WARNING smart_switch 그룹 G1 하드웨어 제어 실패 - 메모리 상태만 업데이트
+2025-08-08 21:37:27,334 INFO smart_switch 그룹 'G1 (DALI A)' 메모리 상태 밝기 20로 업데이트
+2025-08-08 21:37:27,659 INFO smart_switch 🔆 Socket.IO 밝기 설정 요청: group_id=G1, light_id=None, brightness=20
+2025-08-08 21:37:27,677 WARNING smart_switch 그룹 G1 하드웨어 제어 실패 - 메모리 상태만 업데이트
+2025-08-08 21:37:27,680 INFO smart_switch 그룹 'G1 (DALI A)' 메모리 상태 밝기 20로 업데이트
+2025-08-08 21:37:30,247 INFO smart_switch 🔆 Socket.IO 밝기 설정 요청: group_id=G1, light_id=None, brightness=50
+2025-08-08 21:37:30,269 WARNING smart_switch 그룹 G1 하드웨어 제어 실패 - 메모리 상태만 업데이트
+2025-08-08 21:37:30,271 INFO smart_switch 그룹 'G1 (DALI A)' 메모리 상태 밝기 50로 업데이트
+2025-08-08 21:37:30,602 INFO smart_switch 🔆 Socket.IO 밝기 설정 요청: group_id=G1, light_id=None, brightness=50
+2025-08-08 21:37:30,624 WARNING smart_switch 그룹 G1 하드웨어 제어 실패 - 메모리 상태만 업데이트
+2025-08-08 21:37:30,625 INFO smart_switch 그룹 'G1 (DALI A)' 메모리 상태 밝기 50로 업데이트
+2025-08-08 21:37:32,538 INFO smart_switch 🔌 클라이언트 연결 해제됨: AD4w5s7Z-7sdU-V8AAAR (남은 1개)
+2025-08-08 21:37:32,539 INFO smart_switch 🔌 클라이언트 연결 해제됨: AD4w5s7Z-7sdU-V8AAAR
+2025-08-08 21:37:33,436 INFO smart_switch 🔗 클라이언트 연결됨: zTy4ZtIk4PfqISxdAAAT (총 2개)
+2025-08-08 21:37:34,572 INFO smart_switch 🔆 Socket.IO 밝기 설정 요청: group_id=None, light_id=G1-A, brightness=20
+2025-08-08 21:37:34,579 WARNING smart_switch 개별 조명 G1-A 하드웨어 제어 실패 - 메모리 상태만 업데이트
+2025-08-08 21:37:34,579 INFO smart_switch 개별 조명 'G1-A (A1 조명)' 메모리 상태 20로 업데이트
+2025-08-08 21:37:34,733 INFO smart_switch 🔆 Socket.IO 밝기 설정 요청: group_id=None, light_id=G1-A, brightness=20
+2025-08-08 21:37:34,777 WARNING smart_switch 개별 조명 G1-A 하드웨어 제어 실패 - 메모리 상태만 업데이트
+2025-08-08 21:37:34,778 INFO smart_switch 개별 조명 'G1-A (A1 조명)' 메모리 상태 20로 업데이트
+2025-08-08 21:37:35,919 INFO smart_switch 🔆 Socket.IO 밝기 설정 요청: group_id=None, light_id=G1-B, brightness=1
+2025-08-08 21:37:35,925 WARNING smart_switch 개별 조명 G1-B 하드웨어 제어 실패 - 메모리 상태만 업데이트
+2025-08-08 21:37:35,925 INFO smart_switch 개별 조명 'G1-B (A2 조명)' 메모리 상태 1로 업데이트
+2025-08-08 21:37:36,307 INFO smart_switch 🔆 Socket.IO 밝기 설정 요청: group_id=None, light_id=G1-B, brightness=1
+2025-08-08 21:37:36,312 WARNING smart_switch 개별 조명 G1-B 하드웨어 제어 실패 - 메모리 상태만 업데이트
+2025-08-08 21:37:36,313 INFO smart_switch 개별 조명 'G1-B (A2 조명)' 메모리 상태 1로 업데이트
+2025-08-08 21:37:36,641 INFO smart_switch 🔆 Socket.IO 밝기 설정 요청: group_id=None, light_id=G1-C, brightness=1
+2025-08-08 21:37:36,647 WARNING smart_switch 개별 조명 G1-C 하드웨어 제어 실패 - 메모리 상태만 업데이트
+2025-08-08 21:37:36,649 INFO smart_switch 개별 조명 'G1-C (A3 조명)' 메모리 상태 1로 업데이트
+2025-08-08 21:37:36,897 INFO smart_switch 🔆 Socket.IO 밝기 설정 요청: group_id=None, light_id=G1-C, brightness=1
+2025-08-08 21:37:36,901 WARNING smart_switch 개별 조명 G1-C 하드웨어 제어 실패 - 메모리 상태만 업데이트
+2025-08-08 21:37:36,903 INFO smart_switch 개별 조명 'G1-C (A3 조명)' 메모리 상태 1로 업데이트
+2025-08-08 21:37:37,449 INFO smart_switch 🔆 Socket.IO 밝기 설정 요청: group_id=None, light_id=G1-A, brightness=1
+2025-08-08 21:37:37,454 WARNING smart_switch 개별 조명 G1-A 하드웨어 제어 실패 - 메모리 상태만 업데이트
+2025-08-08 21:37:37,455 INFO smart_switch 개별 조명 'G1-A (A1 조명)' 메모리 상태 1로 업데이트
+2025-08-08 21:37:37,840 INFO smart_switch 🔆 Socket.IO 밝기 설정 요청: group_id=None, light_id=G1-A, brightness=1
+2025-08-08 21:37:37,846 WARNING smart_switch 개별 조명 G1-A 하드웨어 제어 실패 - 메모리 상태만 업데이트
+2025-08-08 21:37:37,847 INFO smart_switch 개별 조명 'G1-A (A1 조명)' 메모리 상태 1로 업데이트
+2025-08-08 21:37:40,750 INFO smart_switch 🔌 클라이언트 연결 해제됨: zTy4ZtIk4PfqISxdAAAT (남은 1개)
+2025-08-08 21:37:40,751 INFO smart_switch 🔌 클라이언트 연결 해제됨: zTy4ZtIk4PfqISxdAAAT
+2025-08-08 21:37:41,666 INFO smart_switch 🔗 클라이언트 연결됨: mQI_ULLBXFPSfxoOAAAV (총 2개)
+2025-08-08 21:37:43,429 INFO smart_switch 🔆 Socket.IO 밝기 설정 요청: group_id=G0, light_id=None, brightness=0
+2025-08-08 21:37:43,439 INFO smart_switch 그룹 'G0 (릴레이)' 메모리 상태 OFF로 업데이트
+2025-08-08 21:37:44,526 INFO smart_switch 🔆 Socket.IO 밝기 설정 요청: group_id=G0, light_id=None, brightness=75
+2025-08-08 21:37:44,536 INFO smart_switch 그룹 'G0 (릴레이)' 메모리 상태 ON로 업데이트
+2025-08-08 21:37:53,021 INFO smart_switch 🔌 클라이언트 연결 해제됨: mQI_ULLBXFPSfxoOAAAV (남은 1개)
+2025-08-08 21:37:53,021 INFO smart_switch 🔌 클라이언트 연결 해제됨: mQI_ULLBXFPSfxoOAAAV

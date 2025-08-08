@@ -1,0 +1,254 @@
+{% extends "base.html" %}
+
+{% block title %}모드 전환{% endblock %}
+
+{% block body_class %}main-container{% endblock %}
+
+{% block content %}
+<div class="control-content">
+    <!-- 뒤로가기 버튼과 제목 -->
+    <div class="settings-header">
+        <div class="back-button">
+            <button onclick="(window.softNavigate?softNavigate('/main_settings'):location.href='/main_settings')" class="settings-back-btn">←</button>
+        </div>
+        <h1 class="settings-title-header">Mode 전환</h1>
+    </div>
+
+    <!-- 모드 선택 카드 그리드 -->
+    <div class="mode-selection-grid" id="mode-grid">
+        <div class="mode-card auto-mode" id="auto-mode-card" onclick="selectMode('auto')">
+            <div class="mode-icon auto">
+                <div class="auto-symbol"></div>
+            </div>
+            <div class="mode-title">AUTO<br>모드</div>
+        </div>
+        
+        <div class="mode-card manual-mode" id="manual-mode-card" onclick="selectMode('manual')">
+            <div class="mode-icon manual">
+                <div class="manual-symbol"></div>
+            </div>
+            <div class="mode-title">MANUAL<br>모드</div>
+        </div>
+    </div>
+</div>
+
+<!-- 모드 전환 확인 모달 -->
+<div class="mode-confirm-modal" id="mode-confirm-modal" style="display: none;">
+    <div class="mode-confirm-container">
+        <div class="mode-confirm-title">모드 전환</div>
+        <div class="mode-confirm-message" id="mode-confirm-message">
+            오토모드로 전환하시겠습니까?
+        </div>
+        <div class="mode-confirm-actions">
+            <button class="mode-confirm-btn cancel" onclick="cancelModeChange()">취소</button>
+            <button class="mode-confirm-btn confirm" onclick="confirmModeChange()">확인</button>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% include 'bottom_nav.html' %}
+
+{% block extra_js %}
+<script data-page-script>
+(function() {
+    'use strict';
+    
+    let currentMode = 'manual'; // 기본값: MANUAL
+    let pendingMode = null;
+    
+    // 현재 시스템 모드 로드
+    async function loadCurrentMode() {
+        try {
+            const response = await fetch('/api/system/mode');
+            const data = await response.json();
+            
+            if (data.success) {
+                currentMode = data.mode.toLowerCase();
+                updateModeDisplay();
+                console.log(`✅ 현재 모드: ${currentMode.toUpperCase()}`);
+            } else {
+                console.warn('⚠️ 모드 정보를 가져올 수 없습니다:', data.message);
+            }
+        } catch (error) {
+            console.error('❌ 모드 로드 실패:', error);
+        }
+    }
+    
+    // 모드 표시 업데이트
+    function updateModeDisplay() {
+        const autoCard = document.getElementById('auto-mode-card');
+        const manualCard = document.getElementById('manual-mode-card');
+        
+        // 모든 카드 선택 해제
+        autoCard.classList.remove('active');
+        manualCard.classList.remove('active');
+        
+        // 현재 모드 강조
+        if (currentMode === 'auto') {
+            autoCard.classList.add('active');
+        } else {
+            manualCard.classList.add('active');
+        }
+        
+        console.log(`🔄 모드 표시 업데이트: ${currentMode.toUpperCase()} 모드 활성화`);
+    }
+    
+    // 모드 선택
+    window.selectMode = function(mode) {
+        console.log(`🎯 모드 선택: ${mode.toUpperCase()}`);
+        
+        if (mode === currentMode) {
+            console.log('ℹ️ 이미 선택된 모드입니다.');
+            return;
+        }
+        
+        pendingMode = mode;
+        
+        // 확인 모달 표시
+        const modal = document.getElementById('mode-confirm-modal');
+        const message = document.getElementById('mode-confirm-message');
+        
+        if (mode === 'auto') {
+            message.textContent = '오토모드로 전환하시겠습니까?';
+        } else {
+            message.textContent = '매뉴얼모드로 전환하시겠습니까?';
+        }
+        
+        modal.style.display = 'flex';
+        
+        // 모달 애니메이션
+        setTimeout(() => {
+            modal.classList.add('show');
+        }, 10);
+    };
+    
+    // 모드 변경 취소
+    window.cancelModeChange = function() {
+        console.log('❌ 모드 변경 취소');
+        
+        const modal = document.getElementById('mode-confirm-modal');
+        modal.classList.remove('show');
+        
+        setTimeout(() => {
+            modal.style.display = 'none';
+            pendingMode = null;
+        }, 300);
+    };
+    
+    // 모드 변경 확인
+    window.confirmModeChange = async function() {
+        if (!pendingMode) return;
+        
+        console.log(`🔄 모드 변경 확인: ${pendingMode.toUpperCase()}`);
+        
+        try {
+            // 서버에 모드 변경 요청
+            const response = await fetch('/api/system/mode', {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ mode: pendingMode.toUpperCase() })
+            });
+            
+            const result = await response.json();
+            
+            if (result.success) {
+                currentMode = pendingMode;
+                updateModeDisplay();
+                
+                console.log(`✅ 모드 변경 완료: ${currentMode.toUpperCase()}`);
+                
+                // 클라이언트 전역 모드 동기화 및 네비/랜딩 강제 적용
+                if (window) {
+                    window.currentMode = currentMode;
+                    if (typeof window.updateNavByMode === 'function') window.updateNavByMode();
+                    if (typeof window.enforceAutoLandingIfNeeded === 'function') window.enforceAutoLandingIfNeeded();
+                }
+                
+                // 성공 메시지 표시
+                showModeChangeSuccess(currentMode);
+                
+                // 모드에 따른 전환 (항상 하드 네비게이션로 강제)
+                const target = currentMode === 'auto' ? '/landing_auto' : '/main_group';
+                setTimeout(() => { window.location.href = target; }, 200);
+                
+            } else {
+                throw new Error(result.message || '모드 변경 실패');
+            }
+            
+        } catch (error) {
+            console.error('❌ 모드 변경 중 오류:', error);
+            alert('모드 변경 중 오류가 발생했습니다:\n' + error.message);
+        }
+        
+        // 모달 닫기
+        const modal = document.getElementById('mode-confirm-modal');
+        modal.classList.remove('show');
+        
+        setTimeout(() => {
+            modal.style.display = 'none';
+            pendingMode = null;
+        }, 300);
+    };
+    
+    // 모드 변경 성공 메시지
+    function showModeChangeSuccess(mode) {
+        const messageDiv = document.createElement('div');
+        messageDiv.style.cssText = `
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(76, 175, 80, 0.96);
+            color: white;
+            padding: 25px 35px;
+            border-radius: 15px;
+            font-family: 'Pretendard', sans-serif;
+            font-size: 18px;
+            font-weight: 600;
+            z-index: 10000;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+            border: 2px solid rgba(255,255,255,0.2);
+            text-align: center;
+            animation: modeSuccessPopup 2.5s ease-in-out;
+        `;
+        
+        messageDiv.innerHTML = `
+            <div style="font-size: 22px; margin-bottom: 10px;">🔄 모드 변경 완료</div>
+            <div>${mode.toUpperCase()} 모드로 전환되었습니다</div>
+        `;
+        
+        // 애니메이션 스타일 추가
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes modeSuccessPopup {
+                0% { opacity: 0; transform: translate(-50%, -50%) scale(0.8); }
+                15% { opacity: 1; transform: translate(-50%, -50%) scale(1.05); }
+                85% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+                100% { opacity: 0; transform: translate(-50%, -50%) scale(0.9); }
+            }
+        `;
+        document.head.appendChild(style);
+        document.body.appendChild(messageDiv);
+        
+        // 2.5초 후 제거
+        setTimeout(() => {
+            if (messageDiv.parentNode) {
+                messageDiv.parentNode.removeChild(messageDiv);
+            }
+            if (style.parentNode) {
+                style.parentNode.removeChild(style);
+            }
+        }, 2500);
+    }
+    
+    // 페이지 초기화
+    loadCurrentMode();
+    
+    console.log('✅ 모드 전환 페이지 초기화 완료');
+})();
+</script>
+{% endblock %}
